@@ -1,0 +1,559 @@
+/* =========================================
+   --- ROOT VARIABLES (COLOR THEME) ---
+========================================= */
+:root {
+    --primary-blue: #004a99;
+    --dark-navy: #002244;
+    --golden-yellow: #ffcc00;
+    --text-dark: #333333;
+    --text-muted: #666666;
+    --bg-light: #f9f9f9;
+    --bg-gray: #f1f1f1;
+    --white: #ffffff;
+}
+
+/* =========================================
+   --- GLOBAL STYLES & RESET ---
+========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--white);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+::selection {
+    background-color: var(--golden-yellow);
+    color: var(--dark-navy);
+}
+
+a {
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* =========================================
+   --- CUSTOM SCROLLBAR ---
+========================================= */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-gray);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-blue);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--dark-navy);
+}
+
+/* =========================================
+   --- HEADER TOP ---
+========================================= */
+.header-top {
+    background: var(--primary-blue);
+    color: var(--white);
+    padding: 8px 0;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.header-top a {
+    color: var(--white);
+    margin-left: 20px;
+    font-weight: 500;
+}
+
+.header-top a:hover {
+    color: var(--golden-yellow);
+}
+
+/* =========================================
+   --- NAVBAR (PREMIUM HOVER EFFECTS) ---
+========================================= */
+.navbar {
+    background: var(--white);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    padding: 15px 0;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    color: var(--dark-navy) !important;
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+.navbar-nav .nav-item {
+    margin: 0 1px;
+}
+
+.navbar-nav .nav-link {
+    color: var(--dark-navy);
+    font-weight: 600;
+    font-size: 15px;
+    text-transform: uppercase;
+    position: relative;
+    padding: 8px 12px !important;
+    transition: color 0.3s ease;
+    white-space: nowrap; /* Ye nayi line add ki hai jisse text tutega nahi */
+}
+
+/* Navbar Hover Underline Animation */
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--golden-yellow);
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: var(--primary-blue) !important;
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    width: 80%;
+}
+
+.navbar-toggler {
+    border-color: var(--primary-blue);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 74, 153, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* =========================================
+   --- GLOBAL BUTTONS ---
+========================================= */
+.btn-primary {
+    background-color: var(--primary-blue);
+    border-color: var(--primary-blue);
+    padding: 10px 25px;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--golden-yellow);
+    border-color: var(--golden-yellow);
+    color: var(--dark-navy);
+    box-shadow: 0 4px 10px rgba(255, 204, 0, 0.4);
+}
+
+.btn-warning {
+    background-color: var(--golden-yellow);
+    border-color: var(--golden-yellow);
+    color: var(--dark-navy);
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-warning:hover {
+    background-color: var(--dark-navy);
+    border-color: var(--dark-navy);
+    color: var(--golden-yellow);
+}
+
+/* =========================================
+   --- CONTENT & TYPOGRAPHY ---
+========================================= */
+.container.my-5 {
+    margin-top: 60px !important;
+    margin-bottom: 60px !important;
+}
+
+h2 {
+    color: var(--dark-navy);
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+/* Custom Header Underline for Main Content */
+h2.section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--golden-yellow);
+}
+
+/* =========================================
+   --- NOTICE BOARD ---
+========================================= */
+.notice-board {
+    border-top: 5px solid var(--primary-blue);
+    padding: 25px;
+    border-radius: 8px;
+    background: var(--white);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.notice-board h4 {
+    color: var(--dark-navy);
+    font-weight: bold;
+    border-bottom: 2px solid var(--golden-yellow);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.notice-board ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+.notice-board ul li {
+    padding: 12px 0;
+    border-bottom: 1px dashed #ccc;
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.notice-board ul li::before {
+    content: '\f101'; /* FontAwesome double arrow */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: var(--golden-yellow);
+    margin-right: 10px;
+}
+
+.notice-board ul li:hover {
+    color: var(--primary-blue);
+    transform: translateX(5px);
+    cursor: pointer;
+}
+
+/* =========================================
+   --- FEATURES SECTION ---
+========================================= */
+.features {
+    background: var(--bg-light);
+    padding: 60px 0;
+}
+
+.features .col-md-4 {
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.features .col-md-4:hover {
+    transform: translateY(-10px);
+}
+
+.icon {
+    font-size: 50px;
+    color: var(--golden-yellow);
+    background: var(--dark-navy);
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    box-shadow: 0 10px 20px rgba(0, 34, 68, 0.2);
+    transition: all 0.3s ease;
+}
+
+.features .col-md-4:hover .icon {
+    background: var(--golden-yellow);
+    color: var(--dark-navy);
+}
+
+.features h5 {
+    color: var(--dark-navy);
+    font-weight: 700;
+}
+
+/* =========================================
+   --- STATS SECTION ---
+========================================= */
+.stats-section {
+    position: relative;
+    background: url('../images/bg-1.jpeg') no-repeat center center/cover;
+    background-attachment: fixed; /* Parallax effect */
+    padding: 80px 0;
+}
+
+.stats-overlay {
+    background: rgba(0, 34, 68, 0.85); /* Navy transparent overlay */
+    clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%);
+    padding: 60px 20px;
+}
+
+.stats-overlay .row {
+    justify-content: flex-end;
+}
+
+.stats-overlay .col-md-4 {
+    text-align: center;
+    color: var(--white);
+    transition: transform 0.3s ease;
+}
+
+.stats-overlay .col-md-4:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
+}
+
+.stats-overlay h5 {
+    margin-top: 15px;
+    font-weight: 600;
+    color: var(--golden-yellow); /* Matches theme */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stats-overlay h2 {
+    font-size: 40px;
+    font-weight: 800;
+    margin-top: 5px;
+    color: var(--golden-yellow);
+}
+
+/* =========================================
+   --- MEGA FOOTER ---
+========================================= */
+.custom-footer {
+    background-color: var(--dark-navy);
+    color: var(--white);
+    padding-top: 60px;
+    margin-top: 0; 
+}
+
+.custom-footer .footer-brand {
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.custom-footer .footer-heading {
+    font-weight: 700;
+    color: var(--golden-yellow);
+    position: relative;
+    padding-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.custom-footer .footer-heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 3px;
+    background-color: var(--golden-yellow);
+    border-radius: 2px;
+}
+
+.custom-footer .footer-links li {
+    margin-bottom: 12px;
+}
+
+.custom-footer .footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 15px;
+}
+
+.custom-footer .footer-links a:hover {
+    color: var(--golden-yellow);
+    padding-left: 10px;
+}
+
+.custom-footer .social-links a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+    color: var(--white);
+    border-radius: 50%;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.custom-footer .social-links a:hover {
+    background: var(--golden-yellow);
+    color: var(--dark-navy);
+    transform: translateY(-5px);
+    border-color: var(--golden-yellow);
+}
+
+.custom-footer .footer-contact i {
+    color: var(--golden-yellow);
+    font-size: 18px;
+    margin-top: 4px;
+}
+
+/* =========================================
+   --- DROPDOWN HOVER EFFECT ---
+========================================= */
+.navbar .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; /* Taki hover karte time menu turant gayab na ho */
+}
+
+.custom-footer .text-white-50 {
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-size: 14.5px;
+}
+
+.footer-bottom {
+    background-color: #00152b; /* Slightly darker than navy */
+    padding: 25px 0;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* =========================================
+   --- INNER PAGE HEADER ---
+========================================= */
+.page-header {
+    background: linear-gradient(rgba(0, 34, 68, 0.85), rgba(0, 74, 153, 0.85)),
+    url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+    color: var(--white);
+    padding: 80px 0;
+    text-align: center;
+    border-bottom: 5px solid var(--golden-yellow);
+}
+
+.page-header h1 {
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* =========================================
+   --- RESPONSIVE DESIGN (TABLET) ---
+========================================= */
+@media (max-width: 992px) {
+    .stats-overlay {
+        clip-path: none;
+        text-align: center;
+        background: rgba(0, 34, 68, 0.9);
+    }
+
+    .stats-overlay .row {
+        justify-content: center !important;
+    }
+
+    .stats-overlay .col-md-4 {
+        margin-bottom: 30px;
+    }
+    
+    .navbar-nav .nav-link::after {
+        left: 0;
+        transform: none;
+    }
+}
+
+/* =========================================
+   --- RESPONSIVE DESIGN (MOBILE) ---
+========================================= */
+@media (max-width: 768px) {
+    .header-top {
+        text-align: center;
+    }
+    
+    .container.my-5 {
+        margin-top: 40px !important;
+        margin-bottom: 40px !important;
+    }
+
+    .icon {
+        font-size: 35px;
+        width: 80px;
+        height: 80px;
+        line-height: 80px;
+    }
+
+    .features h2 {
+        font-size: 28px;
+    }
+
+    .stats-section {
+        padding: 50px 0;
+    }
+
+    .stats-overlay {
+        padding: 40px 15px;
+    }
+
+    .stat-icon {
+        width: 45px;
+        height: 45px;
+    }
+
+    .stats-overlay h2 {
+        font-size: 32px;
+    }
+
+    .footer-bottom {
+        text-align: center;
+    }
+    
+    .footer-bottom .d-flex {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+/* =========================================
+   --- NAVBAR DROPDOWN STYLING ---
+========================================= */
+.dropdown-menu {
+    border: none;
+    border-top: 3px solid var(--primary-blue); /* Upar ek blue border di hai theme se match karne ke liye */
+    border-radius: 0 0 5px 5px;
+    padding: 10px 0;
+    background-color: var(--white);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    color: var(--dark-navy);
+    font-weight: 500;
+    padding: 10px 20px;
+    transition: all 0.3s ease; /* Smooth animation ke liye */
+    font-size: 15px;
+}
+
+/* Hover effect bilkul footer jaisa */
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: transparent; /* Bootstrap ka default gray hover background remove kiya */
+    color: var(--golden-yellow) !important; /* Text golden yellow ho jayega */
+    padding-left: 30px; /* Text thoda right side slide hoga (Footer jaisa effect) */
+    background: rgba(0, 34, 68, 0.9);
+}
+
