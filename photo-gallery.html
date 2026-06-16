@@ -10,50 +10,59 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-       .gallery-card {
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    transition: 0.3s;
-    text-align: center;
-}
+        :root {
+            --dark-navy: #002244;
+            --brand-gold: #ffcc00;
+        }
+        .gallery-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            text-align: center;
+            height: 100%;
+            border: 1px solid #e2e8f0;
+        }
 
-.gallery-card img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    transition: 0.4s;
-}
+        .gallery-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: 0.4s;
+            background-color: #f1f5f9;
+        }
 
-.gallery-card:hover img {
-    transform: scale(1.05);
-}
+        .gallery-card:hover img {
+            transform: scale(1.05);
+        }
 
-/* REMOVE overlay absolute */
-.gallery-overlay {
-    position: static;   /* IMPORTANT CHANGE */
-    background: #fff;   /* white background */
-    color: #333;
-    padding: 15px;
-}
+        .gallery-overlay {
+            position: static;   
+            background: #fff;   
+            color: #333;
+            padding: 15px;
+            border-top: 1px solid #f1f5f9;
+        }
 
-.gallery-title {
-    font-weight: 600;
-    font-size: 16px;
-    color: #002244;
-}
+        .gallery-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--dark-navy);
+            margin-bottom: 5px;
+            text-transform: capitalize;
+        }
 
-.gallery-date {
-    font-size: 13px;
-    color: #666;
-}
+        .gallery-date {
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+        }
     </style>
 </head>
 
 <body>
 
-<!-- HEADER SAME -->
 <div class="header-top d-none d-lg-block">
     <div class="container d-flex justify-content-between">
         <div>Admission Open: 2026-27</div>
@@ -84,8 +93,7 @@
 
 <nav class="navbar navbar-expand-lg border-top border-bottom" style="background-color: #fafafa; padding: 10px 0;">
     <div class="container-fluid px-lg-5">
-        
-        <a class="navbar-brand fw-bold d-flex align-items-center d-lg-none" href="#">
+        <a class="navbar-brand fw-bold d-flex align-items-center d-lg-none" href="index.html">
             <img src="images/logo.png" alt="Logo" style="height: 45px;" class="me-2">
             SONALI COLLEGE
         </a>
@@ -97,28 +105,22 @@
         <div class="collapse navbar-collapse justify-content-center" id="navMenu">
             <ul class="navbar-nav gap-2 gap-xl-4 text-center">
                 <li class="nav-item"><a class="nav-link" href="index.html">HOME</a></li>
-                
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="about.html" id="aboutDropdown">
-                        ABOUT US
-                    </a>
+                    <a class="nav-link" href="about.html" id="aboutDropdown">ABOUT US</a>
                     <ul class="dropdown-menu shadow text-start" aria-labelledby="aboutDropdown">
                         <li><a class="dropdown-item" href="chairman.html">Chairman Message</a></li>
                         <li><a class="dropdown-item" href="mission-vision.html">Mission and Vision</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item"><a class="nav-link" href="academics.html">ACADEMICS</a></li>
                 <li class="nav-item"><a class="nav-link" href="infrastructure.html">INFRASTRUCTURE</a></li>
                 <li class="nav-item"><a class="nav-link" href="committees.html">CELLS & COMMITTEES</a></li>
                 <li class="nav-item"><a class="nav-link" href="admissions.html">ADMISSIONS</a></li>
                 <li class="nav-item dropdown">
-                <a class="nav-link" href="activities.html" id="activitiesDropdown">
-                    ACTIVITIES
-                </a>
-                <ul class="dropdown-menu shadow text-start" aria-labelledby="activitiesDropdown">
-                    <li><a class="dropdown-item" href="photo-gallery.html">Photo Gallery</a></li>
-                </ul>
+                    <a class="nav-link" href="activities.html" id="activitiesDropdown">ACTIVITIES</a>
+                    <ul class="dropdown-menu shadow text-start" aria-labelledby="activitiesDropdown">
+                        <li><a class="dropdown-item" href="photo-gallery.html">Photo Gallery</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT US</a></li>
             </ul>
@@ -126,143 +128,23 @@
     </div>
 </nav>
 
-<!-- PAGE HEADER -->
 <div class="page-header">
     <div class="container">
         <h1>Photo Gallery</h1>
     </div>
 </div>
 
-<!-- GALLERY -->
-<section class="gallery-section">
+<section class="gallery-section py-5 bg-light">
     <div class="container">
-        <div class="row g-4">
-
-            <!-- 1 -->
-            <div class="col-md-4">
-                <div class="gallery-card">
-                    <img src="images/Gallery/11.jpeg">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Lok Adalat Awareness</div>
-                        <div class="gallery-date">Nov 20, 2025</div>
-                    </div>
-                </div>
+        <div class="row g-4" id="dynamic-gallery-container">
+            <div class="col-12 text-center text-muted py-5">
+                <div class="spinner-border text-primary mb-3" role="status"></div>
+                <p>Loading gallery items from database...</p>
             </div>
-
-            <!-- 2 -->
-            <div class="col-md-4">
-                <div class="gallery-card">
-                    <img src="images/Gallery/1.jpeg">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Swachh Bharat Drive</div>
-                        <div class="gallery-date">Nov 20, 2025</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3 -->
-            <div class="col-md-4">
-                <div class="gallery-card">
-                    <img src="images/Gallery/4.jpeg">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Vidhik Sewa Awareness</div>
-                        <div class="gallery-date">Nov 20, 2025</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4 -->
-            <div class="col-md-4">
-                <div class="gallery-card">
-                    <img src="images/Gallery/3.jpeg">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Freshers Party - 2025</div>
-                        <div class="gallery-date">Nov 19, 2025</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5 -->
-            <div class="col-md-4">
-                <div class="gallery-card">
-                    <img src="images/Gallery/2.jpeg">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Independence Day</div>
-                        <div class="gallery-date">Nov 19, 2025</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 6 -->
-            <div class="col-md-4">
-                <div class="gallery-card">
-                    <img src="images/Gallery/6.jpeg">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Sports Photo</div>
-                        <div class="gallery-date">May 15, 2023</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 8 -->
-            <div class="col-md-4">
-                <div class="gallery-card">
-                    <img src="images/Gallery/9.jpeg">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Library Photo</div>
-                        <div class="gallery-date">Apr 03, 2023</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 9 -->
-            <div class="col-md-4">
-                <div class="gallery-card">
-                    <img src="images/Gallery/5.jpeg">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Class Room</div>
-                        <div class="gallery-date">Apr 03, 2023</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 10 -->
-            <div class="col-md-4">
-                <div class="gallery-card">
-                    <img src="images/Gallery/8.jpeg">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Computer Lab</div>
-                        <div class="gallery-date">Apr 03, 2023</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="gallery-card">
-                    <img src="images/Gallery/10.jpeg">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Activity</div>
-                        <div class="gallery-date">Mar 20, 2023</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 11 -->
-            <div class="col-md-4">
-                <div class="gallery-card">
-                    <img src="images/Gallery/7.jpeg">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">Seminar Photo</div>
-                        <div class="gallery-date">Mar 11, 2023</div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </section>
 
-<!-- FOOTER SAME -->
 <footer class="custom-footer">
     <div class="container pb-4 pt-5">
         <div class="row g-4">
@@ -281,11 +163,9 @@
                 <h5 class="footer-heading mb-3">Useful Links</h5>
                 <ul class="footer-links list-unstyled">
                     <li><a href="admissions.html"><i class="fas fa-angle-right me-2"></i>Admission</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Examination Link</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>News</a></li>
+                    <li><a href="news.html"><i class="fas fa-angle-right me-2"></i>News</a></li>
                     <li><a href="activities.html"><i class="fas fa-angle-right me-2"></i>Activities</a></li>
                     <li><a href="contact.html"><i class="fas fa-angle-right me-2"></i>Contact</a></li>
-                    <li><a href="./uploads/faculty.pdf"><i class="fas fa-angle-right me-2"></i>Faculty</a></li>
                 </ul>
             </div>
 
@@ -293,9 +173,7 @@
                 <h5 class="footer-heading mb-3">Quick Links</h5>
                 <ul class="footer-links list-unstyled">
                     <li><a href="photo-gallery.html"><i class="fas fa-angle-right me-2"></i>Photo-gallery</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Video-Gallery</a></li>
                     <li><a href="#"><i class="fas fa-angle-right me-2"></i>Affiliation</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Higher Education</a></li>
                     <li><a href="#"><i class="fas fa-angle-right me-2"></i>University</a></li>
                     <li><a href="#"><i class="fas fa-angle-right me-2"></i>NCTE</a></li>
                 </ul>
@@ -313,11 +191,7 @@
                     </li>
                     <li class="mb-2 d-flex align-items-center">
                         <i class="fas fa-phone-alt me-3"></i>
-                        <span class="text-white-50">9993134443, 8979797789</span>
-                    </li>
-                    <li class="mb-2 d-flex align-items-center">
-                        <i class="fas fa-envelope me-3"></i>
-                        <span class="text-white-50">sonaliguna59@gmail.com</span>
+                        <span class="text-white-50">9993134443</span>
                     </li>
                 </ul>
             </div>
@@ -333,6 +207,57 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script type="module">
+    import { db } from "./firebase-config.js";
+    import { collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+    const galleryContainer = document.getElementById("dynamic-gallery-container");
+
+    // Query stream pipeline to fetch items sorted by event date newest first
+    const q = query(collection(db, "gallery"), orderBy("date", "desc"));
+
+    onSnapshot(q, (snapshot) => {
+        galleryContainer.innerHTML = "";
+
+        if (snapshot.empty) {
+            galleryContainer.innerHTML = `
+                <div class="col-12 text-center text-muted py-5">
+                    <i class="fas fa-images fa-3x mb-3 text-secondary"></i>
+                    <p class="fw-semibold">No albums or photos published in the gallery yet.</p>
+                </div>`;
+            return;
+        }
+
+        snapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+
+            // Date processing node conversion engine (e.g., 2026-03-24 -> 24 March, 2026)
+            const rawDate = new Date(data.date);
+            const formattedDate = rawDate.toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            });
+
+            const cardCol = document.createElement("div");
+            cardCol.className = "col-lg-4 col-md-6";
+
+            // Dynamically renders the text-based compressed Base64 image directly into standard src data tags
+            cardCol.innerHTML = `
+                <div class="gallery-card h-100">
+                    <img src="${data.imageTextData}" alt="${data.title}" onerror="this.src='images/logo.png'">
+                    <div class="gallery-overlay">
+                        <div class="gallery-title">${data.title}</div>
+                        <div class="gallery-date"><i class="far fa-calendar-alt me-1 text-secondary"></i> ${formattedDate}</div>
+                    </div>
+                </div>
+            `;
+
+            galleryContainer.appendChild(cardCol);
+        });
+    });
+</script>
 
 </body>
 </html>

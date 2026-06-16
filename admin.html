@@ -4,51 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Sonali College Guna</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --dark-navy: #002244;
             --brand-gold: #ffcc00;
+            --surface-bg: #f8fafc;
+            --card-shadow: 0 10px 30px rgba(0, 34, 68, 0.05);
+            --transition: all 0.2s ease-in-out;
         }
+        
         body {
-            background-color: #f4f6f9;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--surface-bg);
+            color: #334155;
         }
-        .navbar-admin {
-            background-color: var(--dark-navy);
-            color: white;
-        }
-        .card-header-custom {
-            background-color: var(--dark-navy);
-            color: white;
-            font-weight: 600;
-        }
-        .btn-custom-primary {
-            background-color: var(--dark-navy);
-            color: white;
-            border: none;
-        }
-        .btn-custom-primary:hover {
-            background-color: #003366;
-            color: white;
-        }
+
         #login-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 34, 68, 0.95);
+            background: linear-gradient(135deg, rgba(0, 34, 68, 0.98), rgba(0, 15, 30, 0.98));
             z-index: 9999;
             display: flex;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(8px);
         }
         .login-card {
             background: white;
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             width: 100%;
-            max-width: 400px;
-            border-top: 5px solid var(--brand-gold);
+            max-width: 420px;
+            border-top: 6px solid var(--brand-gold);
+        }
+
+        .navbar-admin {
+            background: linear-gradient(90deg, var(--dark-navy), #003366);
+            padding: 15px 25px;
+            border-bottom: 4px solid var(--brand-gold);
+        }
+
+        .custom-card {
+            background: white;
+            border: none;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        .card-header-custom {
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 18px 24px;
+            font-weight: 600;
+            color: var(--dark-navy);
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .form-control, .form-select {
+            border: 1px solid #cbd5e1;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--dark-navy);
+            box-shadow: 0 0 0 3px rgba(0, 34, 68, 0.1);
+        }
+
+        .nav-pills .nav-link {
+            color: #64748b;
+            font-weight: 500;
+            font-size: 13px;
+            border-radius: 8px;
+            padding: 10px 16px;
+        }
+        .nav-pills .nav-link.active {
+            background-color: var(--dark-navy);
+            color: white;
+        }
+
+        .image-upload-wrapper {
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .image-upload-wrapper:hover {
+            border-color: var(--dark-navy);
+            background: #f0f4f8;
+        }
+        .preview-box {
+            width: 100%;
+            max-height: 150px;
+            object-fit: contain;
+            border-radius: 8px;
+            display: none;
+            margin-top: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-custom-primary {
+            background-color: var(--dark-navy);
+            color: white;
+            font-weight: 500;
+            border-radius: 10px;
+            padding: 10px 20px;
+            border: none;
+        }
+        .btn-custom-primary:hover {
+            background-color: #003366;
         }
     </style>
 </head>
@@ -56,30 +132,32 @@
 
 <div id="login-overlay">
     <div class="login-card text-center">
-        <img src="images/logo.png" alt="Logo" style="height: 60px; margin-bottom: 20px;" onerror="this.style.display='none'">
-        <h4 class="fw-bold mb-3" style="color: var(--dark-navy);">Admin Authentication</h4>
-        <p class="text-muted small">Please enter the administrator password to access the panel.</p>
+        <img src="images/logo.png" alt="Logo" style="height: 65px; margin-bottom: 25px;" onerror="this.style.display='none'">
+        <h4 class="fw-bold mb-2" style="color: var(--dark-navy);">Admin Authentication</h4>
+        <p class="text-muted small mb-4">Access restricted to authorized personnel only.</p>
         
-        <div id="login-error" class="alert alert-danger d-none" style="font-size: 14px;">Invalid Password!</div>
+        <div id="login-error" class="alert alert-danger d-none py-2 mb-3" style="font-size: 13px;">
+            <i class="fas fa-exclamation-circle me-1"></i> Invalid Password!
+        </div>
         
         <form id="loginForm" onsubmit="handleAdminLogin(event)">
             <div class="mb-3 text-start">
-                <label class="form-label fw-semibold">Password</label>
-                <input type="password" id="adminPassword" class="form-control" placeholder="Enter password" required>
+                <label class="form-label small fw-semibold text-secondary">Dashboard Password</label>
+                <input type="password" id="adminPassword" class="form-control" placeholder="Enter password" required style="height: 45px;">
             </div>
-            <button type="submit" class="btn btn-custom-primary w-100 py-2">Access Dashboard</button>
+            <button type="submit" class="btn btn-custom-primary w-100 py-2.5 shadow-sm">Access Dashboard</button>
         </form>
     </div>
 </div>
 
 <div id="dashboard-content" class="d-none">
-    <nav class="navbar navbar-admin shadow-sm py-3 mb-4">
+    <nav class="navbar navbar-admin shadow-sm mb-4">
         <div class="container-fluid px-4">
-            <span class="navbar-brand mb-0 h1 fw-bold text-white">
-                <i class="fas fa-user-shield me-2 text-warning"></i> SONALI COLLEGE - ADMIN PANEL
+            <span class="navbar-brand mb-0 h1 fw-bold text-white fs-5">
+                <i class="fas fa-user-shield me-2 text-warning"></i> SONALI COLLEGE <span class="fw-light text-white-50">| CONTROL PANEL</span>
             </span>
-            <button class="btn btn-outline-light btn-sm" onclick="handleAdminLogout()">
-                <i class="fas fa-sign-out-alt me-1"></i> Logout
+            <button class="btn btn-sm btn-outline-light rounded-pill px-3" onclick="handleAdminLogout()">
+                <i class="fas fa-sign-out-alt me-1"></i> Secure Exit
             </button>
         </div>
     </nav>
@@ -87,105 +165,132 @@
     <div class="container-fluid px-4">
         <div class="row g-4">
             
-            <!-- LEFT COLUMN: LATEST NEWS TICKER & MAIN NEWS UPDATES -->
-            <div class="col-lg-5">
+            <div class="col-xl-5 col-lg-6">
                 
-                <!-- 1. LATEST NEWS TICKER FORM -->
-                <div class="card shadow-sm mb-4">
-                    <div class="card-header card-header-custom">
-                        <i class="fas fa-edit me-2 text-warning"></i> <span id="form-action-title">Add Latest News Ticker (Homepage)</span>
+                <div class="card custom-card p-3 bg-light border mb-4">
+                    <ul class="nav nav-pills nav-fill" id="formSelectorTabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" id="btn-tab-ticker" onclick="switchFormTab('ticker')"><i class="fas fa-bullhorn me-1"></i> Ticker</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="btn-tab-news" onclick="switchFormTab('news')"><i class="fas fa-newspaper me-1"></i> News Card</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="btn-tab-gallery" onclick="switchFormTab('gallery')"><i class="fas fa-images me-1"></i> Gallery Card</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card custom-card">
+                    <div id="wrapper-form-ticker" class="form-wrapper-block">
+                        <div class="card-header-custom"><span id="form-action-title">Create Live Homepage Ticker</span></div>
+                        <div class="card-body p-4">
+                            <form id="newsForm">
+                                <input type="hidden" id="newsId">
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold">Ticker Announcement Message</label>
+                                    <textarea id="newsText" class="form-control" rows="3" placeholder="Type text here..." required></textarea>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button type="submit" id="saveNewsBtn" class="btn btn-custom-primary flex-grow-1">Publish Ticker</button>
+                                    <button type="button" id="cancelEditBtn" class="btn btn-secondary d-none" onclick="resetNewsForm()">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <form id="newsForm">
-                            <input type="hidden" id="newsId">
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold">Ticker Text</label>
-                                <textarea id="newsText" class="form-control" rows="2" placeholder="Type homepage scrolling news here..." required></textarea>
-                            </div>
-                            <div class="d-flex gap-2">
-                                <button type="submit" id="saveNewsBtn" class="btn btn-custom-primary flex-grow-1">Publish Ticker</button>
-                                <button type="button" id="cancelEditBtn" class="btn btn-secondary d-none" onclick="resetNewsForm()">Cancel</button>
-                            </div>
-                        </form>
+
+                    <div id="wrapper-form-news" class="form-wrapper-block d-none">
+                        <div class="card-header-custom" style="border-top: 4px solid #10b981;"><span id="update-form-title">Add Official News Update Card</span></div>
+                        <div class="card-body p-4">
+                            <form id="newsUpdateForm">
+                                <input type="hidden" id="updateId">
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold">Publication Event Date</label>
+                                    <input type="date" id="updateDate" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold">News Descriptions Summary Text</label>
+                                    <textarea id="updateText" class="form-control" rows="3" placeholder="Write comprehensive updates..." required></textarea>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button type="submit" id="saveUpdateBtn" class="btn btn-success w-100 py-2" style="border-radius:10px;">Publish News Card</button>
+                                    <button type="button" id="cancelUpdateEditBtn" class="btn btn-secondary d-none" onclick="resetNewsUpdateForm()">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="wrapper-form-gallery" class="form-wrapper-block d-none">
+                        <div class="card-header-custom" style="border-top: 4px solid #06b6d4;"><span id="gallery-form-title">Upload Image Card to Digital Gallery</span></div>
+                        <div class="card-body p-4">
+                            <form id="galleryForm">
+                                <input type="hidden" id="galleryId">
+                                <input type="hidden" id="galleryBase64Text">
+                                
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold">Capture Event Date</label>
+                                    <input type="date" id="galleryDate" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold">Event Album Title Description</label>
+                                    <input type="text" id="galleryTitle" class="form-control" placeholder="e.g. Annual Function 2026" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold">Select Image File</label>
+                                    <div class="image-upload-wrapper" onclick="document.getElementById('galleryFileInput').click()">
+                                        <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
+                                        <p class="mb-1 small text-secondary" id="upload-status-text">Click here to browse system image file</p>
+                                        <input type="file" id="galleryFileInput" accept="image/*" class="d-none" onchange="processAndCompressImage(this)">
+                                        <img id="upload-preview-node" class="preview-box">
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button type="submit" id="saveGalleryBtn" class="btn btn-info text-white w-100 py-2" style="border-radius:10px; font-weight:600;">Publish Gallery Element</button>
+                                    <button type="button" id="cancelGalleryEditBtn" class="btn btn-secondary d-none" onclick="resetGalleryForm()">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 2. MAIN NEWS UPDATES CARDS FORM (NEW SECTION) -->
-                <div class="card shadow-sm mb-4">
-                    <div class="card-header card-header-custom" style="background-color: #003366;">
-                        <i class="fas fa-newspaper me-2 text-warning"></i> <span id="update-form-title">Add News Card (News Page)</span>
-                    </div>
-                    <div class="card-body">
-                        <form id="newsUpdateForm">
-                            <input type="hidden" id="updateId">
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold">News Date</label>
-                                <input type="date" id="updateDate" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold">News Description / Content</label>
-                                <textarea id="updateText" class="form-control" rows="3" placeholder="Type detailed news update description here..." required></textarea>
-                            </div>
-                            <div class="d-flex gap-2">
-                                <button type="submit" id="saveUpdateBtn" class="btn btn-success flex-grow-1">Publish News Update</button>
-                                <button type="button" id="cancelUpdateEditBtn" class="btn btn-secondary d-none" onclick="resetNewsUpdateForm()">Cancel</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- FEEDS DISPLAY TABS -->
-                <div class="card shadow-sm mb-4">
-                    <div class="card-header card-header-custom p-2">
-                        <ul class="nav nav-pills nav-fill" id="newsTabs" role="tablist">
-                            <li class="nav-item">
-                                <button class="nav-link active text-white" id="ticker-tab" data-bs-toggle="tab" data-bs-target="#ticker-panel" type="button">Active Tickers</button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link text-white" id="updates-tab" data-bs-toggle="tab" data-bs-target="#updates-panel" type="button">Active News Cards</button>
-                            </li>
+                <div class="card custom-card shadow-sm">
+                    <div class="card-header-custom bg-light py-2">
+                        <ul class="nav nav-tabs card-header-tabs border-bottom-0 w-100" id="dataFeedTab">
+                            <li class="nav-item flex-grow-1 text-center"><button class="nav-link active small w-100 border-0" id="feed-tab-ticker" onclick="switchFeedTab('ticker')">Tickers</button></li>
+                            <li class="nav-item flex-grow-1 text-center"><button class="nav-link small w-100 border-0" id="feed-tab-news" onclick="switchFeedTab('news')">News Feed</button></li>
+                            <li class="nav-item flex-grow-1 text-center"><button class="nav-link small w-100 border-0" id="feed-tab-gallery" onclick="switchFeedTab('gallery')">Gallery Feed</button></li>
                         </ul>
                     </div>
-                    <div class="card-body p-0 tab-content" style="max-height: 400px; overflow-y: auto;">
-                        <!-- Ticker Tab Panel -->
-                        <div class="tab-pane fade show active" id="ticker-panel">
-                            <ul id="admin-news-list" class="list-group list-group-flush">
-                                <li class="list-group-item text-muted text-center py-3">Loading news tickers...</li>
-                            </ul>
-                        </div>
-                        <!-- Updates Tab Panel -->
-                        <div class="tab-pane fade" id="updates-panel">
-                            <ul id="admin-updates-list" class="list-group list-group-flush">
-                                <li class="list-group-item text-muted text-center py-3">Loading news updates...</li>
-                            </ul>
-                        </div>
+                    <div class="card-body p-0" style="max-height: 380px; overflow-y: auto;">
+                        <div id="panel-feed-ticker"><ul id="admin-news-list" class="list-group list-group-flush"><li class="list-group-item text-muted text-center py-3">Loading datasets...</li></ul></div>
+                        <div id="panel-feed-news" class="d-none"><ul id="admin-updates-list" class="list-group list-group-flush"><li class="list-group-item text-muted text-center py-3">Loading datasets...</li></ul></div>
+                        <div id="panel-feed-gallery" class="d-none"><ul id="admin-gallery-list" class="list-group list-group-flush"><li class="list-group-item text-muted text-center py-3">Loading datasets...</li></ul></div>
                     </div>
                 </div>
 
             </div>
 
-            <!-- RIGHT COLUMN: ADMISSION ENQUIRIES -->
-            <div class="col-lg-7">
-                <div class="card shadow-sm">
-                    <div class="card-header card-header-custom d-flex justify-content-between align-items-center">
-                        <span><i class="fas fa-user-graduate me-2 text-warning"></i> Admission Enquiries Received</span>
-                        <span class="badge bg-warning text-dark" id="enquiry-count">0</span>
+            <div class="col-xl-7 col-lg-6">
+                <div class="card custom-card">
+                    <div class="card-header-custom d-flex justify-content-between align-items-center bg-white">
+                        <span><i class="fas fa-graduation-cap me-2 text-primary"></i> Live Admission Form Submissions</span>
+                        <span class="badge px-3 py-1.5 rounded-pill" id="enquiry-count" style="background-color: var(--dark-navy); font-size:12px;">0</span>
                     </div>
                     <div class="card-body p-0">
-                        <div class="table-responsive" style="max-height: 750px;">
-                            <table class="table table-hover table-striped align-middle mb-0">
-                                <thead class="table-light">
+                        <div class="table-responsive" style="max-height: 820px; min-height: 400px;">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light text-secondary small uppercase" style="position: sticky; top:0; z-index:10;">
                                     <tr>
-                                        <th>Date</th>
-                                        <th>Candidate Info</th>
-                                        <th>Course</th>
-                                        <th>Contact Details</th>
-                                        <th>Action</th>
+                                        <th class="ps-4">Timestamp</th>
+                                        <th>Applicant Profile Details</th>
+                                        <th>Target Course</th>
+                                        <th>Contact</th>
+                                        <th class="pe-4">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="enquiry-table-body">
+                                <tbody id="enquiry-table-body" class="small">
                                     <tr>
-                                        <td colspan="5" class="text-center text-muted py-4">Loading application submissions...</td>
+                                        <td colspan="5" class="text-center text-muted py-5">Loading application database entries...</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -197,8 +302,6 @@
         </div>
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
     const CORRECT_PASSWORD = "admin123";
@@ -226,9 +329,75 @@
     }
 
     function handleAdminLogout() {
-        if(confirm("Are you sure you want to logout?")) {
+        if(confirm("Confirm security termination session? Logout?")) {
             localStorage.removeItem("adminLoggedIn");
             location.reload();
+        }
+    }
+
+    // Tab switcher forms
+    function switchFormTab(type) {
+        document.querySelectorAll('#formSelectorTabs .nav-link').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.form-wrapper-block').forEach(wrapper => wrapper.classList.add('d-none'));
+        
+        if(type === 'ticker') { document.getElementById('btn-tab-ticker').classList.add('active'); document.getElementById('wrapper-form-ticker').classList.remove('d-none'); }
+        if(type === 'news') { document.getElementById('btn-tab-news').classList.add('active'); document.getElementById('wrapper-form-news').classList.remove('d-none'); }
+        if(type === 'gallery') { document.getElementById('btn-tab-gallery').classList.add('active'); document.getElementById('wrapper-form-gallery').classList.remove('d-none'); }
+    }
+
+    // Tab switcher data feeds
+    function switchFeedTab(type) {
+        document.querySelectorAll('#dataFeedTab .nav-link').forEach(btn => btn.classList.remove('active'));
+        document.getElementById('panel-feed-ticker').classList.add('d-none');
+        document.getElementById('panel-feed-news').classList.add('d-none');
+        document.getElementById('panel-feed-gallery').classList.add('d-none');
+
+        if(type === 'ticker') { document.getElementById('feed-tab-ticker').classList.add('active'); document.getElementById('panel-feed-ticker').classList.remove('d-none'); }
+        if(type === 'news') { document.getElementById('feed-tab-news').classList.add('active'); document.getElementById('panel-feed-news').classList.remove('d-none'); }
+        if(type === 'gallery') { document.getElementById('feed-tab-gallery').classList.add('active'); document.getElementById('panel-feed-gallery').classList.remove('d-none'); }
+    }
+
+    // AUTOMATIC CANVAS COMPRESSION FOR TEXT/BASE64 STORAGE
+    function processAndCompressImage(inputNode) {
+        const file = inputNode.files[0];
+        const statusText = document.getElementById("upload-status-text");
+        const previewImg = document.getElementById("upload-preview-node");
+        const hiddenTextArea = document.getElementById("galleryBase64Text");
+
+        if (file) {
+            statusText.innerText = "Processing & Compressing Image...";
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    // Creating Canvas for optimization 
+                    const canvas = document.createElement("canvas");
+                    const max_size = 600; // Resize bounds dimension threshold for optimal Base64 payload
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > max_size) { height *= max_size / width; width = max_size; }
+                    } else {
+                        if (height > max_size) { width *= max_size / height; height = max_size; }
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // Output low-overhead base64 data link (Quality parameter 0.6)
+                    const optimizedBase64 = canvas.toDataURL("image/jpeg", 0.6);
+                    hiddenTextArea.value = optimizedBase64;
+                    
+                    previewImg.src = optimizedBase64;
+                    previewImg.style.display = "block";
+                    statusText.innerText = "Image converted successfully! (Ready to Save)";
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
         }
     }
 </script>
@@ -237,7 +406,7 @@
     import { db } from "./firebase-config.js";
     import { collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-    // Latest News Forms Elements
+    // Dynamic Engine Configuration Nodes
     const newsForm = document.getElementById("newsForm");
     const newsIdInput = document.getElementById("newsId");
     const newsTextInput = document.getElementById("newsText");
@@ -246,7 +415,6 @@
     const formActionTitle = document.getElementById("form-action-title");
     const adminNewsList = document.getElementById("admin-news-list");
 
-    // News Updates Cards Form Elements
     const newsUpdateForm = document.getElementById("newsUpdateForm");
     const updateIdInput = document.getElementById("updateId");
     const updateDateInput = document.getElementById("updateDate");
@@ -255,23 +423,37 @@
     const cancelUpdateEditBtn = document.getElementById("cancelUpdateEditBtn");
     const updateFormTitle = document.getElementById("update-form-title");
     const adminUpdatesList = document.getElementById("admin-updates-list");
+
+    const galleryForm = document.getElementById("galleryForm");
+    const galleryIdInput = document.getElementById("galleryId");
+    const galleryDateInput = document.getElementById("galleryDate");
+    const galleryTitleInput = document.getElementById("galleryTitle");
+    const galleryBase64Text = document.getElementById("galleryBase64Text");
+    const uploadPreviewNode = document.getElementById("upload-preview-node");
+    const saveGalleryBtn = document.getElementById("saveGalleryBtn");
+    const cancelGalleryEditBtn = document.getElementById("cancelGalleryEditBtn");
+    const galleryFormTitle = document.getElementById("gallery-form-title");
+    const adminGalleryList = document.getElementById("admin-gallery-list");
     
     const enquiryTableBody = document.getElementById("enquiry-table-body");
     const enquiryCountBadge = document.getElementById("enquiry-count");
 
     window.addEventListener('adminLoggedInSuccessfully', () => {
-        loadLiveNewsEngine();
-        loadLiveNewsUpdatesEngine();
-        loadLiveAdmissionsData();
+        initDashboardEngines();
     });
 
     if (localStorage.getItem("adminLoggedIn") === "true") {
+        initDashboardEngines();
+    }
+
+    function initDashboardEngines() {
         loadLiveNewsEngine();
         loadLiveNewsUpdatesEngine();
+        loadLiveGalleryEngine();
         loadLiveAdmissionsData();
     }
 
-    // --- 1. LATEST NEWS TICKER OPERATIONS ---
+    // --- 1. TICKER PIPELINE ---
     newsForm.addEventListener("submit", async function(e) {
         e.preventDefault();
         const text = newsTextInput.value.trim();
@@ -279,226 +461,200 @@
         if (!text) return;
 
         saveNewsBtn.disabled = true;
-        saveNewsBtn.innerText = "Processing...";
-
         try {
             if (id) {
                 await updateDoc(doc(db, "latest_news", id), { text: text });
             } else {
-                await addDoc(collection(db, "latest_news"), {
-                    text: text,
-                    timestamp: new Date().getTime()
-                });
+                await addDoc(collection(db, "latest_news"), { text: text, timestamp: new Date().getTime() });
             }
             resetNewsForm();
-        } catch (error) {
-            console.error(error);
-            alert("Database write error.");
-        } finally {
-            saveNewsBtn.disabled = false;
-        }
+        } catch (err) { alert("Database write operation failed."); }
+        finally { saveNewsBtn.disabled = false; }
     });
 
     function loadLiveNewsEngine() {
         const q = query(collection(db, "latest_news"), orderBy("timestamp", "desc"));
         onSnapshot(q, (snapshot) => {
             adminNewsList.innerHTML = "";
-            if (snapshot.empty) {
-                adminNewsList.innerHTML = `<li class="list-group-item text-muted text-center py-3">No ticker items created yet.</li>`;
-                return;
-            }
+            if (snapshot.empty) { adminNewsList.innerHTML = `<li class="list-group-item text-muted text-center py-2">No tickers active.</li>`; return; }
             snapshot.forEach((docSnap) => {
                 const data = docSnap.data();
                 const li = document.createElement("li");
-                li.className = "list-group-item d-flex justify-content-between align-items-center py-2";
-                
-                const textDiv = document.createElement("div");
-                textDiv.className = "pe-2 small";
-                textDiv.innerText = data.text;
-
-                const actionsDiv = document.createElement("div");
-                actionsDiv.className = "d-flex gap-1";
-
-                const editBtn = document.createElement("button");
-                editBtn.className = "btn btn-xs btn-outline-primary btn-sm";
-                editBtn.innerHTML = `<i class="fas fa-edit"></i>`;
-                editBtn.onclick = function() {
+                li.className = "list-group-item d-flex justify-content-between align-items-center py-2 px-3 border-0 border-bottom";
+                li.innerHTML = `<div class="text-truncate me-2" style="max-width:75%; font-size:13px;">${data.text}</div>
+                    <div class="d-flex gap-1">
+                        <button class="btn btn-sm btn-light text-primary edit-btn"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-light text-danger del-btn"><i class="fas fa-trash"></i></button>
+                    </div>`;
+                li.querySelector(".edit-btn").onclick = () => {
                     newsIdInput.value = docSnap.id;
                     newsTextInput.value = data.text;
-                    formActionTitle.innerText = "Modify News Ticker Text";
-                    saveNewsBtn.innerText = "Update Ticker";
+                    formActionTitle.innerText = "Modify Active Ticker Announcement";
                     cancelEditBtn.classList.remove("d-none");
+                    switchFormTab('ticker');
                 };
-
-                const deleteBtn = document.createElement("button");
-                deleteBtn.className = "btn btn-xs btn-outline-danger btn-sm";
-                deleteBtn.innerHTML = `<i class="fas fa-trash"></i>`;
-                deleteBtn.onclick = async function() {
-                    if (confirm("Delete this Ticker?")) {
-                        await deleteDoc(doc(db, "latest_news", docSnap.id));
-                        if (newsIdInput.value === docSnap.id) resetNewsForm();
-                    }
-                };
-
-                actionsDiv.appendChild(editBtn);
-                actionsDiv.appendChild(deleteBtn);
-                li.appendChild(textDiv);
-                li.appendChild(actionsDiv);
+                li.querySelector(".del-btn").onclick = async () => { if(confirm("Delete Ticker?")) await deleteDoc(doc(db, "latest_news", docSnap.id)); };
                 adminNewsList.appendChild(li);
             });
         });
     }
+    window.resetNewsForm = () => { newsForm.reset(); newsIdInput.value = ""; formActionTitle.innerText="Create Live Homepage Ticker"; cancelEditBtn.classList.add("d-none"); };
 
-    window.resetNewsForm = function() {
-        newsForm.reset();
-        newsIdInput.value = "";
-        formActionTitle.innerText = "Add Latest News Ticker (Homepage)";
-        saveNewsBtn.innerText = "Publish Ticker";
-        cancelEditBtn.classList.add("d-none");
-    };
-
-
-    // --- 2. MAIN NEWS UPDATES PAGE OPERATIONS (NEW) ---
+    // --- 2. NEWS UPDATES CARDS PIPELINE ---
     newsUpdateForm.addEventListener("submit", async function(e) {
         e.preventDefault();
         const dateVal = updateDateInput.value;
         const textVal = updateTextInput.value.trim();
         const id = updateIdInput.value;
 
-        if (!dateVal || !textVal) return;
-
         saveUpdateBtn.disabled = true;
-        saveUpdateBtn.innerText = "Processing...";
-
         try {
             if (id) {
-                await updateDoc(doc(db, "news_updates", id), {
-                    date: dateVal,
-                    text: textVal
-                });
+                await updateDoc(doc(db, "news_updates", id), { date: dateVal, text: textVal });
             } else {
-                await addDoc(collection(db, "news_updates"), {
-                    date: dateVal,
-                    text: textVal,
-                    timestamp: new Date().getTime()
-                });
+                await addDoc(collection(db, "news_updates"), { date: dateVal, text: textVal, timestamp: new Date().getTime() });
             }
             resetNewsUpdateForm();
-        } catch (error) {
-            console.error("News card operations error: ", error);
-            alert("Database write error.");
-        } finally {
-            saveUpdateBtn.disabled = false;
-        }
+        } catch (err) { alert("News integration transaction failed."); }
+        finally { saveUpdateBtn.disabled = false; }
     });
 
     function loadLiveNewsUpdatesEngine() {
-        // News details loaded by timestamp order sequence descend
         const q = query(collection(db, "news_updates"), orderBy("date", "desc"));
         onSnapshot(q, (snapshot) => {
             adminUpdatesList.innerHTML = "";
-            if (snapshot.empty) {
-                adminUpdatesList.innerHTML = `<li class="list-group-item text-muted text-center py-3">No news cards created yet.</li>`;
-                return;
-            }
+            if (snapshot.empty) { adminUpdatesList.innerHTML = `<li class="list-group-item text-muted text-center py-2">No updates active.</li>`; return; }
             snapshot.forEach((docSnap) => {
                 const data = docSnap.data();
                 const li = document.createElement("li");
-                li.className = "list-group-item d-flex justify-content-between align-items-center py-2";
-
-                const infoDiv = document.createElement("div");
-                infoDiv.className = "pe-2 small";
-                
-                // Format output visually nicely inside lists view inside admin layouts
-                const formattedDate = new Date(data.date).toLocaleDateString('en-GB', {day: '2-digit', month: 'short', year: 'numeric'});
-                infoDiv.innerHTML = `<strong class="text-primary">[${formattedDate}]</strong> ${data.text}`;
-
-                const actionsDiv = document.createElement("div");
-                actionsDiv.className = "d-flex gap-1";
-
-                const editBtn = document.createElement("button");
-                editBtn.className = "btn btn-outline-primary btn-sm";
-                editBtn.innerHTML = `<i class="fas fa-edit"></i>`;
-                editBtn.onclick = function() {
+                li.className = "list-group-item d-flex justify-content-between align-items-center py-2 px-3 border-0 border-bottom";
+                li.innerHTML = `<div class="text-truncate me-2" style="max-width:75%; font-size:13px;"><b class="text-success">[${data.date}]</b> ${data.text}</div>
+                    <div class="d-flex gap-1">
+                        <button class="btn btn-sm btn-light text-primary edit-btn"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-light text-danger del-btn"><i class="fas fa-trash"></i></button>
+                    </div>`;
+                li.querySelector(".edit-btn").onclick = () => {
                     updateIdInput.value = docSnap.id;
                     updateDateInput.value = data.date;
                     updateTextInput.value = data.text;
-                    updateFormTitle.innerText = "Modify News Card Details";
-                    saveUpdateBtn.innerText = "Update News Card";
+                    updateFormTitle.innerText = "Modify Selected News Card Details";
                     cancelUpdateEditBtn.classList.remove("d-none");
+                    switchFormTab('news');
                 };
-
-                const deleteBtn = document.createElement("button");
-                deleteBtn.className = "btn btn-outline-danger btn-sm";
-                deleteBtn.innerHTML = `<i class="fas fa-trash"></i>`;
-                deleteBtn.onclick = async function() {
-                    if (confirm("Are you sure you want to delete this news card update permanently?")) {
-                        await deleteDoc(doc(db, "news_updates", docSnap.id));
-                        if (updateIdInput.value === docSnap.id) resetNewsUpdateForm();
-                    }
-                };
-
-                actionsDiv.appendChild(editBtn);
-                actionsDiv.appendChild(deleteBtn);
-                li.appendChild(infoDiv);
-                li.appendChild(actionsDiv);
+                li.querySelector(".del-btn").onclick = async () => { if(confirm("Remove news card?")) await deleteDoc(doc(db, "news_updates", docSnap.id)); };
                 adminUpdatesList.appendChild(li);
             });
         });
     }
+    window.resetNewsUpdateForm = () => { newsUpdateForm.reset(); updateIdInput.value=""; updateFormTitle.innerText="Add Official News Update Card"; cancelUpdateEditBtn.classList.add("d-none"); };
 
-    window.resetNewsUpdateForm = function() {
-        newsUpdateForm.reset();
-        updateIdInput.value = "";
-        updateFormTitle.innerText = "Add News Card (News Page)";
-        saveUpdateBtn.innerText = "Publish News Update";
-        cancelUpdateEditBtn.classList.add("d-none");
+    // --- 3. PHOTO GALLERY CANVAS COMPRESSED CONVERT WRITER PIPELINE ---
+    galleryForm.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const dateVal = galleryDateInput.value;
+        const titleVal = galleryTitleInput.value.trim();
+        const textPayload = galleryBase64Text.value;
+        const id = galleryIdInput.value;
+
+        if(!textPayload) { alert("Please drop/select an image file first."); return; }
+
+        saveGalleryBtn.disabled = true;
+        saveGalleryBtn.innerText = "Syncing String Text To Cluster...";
+
+        try {
+            if (id) {
+                await updateDoc(doc(db, "gallery", id), { date: dateVal, title: titleVal, imageTextData: textPayload });
+            } else {
+                await addDoc(collection(db, "gallery"), { date: dateVal, title: titleVal, imageTextData: textPayload, timestamp: new Date().getTime() });
+            }
+            resetGalleryForm();
+        } catch (error) {
+            console.error(error);
+            alert("Database compression string write error.");
+        } finally {
+            saveGalleryBtn.disabled = false;
+            saveGalleryBtn.innerText = "Publish Gallery Element";
+        }
+    });
+
+    function loadLiveGalleryEngine() {
+        const q = query(collection(db, "gallery"), orderBy("date", "desc"));
+        onSnapshot(q, (snapshot) => {
+            adminGalleryList.innerHTML = "";
+            if (snapshot.empty) { adminGalleryList.innerHTML = `<li class="list-group-item text-muted text-center py-3">Digital photo gallery empty.</li>`; return; }
+            snapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                const li = document.createElement("li");
+                li.className = "list-group-item d-flex justify-content-between align-items-center py-2 px-3 border-0 border-bottom";
+                li.innerHTML = `
+                    <div class="d-flex align-items-center gap-2 text-truncate" style="max-width:75%;">
+                        <img src="${data.imageTextData}" style="width:38px; height:38px; object-fit:cover; border-radius:6px; background:#eee;" onerror="this.src='images/logo.png'">
+                        <div class="text-truncate" style="font-size:13px;">
+                            <b class="text-info">[${data.date}]</b> ${data.title}
+                        </div>
+                    </div>
+                    <div class="d-flex gap-1">
+                        <button class="btn btn-sm btn-light text-primary edit-btn"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-light text-danger del-btn"><i class="fas fa-trash"></i></button>
+                    </div>`;
+
+                li.querySelector(".edit-btn").onclick = () => {
+                    galleryIdInput.value = docSnap.id;
+                    galleryDateInput.value = data.date;
+                    galleryTitleInput.value = data.title;
+                    galleryBase64Text.value = data.imageTextData;
+                    
+                    uploadPreviewNode.src = data.imageTextData;
+                    uploadPreviewNode.style.display = "block";
+                    document.getElementById("upload-status-text").innerText = "Image track attached successfully!";
+                    
+                    galleryFormTitle.innerText = "Modify Gallery Photo Text Database Document";
+                    cancelGalleryEditBtn.classList.remove("d-none");
+                    switchFormTab('gallery');
+                };
+
+                li.querySelector(".del-btn").onclick = async () => { if(confirm("Delete gallery object text reference?")) await deleteDoc(doc(db, "gallery", docSnap.id)); };
+                adminGalleryList.appendChild(li);
+            });
+        });
+    }
+
+    window.resetGalleryForm = () => {
+        galleryForm.reset();
+        galleryIdInput.value = "";
+        galleryBase64Text.value = "";
+        uploadPreviewNode.style.display = "none";
+        uploadPreviewNode.src = "";
+        document.getElementById("upload-status-text").innerText = "Click here to browse system image file";
+        galleryFormTitle.innerText = "Upload Image Card to Digital Gallery";
+        cancelGalleryEditBtn.classList.add("d-none");
     };
 
-
-    // --- 3. ENQUIRIES LOADER ENGINE ---
+    // --- 4. LIVE ENQUIRIES CONTROLLER ---
     function loadLiveAdmissionsData() {
         const q = query(collection(db, "admissions"), orderBy("submittedAt", "desc"));
         onSnapshot(q, (snapshot) => {
             enquiryTableBody.innerHTML = "";
             enquiryCountBadge.innerText = snapshot.size;
-
-            if (snapshot.empty) {
-                enquiryTableBody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4">No enquiries found.</td></tr>`;
-                return;
-            }
-
+            if (snapshot.empty) { enquiryTableBody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-5">No submissions.</td></tr>`; return; }
             snapshot.forEach((docSnap) => {
                 const data = docSnap.data();
                 let dateStr = "N/A";
-                if(data.submittedAt) {
-                    const d = new Date(data.submittedAt);
-                    dateStr = d.toLocaleDateString('en-IN') + '<br><small class="text-muted">' + d.toLocaleTimeString('en-IN', {hour: '2-digit', minute:'2-digit'}) + '</small>';
-                }
-
+                if(data.submittedAt) { const d = new Date(data.submittedAt); dateStr = d.toLocaleDateString('en-IN') + '<br><span class="text-muted" style="font-size:11px;">' + d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}) + '</span>'; }
                 const tr = document.createElement("tr");
+                tr.className = "border-bottom";
                 tr.innerHTML = `
-                    <td style="font-size: 13px; font-weight: 500;">${dateStr}</td>
+                    <td class="ps-4 text-secondary" style="font-size:12px;">${dateStr}</td>
                     <td>
-                        <div class="fw-bold text-dark" style="font-size: 15px;">${data.title || ''} ${data.name || 'Anonymous'}</div>
-                        <div class="text-muted small">Gender: ${data.gender || 'N/A'} | DOB: ${data.dob || 'N/A'}</div>
-                        <div class="text-secondary mt-1" style="font-size: 12px;"><i class="fas fa-map-marker-alt text-danger me-1"></i>${data.address || ''}, ${data.city || ''}</div>
+                        <div class="fw-bold text-dark">${data.title || ''} ${data.name || 'Anonymous'}</div>
+                        <div class="text-muted" style="font-size:11px;">Gen: ${data.gender || 'N/A'} | DOB: ${data.dob || 'N/A'}</div>
                     </td>
-                    <td><span class="badge bg-primary py-2 px-3">${data.course || 'N/A'}</span></td>
+                    <td><span class="badge bg-light text-primary border border-primary-subtle py-1.5 px-2.5" style="font-size:11px;">${data.course || 'N/A'}</span></td>
                     <td>
-                        <div class="fw-semibold text-dark"><i class="fas fa-phone text-success me-2"></i>${data.mobile || 'N/A'}</div>
-                        <div class="text-muted small mt-1"><i class="fas fa-envelope text-info me-2"></i>${data.email || 'N/A'}</div>
+                        <div class="fw-semibold text-dark"><i class="fas fa-phone text-success me-1"></i> ${data.mobile || 'N/A'}</div>
                     </td>
-                    <td>
-                        <button class="btn btn-sm btn-danger delete-enq-btn"><i class="fas fa-trash-alt"></i></button>
-                    </td>
-                `;
-
-                tr.querySelector(".delete-enq-btn").onclick = async function() {
-                    if (confirm("Delete entry permanently?")) {
-                        await deleteDoc(doc(db, "admissions", docSnap.id));
-                    }
-                };
+                    <td class="pe-4"><button class="btn btn-sm btn-outline-danger border-0 delete-btn"><i class="fas fa-trash-alt"></i></button></td>`;
+                tr.querySelector(".delete-btn").onclick = async () => { if(confirm("Erase permanently?")) await deleteDoc(doc(db, "admissions", docSnap.id)); };
                 enquiryTableBody.appendChild(tr);
             });
         });
