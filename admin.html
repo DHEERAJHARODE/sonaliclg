@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Sonali College Guna</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --dark-navy: #002244;
+            --brand-gold: #ffcc00;
+        }
+        body {
+            background-color: #f4f6f9;
+        }
+        .navbar-admin {
+            background-color: var(--dark-navy);
+            color: white;
+        }
+        .card-header-custom {
+            background-color: var(--dark-navy);
+            color: white;
+            font-weight: 600;
+        }
+        .btn-custom-primary {
+            background-color: var(--dark-navy);
+            color: white;
+            border: none;
+        }
+        .btn-custom-primary:hover {
+            background-color: #003366;
+            color: white;
+        }
+        /* Login Overlay Styles */
+        #login-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 34, 68, 0.95);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+            border-top: 5px solid var(--brand-gold);
+        }
+    </style>
+</head>
+<body>
+
+<div id="login-overlay">
+    <div class="login-card text-center">
+        <img src="images/logo.png" alt="Logo" style="height: 60px; margin-bottom: 20px;" onerror="this.style.display='none'">
+        <h4 class="fw-bold mb-3" style="color: var(--dark-navy);">Admin Authentication</h4>
+        <p class="text-muted small">Please enter the administrator password to access the panel.</p>
+        
+        <div id="login-error" class="alert alert-danger d-none" style="font-size: 14px;">Invalid Password!</div>
+        
+        <form id="loginForm" onsubmit="handleAdminLogin(event)">
+            <div class="mb-3 text-start">
+                <label class="form-label fw-semibold">Password</label>
+                <input type="password" id="adminPassword" class="form-control" placeholder="Enter password" required>
+            </div>
+            <button type="submit" class="btn btn-custom-primary w-100 py-2">Access Dashboard</button>
+        </form>
+    </div>
+</div>
+
+<div id="dashboard-content" class="d-none">
+    <nav class="navbar navbar-admin shadow-sm py-3 mb-4">
+        <div class="container-fluid px-4">
+            <span class="navbar-brand mb-0 h1 fw-bold text-white">
+                <i class="fas fa-user-shield me-2 text-warning"></i> SONALI COLLEGE - ADMIN PANEL
+            </span>
+            <button class="btn btn-outline-light btn-sm" onclick="handleAdminLogout()">
+                <i class="fas fa-sign-out-alt me-1"></i> Logout
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid px-4">
+        <div class="row g-4">
+            
+            <div class="col-lg-5">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header card-header-custom">
+                        <i class="fas fa-edit me-2 text-warning"></i> <span id="form-action-title">Add Latest News</span>
+                    </div>
+                    <div class="card-body">
+                        <form id="newsForm">
+                            <input type="hidden" id="newsId">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">News Announcement Text</label>
+                                <textarea id="newsText" class="form-control" rows="3" placeholder="Type news text here..." required></textarea>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="submit" id="saveNewsBtn" class="btn btn-custom-primary flex-grow-1">Publish News</button>
+                                <button type="button" id="cancelEditBtn" class="btn btn-secondary d-none" onclick="resetNewsForm()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-header card-header-custom">
+                        <i class="fas fa-bullhorn me-2 text-warning"></i> Active News Feed
+                    </div>
+                    <div class="card-body p-0" style="max-height: 400px; overflow-y: auto;">
+                        <ul id="admin-news-list" class="list-group list-group-flush">
+                            <li class="list-group-item text-muted text-center py-3">Loading news feed...</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="card shadow-sm">
+                    <div class="card-header card-header-custom d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-user-graduate me-2 text-warning"></i> Admission Enquiries Received</span>
+                        <span class="badge bg-warning text-dark" id="enquiry-count">0</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive" style="max-height: 580px;">
+                            <table class="table table-hover table-striped align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Candidate Info</th>
+                                        <th>Course</th>
+                                        <th>Contact Details</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="enquiry-table-body">
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted py-4">Loading application submissions...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const CORRECT_PASSWORD = "admin123";
+
+    // Checking authentication status on DOM content load stage
+    document.addEventListener("DOMContentLoaded", function() {
+        if (localStorage.getItem("adminLoggedIn") === "true") {
+            document.getElementById("login-overlay").classList.add("d-none");
+            document.getElementById("dashboard-content").classList.remove("d-none");
+            window.dispatchEvent(new Event('adminLoggedInSuccessfully'));
+        }
+    });
+
+    function handleAdminLogin(e) {
+        e.preventDefault();
+        const enteredPassword = document.getElementById("adminPassword").value.trim();
+        const loginOverlay = document.getElementById("login-overlay");
+        const dashboardContent = document.getElementById("dashboard-content");
+        const loginError = document.getElementById("login-error");
+
+        if (enteredPassword === CORRECT_PASSWORD) {
+            localStorage.setItem("adminLoggedIn", "true");
+            loginOverlay.classList.add("d-none");
+            dashboardContent.classList.remove("d-none");
+            window.dispatchEvent(new Event('adminLoggedInSuccessfully'));
+        } else {
+            loginError.classList.remove("d-none");
+            document.getElementById("adminPassword").value = "";
+        }
+    }
+
+    function handleAdminLogout() {
+        if(confirm("Are you sure you want to logout?")) {
+            localStorage.removeItem("adminLoggedIn");
+            location.reload();
+        }
+    }
+</script>
+
+<script type="module">
+    import { db } from "./firebase-config.js";
+    import { collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+    const newsForm = document.getElementById("newsForm");
+    const newsIdInput = document.getElementById("newsId");
+    const newsTextInput = document.getElementById("newsText");
+    const saveNewsBtn = document.getElementById("saveNewsBtn");
+    const cancelEditBtn = document.getElementById("cancelEditBtn");
+    const formActionTitle = document.getElementById("form-action-title");
+    const adminNewsList = document.getElementById("admin-news-list");
+    
+    const enquiryTableBody = document.getElementById("enquiry-table-body");
+    const enquiryCountBadge = document.getElementById("enquiry-count");
+
+    // Dynamic state listener bindings
+    window.addEventListener('adminLoggedInSuccessfully', () => {
+        loadLiveNewsEngine();
+        loadLiveAdmissionsData();
+    });
+
+    if (localStorage.getItem("adminLoggedIn") === "true") {
+        loadLiveNewsEngine();
+        loadLiveAdmissionsData();
+    }
+
+    // --- NEWS PROCESS OPERATIONS ---
+    newsForm.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const text = newsTextInput.value.trim();
+        const id = newsIdInput.value;
+
+        if (!text) return;
+
+        saveNewsBtn.disabled = true;
+        saveNewsBtn.innerText = "Processing...";
+
+        try {
+            if (id) {
+                // UPDATE
+                await updateDoc(doc(db, "latest_news", id), { text: text });
+            } else {
+                // CREATE
+                await addDoc(collection(db, "latest_news"), {
+                    text: text,
+                    timestamp: new Date().getTime()
+                });
+            }
+            resetNewsForm();
+        } catch (error) {
+            console.error("News error: ", error);
+            alert("Database write error detected.");
+        } finally {
+            saveNewsBtn.disabled = false;
+        }
+    });
+
+    function loadLiveNewsEngine() {
+        const q = query(collection(db, "latest_news"), orderBy("timestamp", "desc"));
+        onSnapshot(q, (snapshot) => {
+            adminNewsList.innerHTML = "";
+            if (snapshot.empty) {
+                adminNewsList.innerHTML = `<li class="list-group-item text-muted text-center py-3">No news items created yet.</li>`;
+                return;
+            }
+
+            snapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                const li = document.createElement("li");
+                li.className = "list-group-item d-flex justify-content-between align-items-center py-3";
+                
+                const textDiv = document.createElement("div");
+                textDiv.className = "pe-3";
+                textDiv.style.cssText = "font-size: 14px; color: #333; word-break: break-word;";
+                textDiv.innerText = data.text;
+
+                const actionsDiv = document.createElement("div");
+                actionsDiv.className = "d-flex gap-1";
+                actionsDiv.style.flexShrink = "0";
+
+                const editBtn = document.createElement("button");
+                editBtn.className = "btn btn-sm btn-outline-primary";
+                editBtn.innerHTML = `<i class="fas fa-edit"></i>`;
+                editBtn.onclick = function() {
+                    newsIdInput.value = docSnap.id;
+                    newsTextInput.value = data.text;
+                    formActionTitle.innerText = "Modify News Announcement";
+                    saveNewsBtn.innerText = "Update News";
+                    cancelEditBtn.classList.remove("d-none");
+                    newsTextInput.focus();
+                };
+
+                const deleteBtn = document.createElement("button");
+                deleteBtn.className = "btn btn-sm btn-outline-danger";
+                deleteBtn.innerHTML = `<i class="fas fa-trash"></i>`;
+                deleteBtn.onclick = async function() {
+                    if (confirm("Are you sure you want to permanently delete this news item?")) {
+                        try {
+                            await deleteDoc(doc(db, "latest_news", docSnap.id));
+                            if (newsIdInput.value === docSnap.id) resetNewsForm();
+                        } catch (error) {
+                            console.error("News Delete Failed: ", error);
+                        }
+                    }
+                };
+
+                actionsDiv.appendChild(editBtn);
+                actionsDiv.appendChild(deleteBtn);
+                li.appendChild(textDiv);
+                li.appendChild(actionsDiv);
+                adminNewsList.appendChild(li);
+            });
+        });
+    }
+
+    window.resetNewsForm = function() {
+        newsForm.reset();
+        newsIdInput.value = "";
+        formActionTitle.innerText = "Add Latest News";
+        saveNewsBtn.innerText = "Publish News";
+        cancelEditBtn.classList.add("d-none");
+    };
+
+    // --- ENQUIRIES LOADER ENGINE (WITH LIVE DELETE TRIGGER METHOD) ---
+    function loadLiveAdmissionsData() {
+        const q = query(collection(db, "admissions"), orderBy("submittedAt", "desc"));
+        onSnapshot(q, (snapshot) => {
+            enquiryTableBody.innerHTML = "";
+            enquiryCountBadge.innerText = snapshot.size;
+
+            if (snapshot.empty) {
+                enquiryTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">
+                            <i class="fas fa-folder-open d-block mb-2 fs-3"></i> No enquiry applications found in database.
+                        </td>
+                    </tr>`;
+                return;
+            }
+
+            snapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                
+                let dateStr = "N/A";
+                if(data.submittedAt) {
+                    const d = new Date(data.submittedAt);
+                    dateStr = d.toLocaleDateString('en-IN') + '<br><small class="text-muted">' + d.toLocaleTimeString('en-IN', {hour: '2-digit', minute:'2-digit'}) + '</small>';
+                }
+
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td style="font-size: 13px; font-weight: 500;">${dateStr}</td>
+                    <td>
+                        <div class="fw-bold text-dark" style="font-size: 15px;">${data.title || ''} ${data.name || 'Anonymous'}</div>
+                        <div class="text-muted small">Gender: ${data.gender || 'N/A'} | DOB: ${data.dob || 'N/A'}</div>
+                        <div class="text-secondary mt-1" style="font-size: 12px; line-height: 1.3;">
+                            <i class="fas fa-map-marker-alt text-danger me-1"></i>${data.address || ''}, ${data.city || ''} (${data.pin || ''}), ${data.state || ''}
+                        </div>
+                    </td>
+                    <td><span class="badge bg-primary text-wrap py-2 px-3" style="font-size: 12px; min-width: 80px;">${data.course || 'N/A'}</span></td>
+                    <td>
+                        <div class="fw-semibold text-dark"><i class="fas fa-phone text-success me-2"></i>${data.mobile || 'N/A'}</div>
+                        <div class="text-muted small mt-1"><i class="fas fa-envelope text-info me-2"></i>${data.email || 'N/A'}</div>
+                        <div class="text-secondary border-top mt-1 pt-1" style="font-size: 11px;">
+                            <strong>Guardian:</strong> ${data.guardianName || 'N/A'} (${data.relation || 'N/A'})
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-danger delete-enq-btn">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </td>
+                `;
+
+                // Attaching dynamic row deletion events directly inside loops
+                tr.querySelector(".delete-enq-btn").onclick = async function() {
+                    if (confirm(`Are you sure you want to delete the enquiry of ${data.name || 'this student'} permanently?`)) {
+                        try {
+                            await deleteDoc(doc(db, "admissions", docSnap.id));
+                        } catch (error) {
+                            console.error("Enquiry delete error: ", error);
+                            alert("Failed to delete entry.");
+                        }
+                    }
+                };
+
+                enquiryTableBody.appendChild(tr);
+            });
+        });
+    }
+</script>
+
+</body>
+</html>
