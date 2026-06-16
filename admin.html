@@ -411,7 +411,7 @@
             <!-- TOP SYSTEM LEVEL ACTION LINE REGION BAR -->
             <div class="workspace-top-bar">
                 <div>
-                    <span class="text-uppercase small fw-bold tracking-wider text-muted" id="stage-mini-tag">System Data Stream</span>
+                    <span class="text-uppercase small fw-bold tracking-wider text-muted" id="stage-mini-tag">Data Stream</span>
                     <h2 id="stage-main-title">Enquiry Forms Feed</h2>
                 </div>
                 <button class="btn btn-light border rounded-pill px-3 py-1.5 small fw-bold text-danger" onclick="handleAdminLogout()">
@@ -603,10 +603,10 @@
             const miniTagElement = document.getElementById("stage-mini-tag");
             const mainTitleElement = document.getElementById("stage-main-title");
 
-            if(targetSectionType === 'admissions') { miniTagElement.innerText = "System Data Stream"; mainTitleElement.innerText = "Enquiry Forms Feed"; }
-            if(targetSectionType === 'ticker') { miniTagElement.innerText = "Homepage Elements"; mainTitleElement.innerText = "Dynamic News Ticker Controller"; }
-            if(targetSectionType === 'news') { miniTagElement.innerText = "Publications Desk"; mainTitleElement.innerText = "Formal News Cards Grid"; }
-            if(targetSectionType === 'gallery') { miniTagElement.innerText = "Digital Asset Warehouse"; mainTitleElement.innerText = "Media Base64 Text Matrix"; }
+            if(targetSectionType === 'admissions') { miniTagElement.innerText = "Data Stream"; mainTitleElement.innerText = "Enquiry Forms"; }
+            if(targetSectionType === 'ticker') { miniTagElement.innerText = "Homepage"; mainTitleElement.innerText = "News Ticker Controller"; }
+            if(targetSectionType === 'news') { miniTagElement.innerText = "Publications Desk"; mainTitleElement.innerText = "News Cards Grid"; }
+            if(targetSectionType === 'gallery') { miniTagElement.innerText = "Images"; mainTitleElement.innerText = "Media Matrix"; }
         }
     }
 
