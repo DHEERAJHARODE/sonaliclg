@@ -5,293 +5,441 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Sonali College Guna</title>
     
+    <!-- Bootstrap 5, FontAwesome, & Premium Fonts -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --dark-navy: #002244;
-            --brand-gold: #ffcc00;
-            --surface-bg: #f8fafc;
-            --card-shadow: 0 10px 30px rgba(0, 34, 68, 0.05);
-            --transition: all 0.2s ease-in-out;
+            --bg-main: #f4f7fe;
+            --sidebar-bg: #0a192f;
+            --accent-blue: #3b82f6;
+            --accent-mint: #10b981;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --card-radius: 20px;
+            --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 10px 30px rgba(0, 34, 68, 0.06);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--surface-bg);
-            color: #334155;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            overflow-x: hidden;
         }
 
+        /* Modern Glassmorphic Authentication Gate */
         #login-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(0, 34, 68, 0.98), rgba(0, 15, 30, 0.98));
+            background: radial-gradient(circle at 50% 50%, rgba(10, 25, 47, 0.96), #020c1b);
             z-index: 9999;
             display: flex;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(8px);
+            padding: 20px;
+            backdrop-filter: blur(12px);
         }
         .login-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 35px;
+            border-radius: var(--card-radius);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
             width: 100%;
-            max-width: 420px;
-            border-top: 6px solid var(--brand-gold);
-        }
-
-        .navbar-admin {
-            background: linear-gradient(90deg, var(--dark-navy), #003366);
-            padding: 15px 25px;
-            border-bottom: 4px solid var(--brand-gold);
-        }
-
-        .custom-card {
-            background: white;
-            border: none;
-            border-radius: 16px;
-            box-shadow: var(--card-shadow);
-            margin-bottom: 25px;
-            overflow: hidden;
-        }
-        .card-header-custom {
-            background: #ffffff;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 18px 24px;
-            font-weight: 600;
-            color: var(--dark-navy);
-            display: flex;
-            align-items: center;
-            font-size: 16px;
-        }
-
-        .form-control, .form-select {
-            border: 1px solid #cbd5e1;
-            padding: 10px 14px;
-            border-radius: 10px;
-            font-size: 14px;
-        }
-        .form-control:focus, .form-select:focus {
-            border-color: var(--dark-navy);
-            box-shadow: 0 0 0 3px rgba(0, 34, 68, 0.1);
-        }
-
-        .nav-pills .nav-link {
-            color: #64748b;
-            font-weight: 500;
-            font-size: 13px;
-            border-radius: 8px;
-            padding: 10px 16px;
-        }
-        .nav-pills .nav-link.active {
-            background-color: var(--dark-navy);
-            color: white;
-        }
-
-        .image-upload-wrapper {
-            border: 2px dashed #cbd5e1;
-            border-radius: 12px;
-            padding: 20px;
+            max-width: 400px;
+            border: 1px solid rgba(255,255,255,0.2);
             text-align: center;
-            background: #f8fafc;
-            cursor: pointer;
+        }
+
+        /* Dynamic Main Dashboard Structural Architecture */
+        .dashboard-wrapper {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* Desktop Sidebar Navigation Menu Drawer */
+        .sidebar-panel {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            position: fixed;
+            height: 100vh;
+            left: 0; top: 0;
+            z-index: 100;
             transition: var(--transition);
         }
-        .image-upload-wrapper:hover {
-            border-color: var(--dark-navy);
-            background: #f0f4f8;
+        .sidebar-brand-title {
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-left: 10px;
         }
-        .preview-box {
+        .sidebar-menu-list {
+            list-style: none;
+            padding: 0; margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .sidebar-item-btn {
             width: 100%;
-            max-height: 150px;
-            object-fit: contain;
-            border-radius: 8px;
-            display: none;
-            margin-top: 10px;
-            border: 1px solid #e2e8f0;
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,0.6);
+            padding: 14px 18px;
+            border-radius: 12px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+        .sidebar-item-btn i {
+            font-size: 16px;
+        }
+        .sidebar-item-btn:hover, .sidebar-item-btn.active {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+        .sidebar-item-btn.active {
+            background: var(--accent-blue);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
         }
 
-        .btn-custom-primary {
-            background-color: var(--dark-navy);
-            color: white;
-            font-weight: 500;
-            border-radius: 10px;
-            padding: 10px 20px;
-            border: none;
+        /* Core Stage Workspace Viewport Area */
+        .main-workspace {
+            flex-grow: 1;
+            margin-left: 280px;
+            padding: 40px;
+            width: calc(100% - 280px);
+            transition: var(--transition);
         }
-        .btn-custom-primary:hover {
-            background-color: #003366;
+
+        /* Top Header Navigation Line */
+        .workspace-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+        .workspace-top-bar h2 {
+            font-weight: 800;
+            color: var(--text-dark);
+            font-size: 26px;
+            margin: 0;
+        }
+
+        /* Premium Minimalist Card Canvas Design Layouts */
+        .premium-card {
+            background: #ffffff;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            margin-bottom: 30px;
+            transition: var(--transition);
+        }
+        .premium-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0, 34, 68, 0.08);
+        }
+        .premium-card-header {
+            padding: 24px 30px;
+            background: transparent;
+            border-bottom: 1px solid #f1f5f9;
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Form Layout Elements Inputs Controls Rules */
+        .premium-input-group {
+            margin-bottom: 20px;
+        }
+        .premium-input-group label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-control {
+            border: 1.5px solid #e2e8f0;
+            background-color: #f8fafc;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+        .form-control:focus {
+            background-color: #ffffff;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.11);
+        }
+
+        /* Interactive Drag-Drop Box and Canvas Image Processing Area Layout */
+        .modern-upload-dropzone {
+            border: 2px dashed #cbd5e1;
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+        }
+        .modern-upload-dropzone:hover {
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.02);
+        }
+        .modern-preview-thumbnail {
+            width: 100%;
+            max-height: 180px;
+            object-fit: contain;
+            border-radius: 10px;
+            display: none;
+            margin-top: 15px;
+            border: 1px solid #e2e8f0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Standard Buttons Execution Controls */
+        .btn-action-submit {
+            background: var(--sidebar-bg);
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+        .btn-action-submit:hover {
+            background: #112240;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        /* Dynamic Real-Time Feeds Tables Layout Engine */
+        .custom-data-table th {
+            background: #f8fafc;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .custom-data-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+        }
+
+        /* 📱 MOBILE RESPONSION LUXURY APP OVERRIDE INTERFACE (Mobile Friendly Architecture) */
+        @media (max-width: 991.98px) {
+            .sidebar-panel {
+                width: 100%;
+                height: 70px;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                position: fixed;
+                top: auto; bottom: 0; left: 0;
+                padding: 10px 25px;
+                background-color: var(--sidebar-bg);
+                box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
+                border-top: 1px solid rgba(255,255,255,0.05);
+                gap: 0;
+            }
+            .sidebar-brand-title {
+                display: none; /* Hide brand on bottom navigation layout bar line */
+            }
+            .sidebar-menu-list {
+                flex-direction: row;
+                width: 100%;
+                justify-content: space-around;
+            }
+            .sidebar-item-btn {
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                padding: 8px 12px;
+                font-size: 10px;
+                color: rgba(255,255,255,0.5);
+                width: auto;
+            }
+            .sidebar-item-btn i {
+                font-size: 18px;
+            }
+            .sidebar-item-btn:hover {
+                background: transparent;
+            }
+            .sidebar-item-btn.active {
+                background: transparent;
+                color: var(--brand-gold);
+                box-shadow: none;
+            }
+            
+            .main-workspace {
+                margin-left: 0;
+                padding: 20px 15px 90px 15px;
+                width: 100%;
+            }
+            .workspace-top-bar h2 {
+                font-size: 20px;
+            }
+
+            /* Responsive Mobile Data Viewer Card Transformation Mechanics Matrix Layout Rules */
+            .custom-data-table, thead, tbody, th, td, tr { 
+                display: block; 
+            }
+            thead { 
+                display: none; 
+            }
+            .custom-data-table tbody tr {
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 16px;
+                padding: 20px;
+                margin-bottom: 16px !important;
+                box-shadow: var(--shadow-sm);
+                position: relative;
+            }
+            .custom-data-table tbody td {
+                border: none !important;
+                padding: 6px 0 !important;
+                text-align: left;
+                width: 100%;
+            }
+            .custom-data-table tbody td:first-child {
+                font-weight: 700;
+                color: var(--accent-blue);
+                border-bottom: 1px dashed #e2e8f0 !important;
+                margin-bottom: 10px;
+                padding-bottom: 10px !important;
+                font-size: 13px;
+            }
+            .custom-data-table tbody td:last-child {
+                border-top: 1px solid #f1f5f9 !important;
+                margin-top: 12px;
+                padding-top: 12px !important;
+                display: flex;
+                justify-content: flex-end;
+            }
         }
     </style>
 </head>
 <body>
 
+<!-- AUTH OVERLAY GATEKEEPER LAYER -->
 <div id="login-overlay">
-    <div class="login-card text-center">
-        <img src="images/logo.png" alt="Logo" style="height: 65px; margin-bottom: 25px;" onerror="this.style.display='none'">
-        <h4 class="fw-bold mb-2" style="color: var(--dark-navy);">Admin Authentication</h4>
-        <p class="text-muted small mb-4">Access restricted to authorized personnel only.</p>
+    <div class="login-card">
+        <img src="images/logo.png" alt="Logo" style="height: 60px; margin-bottom: 20px;" onerror="this.style.display='none'">
+        <h4 class="fw-bold text-dark mb-1">Control Panel Access</h4>
+        <p class="text-muted small mb-4">Enter administration credential to proceed.</p>
         
-        <div id="login-error" class="alert alert-danger d-none py-2 mb-3" style="font-size: 13px;">
-            <i class="fas fa-exclamation-circle me-1"></i> Invalid Password!
+        <div id="login-error" class="alert alert-danger d-none py-2 mb-3" style="font-size: 13px; border-radius: 10px;">
+            <i class="fas fa-exclamation-circle me-1"></i> Invalid Password Password!
         </div>
         
         <form id="loginForm" onsubmit="handleAdminLogin(event)">
-            <div class="mb-3 text-start">
-                <label class="form-label small fw-semibold text-secondary">Dashboard Password</label>
-                <input type="password" id="adminPassword" class="form-control" placeholder="Enter password" required style="height: 45px;">
+            <div class="mb-4 text-start">
+                <input type="password" id="adminPassword" class="form-control text-center" placeholder="••••••••" required style="height: 48px; font-size: 18px; letter-spacing: 2px;">
             </div>
-            <button type="submit" class="btn btn-custom-primary w-100 py-2.5 shadow-sm">Access Dashboard</button>
+            <button type="submit" class="btn btn-action-submit w-100 py-2.5 shadow-sm" style="background: var(--sidebar-bg);">Authenticate Access</button>
         </form>
     </div>
 </div>
 
+<!-- MAIN WORKSPACE STRUCTURAL WRAPPER PLATFORM -->
 <div id="dashboard-content" class="d-none">
-    <nav class="navbar navbar-admin shadow-sm mb-4">
-        <div class="container-fluid px-4">
-            <span class="navbar-brand mb-0 h1 fw-bold text-white fs-5">
-                <i class="fas fa-user-shield me-2 text-warning"></i> SONALI COLLEGE <span class="fw-light text-white-50">| CONTROL PANEL</span>
-            </span>
-            <button class="btn btn-sm btn-outline-light rounded-pill px-3" onclick="handleAdminLogout()">
-                <i class="fas fa-sign-out-alt me-1"></i> Secure Exit
-            </button>
-        </div>
-    </nav>
-
-    <div class="container-fluid px-4">
-        <div class="row g-4">
+    <div class="dashboard-wrapper">
+        
+        <!-- SIDEBAR PANEL DOCK SYSTEM PANEL LAYER -->
+        <aside class="sidebar-panel">
+            <div class="sidebar-brand-title">
+                <i class="fas fa-shield-halved text-warning"></i> SONALI CLG GUNA
+            </div>
             
-            <div class="col-xl-5 col-lg-6">
-                
-                <div class="card custom-card p-3 bg-light border mb-4">
-                    <ul class="nav nav-pills nav-fill" id="formSelectorTabs">
-                        <li class="nav-item">
-                            <button class="nav-link active" id="btn-tab-ticker" onclick="switchFormTab('ticker')"><i class="fas fa-bullhorn me-1"></i> Ticker</button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="nav-link" id="btn-tab-news" onclick="switchFormTab('news')"><i class="fas fa-newspaper me-1"></i> News Card</button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="nav-link" id="btn-tab-gallery" onclick="switchFormTab('gallery')"><i class="fas fa-images me-1"></i> Gallery Card</button>
-                        </li>
-                    </ul>
+            <ul class="sidebar-menu-list">
+                <li>
+                    <button id="nav-btn-admissions" class="sidebar-item-btn active" onclick="switchUIPanelTab('admissions')">
+                        <i class="fas fa-graduation-cap"></i> <span>Applications</span>
+                    </button>
+                </li>
+                <li>
+                    <button id="nav-btn-ticker" class="sidebar-item-btn" onclick="switchUIPanelTab('ticker')">
+                        <i class="fas fa-bullhorn"></i> <span>News Ticker</span>
+                    </button>
+                </li>
+                <li>
+                    <button id="nav-btn-news" class="sidebar-item-btn" onclick="switchUIPanelTab('news')">
+                        <i class="fas fa-newspaper"></i> <span>News Cards</span>
+                    </button>
+                </li>
+                <li>
+                    <button id="nav-btn-gallery" class="sidebar-item-btn" onclick="switchUIPanelTab('gallery')">
+                        <i class="fas fa-images"></i> <span>Gallery Control</span>
+                    </button>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- MAIN VIEW WORKSPACE STAGE HUB AREA -->
+        <main class="main-workspace">
+            
+            <!-- TOP SYSTEM LEVEL ACTION LINE REGION BAR -->
+            <div class="workspace-top-bar">
+                <div>
+                    <span class="text-uppercase small fw-bold tracking-wider text-muted" id="stage-mini-tag">System Data Stream</span>
+                    <h2 id="stage-main-title">Enquiry Forms Feed</h2>
                 </div>
-
-                <div class="card custom-card">
-                    <div id="wrapper-form-ticker" class="form-wrapper-block">
-                        <div class="card-header-custom"><span id="form-action-title">Create Live Homepage Ticker</span></div>
-                        <div class="card-body p-4">
-                            <form id="newsForm">
-                                <input type="hidden" id="newsId">
-                                <div class="mb-3">
-                                    <label class="form-label small fw-semibold">Ticker Announcement Message</label>
-                                    <textarea id="newsText" class="form-control" rows="3" placeholder="Type text here..." required></textarea>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <button type="submit" id="saveNewsBtn" class="btn btn-custom-primary flex-grow-1">Publish Ticker</button>
-                                    <button type="button" id="cancelEditBtn" class="btn btn-secondary d-none" onclick="resetNewsForm()">Cancel</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div id="wrapper-form-news" class="form-wrapper-block d-none">
-                        <div class="card-header-custom" style="border-top: 4px solid #10b981;"><span id="update-form-title">Add Official News Update Card</span></div>
-                        <div class="card-body p-4">
-                            <form id="newsUpdateForm">
-                                <input type="hidden" id="updateId">
-                                <div class="mb-3">
-                                    <label class="form-label small fw-semibold">Publication Event Date</label>
-                                    <input type="date" id="updateDate" class="form-control" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label small fw-semibold">News Descriptions Summary Text</label>
-                                    <textarea id="updateText" class="form-control" rows="3" placeholder="Write comprehensive updates..." required></textarea>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <button type="submit" id="saveUpdateBtn" class="btn btn-success w-100 py-2" style="border-radius:10px;">Publish News Card</button>
-                                    <button type="button" id="cancelUpdateEditBtn" class="btn btn-secondary d-none" onclick="resetNewsUpdateForm()">Cancel</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div id="wrapper-form-gallery" class="form-wrapper-block d-none">
-                        <div class="card-header-custom" style="border-top: 4px solid #06b6d4;"><span id="gallery-form-title">Upload Image Card to Digital Gallery</span></div>
-                        <div class="card-body p-4">
-                            <form id="galleryForm">
-                                <input type="hidden" id="galleryId">
-                                <input type="hidden" id="galleryBase64Text">
-                                
-                                <div class="mb-3">
-                                    <label class="form-label small fw-semibold">Capture Event Date</label>
-                                    <input type="date" id="galleryDate" class="form-control" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label small fw-semibold">Event Album Title Description</label>
-                                    <input type="text" id="galleryTitle" class="form-control" placeholder="e.g. Annual Function 2026" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label small fw-semibold">Select Image File</label>
-                                    <div class="image-upload-wrapper" onclick="document.getElementById('galleryFileInput').click()">
-                                        <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
-                                        <p class="mb-1 small text-secondary" id="upload-status-text">Click here to browse system image file</p>
-                                        <input type="file" id="galleryFileInput" accept="image/*" class="d-none" onchange="processAndCompressImage(this)">
-                                        <img id="upload-preview-node" class="preview-box">
-                                    </div>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <button type="submit" id="saveGalleryBtn" class="btn btn-info text-white w-100 py-2" style="border-radius:10px; font-weight:600;">Publish Gallery Element</button>
-                                    <button type="button" id="cancelGalleryEditBtn" class="btn btn-secondary d-none" onclick="resetGalleryForm()">Cancel</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card custom-card shadow-sm">
-                    <div class="card-header-custom bg-light py-2">
-                        <ul class="nav nav-tabs card-header-tabs border-bottom-0 w-100" id="dataFeedTab">
-                            <li class="nav-item flex-grow-1 text-center"><button class="nav-link active small w-100 border-0" id="feed-tab-ticker" onclick="switchFeedTab('ticker')">Tickers</button></li>
-                            <li class="nav-item flex-grow-1 text-center"><button class="nav-link small w-100 border-0" id="feed-tab-news" onclick="switchFeedTab('news')">News Feed</button></li>
-                            <li class="nav-item flex-grow-1 text-center"><button class="nav-link small w-100 border-0" id="feed-tab-gallery" onclick="switchFeedTab('gallery')">Gallery Feed</button></li>
-                        </ul>
-                    </div>
-                    <div class="card-body p-0" style="max-height: 380px; overflow-y: auto;">
-                        <div id="panel-feed-ticker"><ul id="admin-news-list" class="list-group list-group-flush"><li class="list-group-item text-muted text-center py-3">Loading datasets...</li></ul></div>
-                        <div id="panel-feed-news" class="d-none"><ul id="admin-updates-list" class="list-group list-group-flush"><li class="list-group-item text-muted text-center py-3">Loading datasets...</li></ul></div>
-                        <div id="panel-feed-gallery" class="d-none"><ul id="admin-gallery-list" class="list-group list-group-flush"><li class="list-group-item text-muted text-center py-3">Loading datasets...</li></ul></div>
-                    </div>
-                </div>
-
+                <button class="btn btn-light border rounded-pill px-3 py-1.5 small fw-bold text-danger" onclick="handleAdminLogout()">
+                    <i class="fas fa-power-off me-1"></i> Exit
+                </button>
             </div>
 
-            <div class="col-xl-7 col-lg-6">
-                <div class="card custom-card">
-                    <div class="card-header-custom d-flex justify-content-between align-items-center bg-white">
-                        <span><i class="fas fa-graduation-cap me-2 text-primary"></i> Live Admission Form Submissions</span>
-                        <span class="badge px-3 py-1.5 rounded-pill" id="enquiry-count" style="background-color: var(--dark-navy); font-size:12px;">0</span>
+            <!-- TAB-1 COMPONENT CONTAINER GRID BLOCK NODES SECTION: ADMISSION APPLICATIONS APPLICANTS -->
+            <div id="section-view-admissions" class="workspace-section-pane">
+                <div class="card premium-card">
+                    <div class="premium-card-header">
+                        <span><i class="fas fa-inbox text-primary me-2"></i> Received Submissions List</span>
+                        <span class="badge bg-primary rounded-pill px-3 py-1.5" id="enquiry-count" style="font-size:12px;">0</span>
                     </div>
                     <div class="card-body p-0">
-                        <div class="table-responsive" style="max-height: 820px; min-height: 400px;">
-                            <table class="table table-hover align-middle mb-0">
-                                <thead class="table-light text-secondary small uppercase" style="position: sticky; top:0; z-index:10;">
+                        <div class="table-responsive">
+                            <table class="table table-hover custom-data-table align-middle mb-0">
+                                <thead>
                                     <tr>
-                                        <th class="ps-4">Timestamp</th>
-                                        <th>Applicant Profile Details</th>
-                                        <th>Target Course</th>
-                                        <th>Contact</th>
-                                        <th class="pe-4">Action</th>
+                                        <th>Timestamp</th>
+                                        <th>Applicant Profile Info</th>
+                                        <th>Target Course Name</th>
+                                        <th>Contact Connection</th>
+                                        <th>Operational Link</th>
                                     </tr>
                                 </thead>
-                                <tbody id="enquiry-table-body" class="small">
-                                    <tr>
-                                        <td colspan="5" class="text-center text-muted py-5">Loading application database entries...</td>
-                                    </tr>
+                                <tbody id="enquiry-table-body">
+                                    <tr><td colspan="5" class="text-center text-muted py-5"><div class="spinner-border spinner-border-sm text-secondary me-2"></div>Reading application logs...</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -299,7 +447,111 @@
                 </div>
             </div>
 
-        </div>
+            <!-- TAB-2 COMPONENT CONTAINER GRID BLOCK NODES SECTION: TICKER HOMEPAGE ANNOUNCEMENT -->
+            <div id="section-view-ticker" class="workspace-section-pane d-none">
+                <div class="row g-4">
+                    <div class="col-xl-5 col-lg-6">
+                        <div class="card premium-card">
+                            <div class="premium-card-header"><span><i class="fas fa-plus text-warning me-2"></i> Manage Homepage Ticker Stream</span></div>
+                            <div class="card-body p-4">
+                                <form id="newsForm">
+                                    <input type="hidden" id="newsId">
+                                    <div class="premium-input-group">
+                                        <label class="form-label">Ticker Notification Text Content</label>
+                                        <textarea id="newsText" class="form-control" rows="4" placeholder="Type messaging content parameters..." required></textarea>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <button type="submit" id="saveNewsBtn" class="btn btn-action-submit flex-grow-1">Publish Ticker Item</button>
+                                        <button type="button" id="cancelEditBtn" class="btn btn-light border d-none" onclick="resetNewsForm()">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-7 col-lg-6">
+                        <div class="card premium-card">
+                            <div class="premium-card-header"><span><i class="fas fa-list text-secondary me-2"></i> Active Ticker Registry Node</span></div>
+                            <div class="card-body p-0" style="max-height:500px; overflow-y:auto;"><ul id="admin-news-list" class="list-group list-group-flush"></ul></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB-3 COMPONENT CONTAINER GRID BLOCK NODES SECTION: NEWS DETAILS CARDS PORTAL -->
+            <div id="section-view-news" class="workspace-section-pane d-none">
+                <div class="row g-4">
+                    <div class="col-xl-5 col-lg-6">
+                        <div class="card premium-card" style="border-top: 4px solid var(--accent-mint);">
+                            <div class="premium-card-header"><span><i class="fas fa-plus text-success me-2"></i> Compile Formal News Announcement</span></div>
+                            <div class="card-body p-4">
+                                <form id="newsUpdateForm">
+                                    <input type="hidden" id="updateId">
+                                    <div class="premium-input-group">
+                                        <label class="form-label">Publication Event Date Reference</label>
+                                        <input type="date" id="updateDate" class="form-control" required>
+                                    </div>
+                                    <div class="premium-input-group">
+                                        <label class="form-label">Detailed News Summary Layout</label>
+                                        <textarea id="updateText" class="form-control" rows="4" placeholder="Type text details log string..." required></textarea>
+                                    </div>
+                                    <button type="submit" id="saveUpdateBtn" class="btn btn-success w-100 py-2.5 fw-bold" style="border-radius:12px;">Publish News Card</button>
+                                    <button type="button" id="cancelUpdateEditBtn" class="btn btn-light border w-100 mt-2 d-none" onclick="resetNewsUpdateForm()">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-7 col-lg-6">
+                        <div class="card premium-card">
+                            <div class="premium-card-header"><span><i class="fas fa-list text-secondary me-2"></i> Published Cards Catalog</span></div>
+                            <div class="card-body p-0" style="max-height:500px; overflow-y:auto;"><ul id="admin-updates-list" class="list-group list-group-flush"></ul></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB-4 COMPONENT CONTAINER GRID BLOCK NODES SECTION: PHOTO GALLERY ENCODER MODULE -->
+            <div id="section-view-gallery" class="workspace-section-pane d-none">
+                <div class="row g-4">
+                    <div class="col-xl-5 col-lg-6">
+                        <div class="card premium-card" style="border-top: 4px solid var(--accent-blue);">
+                            <div class="premium-card-header"><span><i class="fas fa-camera text-info me-2"></i> Register Digital Media File</span></div>
+                            <div class="card-body p-4">
+                                <form id="galleryForm">
+                                    <input type="hidden" id="galleryId">
+                                    <input type="hidden" id="galleryBase64Text">
+                                    <div class="premium-input-group">
+                                        <label class="form-label">Album Event Date Marker</label>
+                                        <input type="date" id="galleryDate" class="form-control" required>
+                                    </div>
+                                    <div class="premium-input-group">
+                                        <label class="form-label">Album Event Caption Title</label>
+                                        <input type="text" id="galleryTitle" class="form-control" placeholder="Type dynamic name text..." required>
+                                    </div>
+                                    <div class="premium-input-group">
+                                        <label class="form-label">Drop Image Track Asset Node</label>
+                                        <div class="modern-upload-dropzone" onclick="document.getElementById('galleryFileInput').click()">
+                                            <i class="fas fa-images fa-2x text-muted mb-2"></i>
+                                            <p class="mb-0 small text-secondary fw-semibold" id="upload-status-text">Click to load local media track file</p>
+                                            <input type="file" id="galleryFileInput" accept="image/*" class="d-none" onchange="processAndCompressImage(this)">
+                                            <img id="upload-preview-node" class="modern-preview-thumbnail">
+                                        </div>
+                                    </div>
+                                    <button type="submit" id="saveGalleryBtn" class="btn btn-info text-white w-100 py-2.5 fw-bold" style="border-radius:12px;">Publish Gallery Card</button>
+                                    <button type="button" id="cancelGalleryEditBtn" class="btn btn-light border w-100 mt-2 d-none" onclick="resetGalleryForm()">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-7 col-lg-6">
+                        <div class="card premium-card">
+                            <div class="premium-card-header"><span><i class="fas fa-photo-film text-secondary me-2"></i> Serialized Text Media Streams Feed</span></div>
+                            <div class="card-body p-0" style="max-height:500px; overflow-y:auto;"><ul id="admin-gallery-list" class="list-group list-group-flush"></ul></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
     </div>
 </div>
 
@@ -329,35 +581,35 @@
     }
 
     function handleAdminLogout() {
-        if(confirm("Confirm security termination session? Logout?")) {
+        if(confirm("Terminate configuration control console window layer? Exit?")) {
             localStorage.removeItem("adminLoggedIn");
             location.reload();
         }
     }
 
-    // Tab switcher forms
-    function switchFormTab(type) {
-        document.querySelectorAll('#formSelectorTabs .nav-link').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.form-wrapper-block').forEach(wrapper => wrapper.classList.add('d-none'));
-        
-        if(type === 'ticker') { document.getElementById('btn-tab-ticker').classList.add('active'); document.getElementById('wrapper-form-ticker').classList.remove('d-none'); }
-        if(type === 'news') { document.getElementById('btn-tab-news').classList.add('active'); document.getElementById('wrapper-form-news').classList.remove('d-none'); }
-        if(type === 'gallery') { document.getElementById('btn-tab-gallery').classList.add('active'); document.getElementById('wrapper-form-gallery').classList.remove('d-none'); }
+    // Modern isolated viewport view router controller
+    function switchUIPanelTab(targetSectionType) {
+        document.querySelectorAll('.sidebar-item-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.workspace-section-pane').forEach(section => section.classList.add('d-none'));
+
+        const currentSelectionButtonNode = document.getElementById(`nav-btn-${targetSectionType}`);
+        const currentTargetWorkspacePaneNode = document.getElementById(`section-view-${targetSectionType}`);
+
+        if(currentSelectionButtonNode && currentTargetWorkspacePaneNode) {
+            currentSelectionButtonNode.classList.add('active');
+            currentTargetWorkspacePaneNode.classList.remove('d-none');
+
+            // Dynamic header meta content management updates
+            const miniTagElement = document.getElementById("stage-mini-tag");
+            const mainTitleElement = document.getElementById("stage-main-title");
+
+            if(targetSectionType === 'admissions') { miniTagElement.innerText = "System Data Stream"; mainTitleElement.innerText = "Enquiry Forms Feed"; }
+            if(targetSectionType === 'ticker') { miniTagElement.innerText = "Homepage Elements"; mainTitleElement.innerText = "Dynamic News Ticker Controller"; }
+            if(targetSectionType === 'news') { miniTagElement.innerText = "Publications Desk"; mainTitleElement.innerText = "Formal News Cards Grid"; }
+            if(targetSectionType === 'gallery') { miniTagElement.innerText = "Digital Asset Warehouse"; mainTitleElement.innerText = "Media Base64 Text Matrix"; }
+        }
     }
 
-    // Tab switcher data feeds
-    function switchFeedTab(type) {
-        document.querySelectorAll('#dataFeedTab .nav-link').forEach(btn => btn.classList.remove('active'));
-        document.getElementById('panel-feed-ticker').classList.add('d-none');
-        document.getElementById('panel-feed-news').classList.add('d-none');
-        document.getElementById('panel-feed-gallery').classList.add('d-none');
-
-        if(type === 'ticker') { document.getElementById('feed-tab-ticker').classList.add('active'); document.getElementById('panel-feed-ticker').classList.remove('d-none'); }
-        if(type === 'news') { document.getElementById('feed-tab-news').classList.add('active'); document.getElementById('panel-feed-news').classList.remove('d-none'); }
-        if(type === 'gallery') { document.getElementById('feed-tab-gallery').classList.add('active'); document.getElementById('panel-feed-gallery').classList.remove('d-none'); }
-    }
-
-    // AUTOMATIC CANVAS COMPRESSION FOR TEXT/BASE64 STORAGE
     function processAndCompressImage(inputNode) {
         const file = inputNode.files[0];
         const statusText = document.getElementById("upload-status-text");
@@ -365,14 +617,13 @@
         const hiddenTextArea = document.getElementById("galleryBase64Text");
 
         if (file) {
-            statusText.innerText = "Processing & Compressing Image...";
+            statusText.innerText = "Compressing Binary Image Track Data...";
             const reader = new FileReader();
             reader.onload = function(event) {
                 const img = new Image();
                 img.onload = function() {
-                    // Creating Canvas for optimization 
                     const canvas = document.createElement("canvas");
-                    const max_size = 600; // Resize bounds dimension threshold for optimal Base64 payload
+                    const max_size = 600; 
                     let width = img.width;
                     let height = img.height;
 
@@ -387,13 +638,12 @@
                     const ctx = canvas.getContext("2d");
                     ctx.drawImage(img, 0, 0, width, height);
 
-                    // Output low-overhead base64 data link (Quality parameter 0.6)
-                    const optimizedBase64 = canvas.toDataURL("image/jpeg", 0.6);
-                    hiddenTextArea.value = optimizedBase64;
+                    const optimizedBase64TextPayload = canvas.toDataURL("image/jpeg", 0.6);
+                    hiddenTextArea.value = optimizedBase64TextPayload;
                     
-                    previewImg.src = optimizedBase64;
+                    previewImg.src = optimizedBase64TextPayload;
                     previewImg.style.display = "block";
-                    statusText.innerText = "Image converted successfully! (Ready to Save)";
+                    statusText.innerText = "Compressed conversion matrix ready!";
                 };
                 img.src = event.target.result;
             };
@@ -406,13 +656,12 @@
     import { db } from "./firebase-config.js";
     import { collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-    // Dynamic Engine Configuration Nodes
+    // Setup configuration bindings links mappings targets
     const newsForm = document.getElementById("newsForm");
     const newsIdInput = document.getElementById("newsId");
     const newsTextInput = document.getElementById("newsText");
     const saveNewsBtn = document.getElementById("saveNewsBtn");
     const cancelEditBtn = document.getElementById("cancelEditBtn");
-    const formActionTitle = document.getElementById("form-action-title");
     const adminNewsList = document.getElementById("admin-news-list");
 
     const newsUpdateForm = document.getElementById("newsUpdateForm");
@@ -421,7 +670,6 @@
     const updateTextInput = document.getElementById("updateText");
     const saveUpdateBtn = document.getElementById("saveUpdateBtn");
     const cancelUpdateEditBtn = document.getElementById("cancelUpdateEditBtn");
-    const updateFormTitle = document.getElementById("update-form-title");
     const adminUpdatesList = document.getElementById("admin-updates-list");
 
     const galleryForm = document.getElementById("galleryForm");
@@ -432,7 +680,6 @@
     const uploadPreviewNode = document.getElementById("upload-preview-node");
     const saveGalleryBtn = document.getElementById("saveGalleryBtn");
     const cancelGalleryEditBtn = document.getElementById("cancelGalleryEditBtn");
-    const galleryFormTitle = document.getElementById("gallery-form-title");
     const adminGalleryList = document.getElementById("admin-gallery-list");
     
     const enquiryTableBody = document.getElementById("enquiry-table-body");
@@ -453,7 +700,7 @@
         loadLiveAdmissionsData();
     }
 
-    // --- 1. TICKER PIPELINE ---
+    // --- 1. TICKER ANNOUNCEMENTS LOGIC ---
     newsForm.addEventListener("submit", async function(e) {
         e.preventDefault();
         const text = newsTextInput.value.trim();
@@ -468,7 +715,7 @@
                 await addDoc(collection(db, "latest_news"), { text: text, timestamp: new Date().getTime() });
             }
             resetNewsForm();
-        } catch (err) { alert("Database write operation failed."); }
+        } catch (err) { alert("Data pipeline deployment error."); }
         finally { saveNewsBtn.disabled = false; }
     });
 
@@ -476,31 +723,30 @@
         const q = query(collection(db, "latest_news"), orderBy("timestamp", "desc"));
         onSnapshot(q, (snapshot) => {
             adminNewsList.innerHTML = "";
-            if (snapshot.empty) { adminNewsList.innerHTML = `<li class="list-group-item text-muted text-center py-2">No tickers active.</li>`; return; }
+            if (snapshot.empty) { adminNewsList.innerHTML = `<li class="list-group-item text-muted text-center py-4 small">No active tickers found.</li>`; return; }
             snapshot.forEach((docSnap) => {
                 const data = docSnap.data();
                 const li = document.createElement("li");
-                li.className = "list-group-item d-flex justify-content-between align-items-center py-2 px-3 border-0 border-bottom";
-                li.innerHTML = `<div class="text-truncate me-2" style="max-width:75%; font-size:13px;">${data.text}</div>
-                    <div class="d-flex gap-1">
-                        <button class="btn btn-sm btn-light text-primary edit-btn"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-light text-danger del-btn"><i class="fas fa-trash"></i></button>
+                li.className = "list-group-item d-flex justify-content-between align-items-center py-3 px-4";
+                li.innerHTML = `<div style="font-size:13px; font-weight:500; color:var(--text-dark);">${data.text}</div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-light border p-1.5 px-2.5 text-primary edit-btn"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-light border p-1.5 px-2.5 text-danger del-btn"><i class="fas fa-trash-alt"></i></button>
                     </div>`;
                 li.querySelector(".edit-btn").onclick = () => {
                     newsIdInput.value = docSnap.id;
                     newsTextInput.value = data.text;
-                    formActionTitle.innerText = "Modify Active Ticker Announcement";
+                    document.getElementById("form-action-title").innerText = "Modify Selected Ticker Object";
                     cancelEditBtn.classList.remove("d-none");
-                    switchFormTab('ticker');
                 };
-                li.querySelector(".del-btn").onclick = async () => { if(confirm("Delete Ticker?")) await deleteDoc(doc(db, "latest_news", docSnap.id)); };
+                li.querySelector(".del-btn").onclick = async () => { if(confirm("Erase Ticker?")) await deleteDoc(doc(db, "latest_news", docSnap.id)); };
                 adminNewsList.appendChild(li);
             });
         });
     }
-    window.resetNewsForm = () => { newsForm.reset(); newsIdInput.value = ""; formActionTitle.innerText="Create Live Homepage Ticker"; cancelEditBtn.classList.add("d-none"); };
+    window.resetNewsForm = () => { newsForm.reset(); newsIdInput.value = ""; document.getElementById("form-action-title").innerText="Create Live Homepage Ticker"; cancelEditBtn.classList.add("d-none"); };
 
-    // --- 2. NEWS UPDATES CARDS PIPELINE ---
+    // --- 2. NEWS UPDATES CARDS LOGIC ---
     newsUpdateForm.addEventListener("submit", async function(e) {
         e.preventDefault();
         const dateVal = updateDateInput.value;
@@ -515,7 +761,7 @@
                 await addDoc(collection(db, "news_updates"), { date: dateVal, text: textVal, timestamp: new Date().getTime() });
             }
             resetNewsUpdateForm();
-        } catch (err) { alert("News integration transaction failed."); }
+        } catch (err) { alert("Data save operation aborted."); }
         finally { saveUpdateBtn.disabled = false; }
     });
 
@@ -523,32 +769,31 @@
         const q = query(collection(db, "news_updates"), orderBy("date", "desc"));
         onSnapshot(q, (snapshot) => {
             adminUpdatesList.innerHTML = "";
-            if (snapshot.empty) { adminUpdatesList.innerHTML = `<li class="list-group-item text-muted text-center py-2">No updates active.</li>`; return; }
+            if (snapshot.empty) { adminUpdatesList.innerHTML = `<li class="list-group-item text-muted text-center py-4 small">No news entries active.</li>`; return; }
             snapshot.forEach((docSnap) => {
                 const data = docSnap.data();
                 const li = document.createElement("li");
-                li.className = "list-group-item d-flex justify-content-between align-items-center py-2 px-3 border-0 border-bottom";
-                li.innerHTML = `<div class="text-truncate me-2" style="max-width:75%; font-size:13px;"><b class="text-success">[${data.date}]</b> ${data.text}</div>
-                    <div class="d-flex gap-1">
-                        <button class="btn btn-sm btn-light text-primary edit-btn"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-light text-danger del-btn"><i class="fas fa-trash"></i></button>
+                li.className = "list-group-item d-flex justify-content-between align-items-center py-3 px-4";
+                li.innerHTML = `<div style="font-size:13px; font-weight:500;"><b class="text-success">[${data.date}]</b> ${data.text}</div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-light border p-1.5 px-2.5 text-primary edit-btn"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-light border p-1.5 px-2.5 text-danger del-btn"><i class="fas fa-trash-alt"></i></button>
                     </div>`;
                 li.querySelector(".edit-btn").onclick = () => {
                     updateIdInput.value = docSnap.id;
                     updateDateInput.value = data.date;
                     updateTextInput.value = data.text;
-                    updateFormTitle.innerText = "Modify Selected News Card Details";
+                    document.getElementById("update-form-title").innerText = "Modify Targets Announcement Card Elements";
                     cancelUpdateEditBtn.classList.remove("d-none");
-                    switchFormTab('news');
                 };
-                li.querySelector(".del-btn").onclick = async () => { if(confirm("Remove news card?")) await deleteDoc(doc(db, "news_updates", docSnap.id)); };
+                li.querySelector(".del-btn").onclick = async () => { if(confirm("Delete news object card?")) await deleteDoc(doc(db, "news_updates", docSnap.id)); };
                 adminUpdatesList.appendChild(li);
             });
         });
     }
-    window.resetNewsUpdateForm = () => { newsUpdateForm.reset(); updateIdInput.value=""; updateFormTitle.innerText="Add Official News Update Card"; cancelUpdateEditBtn.classList.add("d-none"); };
+    window.resetNewsUpdateForm = () => { newsUpdateForm.reset(); updateIdInput.value=""; document.getElementById("update-form-title").innerText="Add Official News Update Card"; cancelUpdateEditBtn.classList.add("d-none"); };
 
-    // --- 3. PHOTO GALLERY CANVAS COMPRESSED CONVERT WRITER PIPELINE ---
+    // --- 3. PHOTO GALLERY CONVERT ENGINE LOGIC ---
     galleryForm.addEventListener("submit", async function(e) {
         e.preventDefault();
         const dateVal = galleryDateInput.value;
@@ -556,11 +801,9 @@
         const textPayload = galleryBase64Text.value;
         const id = galleryIdInput.value;
 
-        if(!textPayload) { alert("Please drop/select an image file first."); return; }
+        if(!textPayload) { alert("Please attach binary media node asset parameter data logs."); return; }
 
         saveGalleryBtn.disabled = true;
-        saveGalleryBtn.innerText = "Syncing String Text To Cluster...";
-
         try {
             if (id) {
                 await updateDoc(doc(db, "gallery", id), { date: dateVal, title: titleVal, imageTextData: textPayload });
@@ -568,34 +811,29 @@
                 await addDoc(collection(db, "gallery"), { date: dateVal, title: titleVal, imageTextData: textPayload, timestamp: new Date().getTime() });
             }
             resetGalleryForm();
-        } catch (error) {
-            console.error(error);
-            alert("Database compression string write error.");
-        } finally {
-            saveGalleryBtn.disabled = false;
-            saveGalleryBtn.innerText = "Publish Gallery Element";
-        }
+        } catch (error) { alert("Serialization text mapping injection write error."); }
+        finally { saveGalleryBtn.disabled = false; }
     });
 
     function loadLiveGalleryEngine() {
         const q = query(collection(db, "gallery"), orderBy("date", "desc"));
         onSnapshot(q, (snapshot) => {
             adminGalleryList.innerHTML = "";
-            if (snapshot.empty) { adminGalleryList.innerHTML = `<li class="list-group-item text-muted text-center py-3">Digital photo gallery empty.</li>`; return; }
+            if (snapshot.empty) { adminGalleryList.innerHTML = `<li class="list-group-item text-muted text-center py-4 small">Digital library registry stream empty.</li>`; return; }
             snapshot.forEach((docSnap) => {
                 const data = docSnap.data();
                 const li = document.createElement("li");
-                li.className = "list-group-item d-flex justify-content-between align-items-center py-2 px-3 border-0 border-bottom";
+                li.className = "list-group-item d-flex justify-content-between align-items-center py-3 px-4";
                 li.innerHTML = `
-                    <div class="d-flex align-items-center gap-2 text-truncate" style="max-width:75%;">
-                        <img src="${data.imageTextData}" style="width:38px; height:38px; object-fit:cover; border-radius:6px; background:#eee;" onerror="this.src='images/logo.png'">
-                        <div class="text-truncate" style="font-size:13px;">
+                    <div class="d-flex align-items-center gap-3 text-truncate" style="max-width:75%;">
+                        <img src="${data.imageTextData}" style="width:45px; height:45px; object-fit:cover; border-radius:10px; background:#f1f5f9; border:1px solid #e2e8f0;" onerror="this.src='images/logo.png'">
+                        <div class="text-truncate" style="font-size:13px; font-weight:500;">
                             <b class="text-info">[${data.date}]</b> ${data.title}
                         </div>
                     </div>
-                    <div class="d-flex gap-1">
-                        <button class="btn btn-sm btn-light text-primary edit-btn"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-sm btn-light text-danger del-btn"><i class="fas fa-trash"></i></button>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-light border p-1.5 px-2.5 text-primary edit-btn"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-light border p-1.5 px-2.5 text-danger del-btn"><i class="fas fa-trash-alt"></i></button>
                     </div>`;
 
                 li.querySelector(".edit-btn").onclick = () => {
@@ -606,14 +844,13 @@
                     
                     uploadPreviewNode.src = data.imageTextData;
                     uploadPreviewNode.style.display = "block";
-                    document.getElementById("upload-status-text").innerText = "Image track attached successfully!";
+                    document.getElementById("upload-status-text").innerText = "Active compressed context text string stream bounded!";
                     
-                    galleryFormTitle.innerText = "Modify Gallery Photo Text Database Document";
+                    document.getElementById("gallery-form-title").innerText = "Modify Image Data Text Object";
                     cancelGalleryEditBtn.classList.remove("d-none");
-                    switchFormTab('gallery');
                 };
 
-                li.querySelector(".del-btn").onclick = async () => { if(confirm("Delete gallery object text reference?")) await deleteDoc(doc(db, "gallery", docSnap.id)); };
+                li.querySelector(".del-btn").onclick = async () => { if(confirm("Erase data block asset text?")) await deleteDoc(doc(db, "gallery", docSnap.id)); };
                 adminGalleryList.appendChild(li);
             });
         });
@@ -625,36 +862,43 @@
         galleryBase64Text.value = "";
         uploadPreviewNode.style.display = "none";
         uploadPreviewNode.src = "";
-        document.getElementById("upload-status-text").innerText = "Click here to browse system image file";
-        galleryFormTitle.innerText = "Upload Image Card to Digital Gallery";
+        document.getElementById("upload-status-text").innerText = "Click to load local media track file";
+        document.getElementById("gallery-form-title").innerText = "Upload Image Card to Digital Gallery";
         cancelGalleryEditBtn.classList.add("d-none");
     };
 
-    // --- 4. LIVE ENQUIRIES CONTROLLER ---
+    // --- 4. RECEIVED ENQUIRIES TABLE SYSTEM ---
     function loadLiveAdmissionsData() {
         const q = query(collection(db, "admissions"), orderBy("submittedAt", "desc"));
         onSnapshot(q, (snapshot) => {
             enquiryTableBody.innerHTML = "";
             enquiryCountBadge.innerText = snapshot.size;
-            if (snapshot.empty) { enquiryTableBody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-5">No submissions.</td></tr>`; return; }
+            if (snapshot.empty) { enquiryTableBody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-5 fw-medium">No application tracking documents found in cloud matrix log cluster.</td></tr>`; return; }
             snapshot.forEach((docSnap) => {
                 const data = docSnap.data();
+                
                 let dateStr = "N/A";
-                if(data.submittedAt) { const d = new Date(data.submittedAt); dateStr = d.toLocaleDateString('en-IN') + '<br><span class="text-muted" style="font-size:11px;">' + d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}) + '</span>'; }
+                if(data.submittedAt) { 
+                    const d = new Date(data.submittedAt); 
+                    dateStr = d.toLocaleDateString('en-IN') + ' <span class="text-muted" style="font-size:11px;">' + d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}) + '</span>'; 
+                }
+                
                 const tr = document.createElement("tr");
-                tr.className = "border-bottom";
                 tr.innerHTML = `
-                    <td class="ps-4 text-secondary" style="font-size:12px;">${dateStr}</td>
+                    <td class="ps-4 text-secondary" style="font-weight:500;">${dateStr}</td>
                     <td>
-                        <div class="fw-bold text-dark">${data.title || ''} ${data.name || 'Anonymous'}</div>
-                        <div class="text-muted" style="font-size:11px;">Gen: ${data.gender || 'N/A'} | DOB: ${data.dob || 'N/A'}</div>
+                        <div class="fw-bold text-dark" style="font-size:14px;">${data.title || ''} ${data.name || 'Anonymous'}</div>
+                        <div class="text-muted" style="font-size:11px; margin-top:2px;">Gen: ${data.gender || 'N/A'} | DOB: ${data.dob || 'N/A'}</div>
+                        <div class="text-secondary mt-1" style="font-size:11px;"><i class="fas fa-map-marker-alt text-danger me-1"></i>${data.address || ''}, ${data.city || ''}</div>
                     </td>
-                    <td><span class="badge bg-light text-primary border border-primary-subtle py-1.5 px-2.5" style="font-size:11px;">${data.course || 'N/A'}</span></td>
+                    <td><span class="badge bg-light text-primary border border-primary-subtle py-1.5 px-3" style="font-size:11px; font-weight:700; border-radius:8px;">${data.course || 'N/A'}</span></td>
                     <td>
                         <div class="fw-semibold text-dark"><i class="fas fa-phone text-success me-1"></i> ${data.mobile || 'N/A'}</div>
+                        <div class="text-muted" style="font-size:11px; margin-top:2px;"><i class="fas fa-envelope text-info me-1"></i> ${data.email || 'N/A'}</div>
                     </td>
-                    <td class="pe-4"><button class="btn btn-sm btn-outline-danger border-0 delete-btn"><i class="fas fa-trash-alt"></i></button></td>`;
-                tr.querySelector(".delete-btn").onclick = async () => { if(confirm("Erase permanently?")) await deleteDoc(doc(db, "admissions", docSnap.id)); };
+                    <td class="pe-4"><button class="btn btn-sm btn-light border text-danger delete-btn" style="border-radius:8px; padding:6px 10px;"><i class="fas fa-trash-alt"></i></button></td>`;
+                
+                tr.querySelector(".delete-btn").onclick = async () => { if(confirm("Erase entry permanently?")) await deleteDoc(doc(db, "admissions", docSnap.id)); };
                 enquiryTableBody.appendChild(tr);
             });
         });
