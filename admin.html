@@ -32,7 +32,6 @@
             background-color: #003366;
             color: white;
         }
-        /* Login Overlay Styles */
         #login-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -88,38 +87,84 @@
     <div class="container-fluid px-4">
         <div class="row g-4">
             
+            <!-- LEFT COLUMN: LATEST NEWS TICKER & MAIN NEWS UPDATES -->
             <div class="col-lg-5">
+                
+                <!-- 1. LATEST NEWS TICKER FORM -->
                 <div class="card shadow-sm mb-4">
                     <div class="card-header card-header-custom">
-                        <i class="fas fa-edit me-2 text-warning"></i> <span id="form-action-title">Add Latest News</span>
+                        <i class="fas fa-edit me-2 text-warning"></i> <span id="form-action-title">Add Latest News Ticker (Homepage)</span>
                     </div>
                     <div class="card-body">
                         <form id="newsForm">
                             <input type="hidden" id="newsId">
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">News Announcement Text</label>
-                                <textarea id="newsText" class="form-control" rows="3" placeholder="Type news text here..." required></textarea>
+                                <label class="form-label fw-semibold">Ticker Text</label>
+                                <textarea id="newsText" class="form-control" rows="2" placeholder="Type homepage scrolling news here..." required></textarea>
                             </div>
                             <div class="d-flex gap-2">
-                                <button type="submit" id="saveNewsBtn" class="btn btn-custom-primary flex-grow-1">Publish News</button>
+                                <button type="submit" id="saveNewsBtn" class="btn btn-custom-primary flex-grow-1">Publish Ticker</button>
                                 <button type="button" id="cancelEditBtn" class="btn btn-secondary d-none" onclick="resetNewsForm()">Cancel</button>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <div class="card shadow-sm">
-                    <div class="card-header card-header-custom">
-                        <i class="fas fa-bullhorn me-2 text-warning"></i> Active News Feed
+                <!-- 2. MAIN NEWS UPDATES CARDS FORM (NEW SECTION) -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header card-header-custom" style="background-color: #003366;">
+                        <i class="fas fa-newspaper me-2 text-warning"></i> <span id="update-form-title">Add News Card (News Page)</span>
                     </div>
-                    <div class="card-body p-0" style="max-height: 400px; overflow-y: auto;">
-                        <ul id="admin-news-list" class="list-group list-group-flush">
-                            <li class="list-group-item text-muted text-center py-3">Loading news feed...</li>
-                        </ul>
+                    <div class="card-body">
+                        <form id="newsUpdateForm">
+                            <input type="hidden" id="updateId">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">News Date</label>
+                                <input type="date" id="updateDate" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">News Description / Content</label>
+                                <textarea id="updateText" class="form-control" rows="3" placeholder="Type detailed news update description here..." required></textarea>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="submit" id="saveUpdateBtn" class="btn btn-success flex-grow-1">Publish News Update</button>
+                                <button type="button" id="cancelUpdateEditBtn" class="btn btn-secondary d-none" onclick="resetNewsUpdateForm()">Cancel</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
+
+                <!-- FEEDS DISPLAY TABS -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header card-header-custom p-2">
+                        <ul class="nav nav-pills nav-fill" id="newsTabs" role="tablist">
+                            <li class="nav-item">
+                                <button class="nav-link active text-white" id="ticker-tab" data-bs-toggle="tab" data-bs-target="#ticker-panel" type="button">Active Tickers</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link text-white" id="updates-tab" data-bs-toggle="tab" data-bs-target="#updates-panel" type="button">Active News Cards</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body p-0 tab-content" style="max-height: 400px; overflow-y: auto;">
+                        <!-- Ticker Tab Panel -->
+                        <div class="tab-pane fade show active" id="ticker-panel">
+                            <ul id="admin-news-list" class="list-group list-group-flush">
+                                <li class="list-group-item text-muted text-center py-3">Loading news tickers...</li>
+                            </ul>
+                        </div>
+                        <!-- Updates Tab Panel -->
+                        <div class="tab-pane fade" id="updates-panel">
+                            <ul id="admin-updates-list" class="list-group list-group-flush">
+                                <li class="list-group-item text-muted text-center py-3">Loading news updates...</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
+            <!-- RIGHT COLUMN: ADMISSION ENQUIRIES -->
             <div class="col-lg-7">
                 <div class="card shadow-sm">
                     <div class="card-header card-header-custom d-flex justify-content-between align-items-center">
@@ -127,7 +172,7 @@
                         <span class="badge bg-warning text-dark" id="enquiry-count">0</span>
                     </div>
                     <div class="card-body p-0">
-                        <div class="table-responsive" style="max-height: 580px;">
+                        <div class="table-responsive" style="max-height: 750px;">
                             <table class="table table-hover table-striped align-middle mb-0">
                                 <thead class="table-light">
                                     <tr>
@@ -158,7 +203,6 @@
 <script>
     const CORRECT_PASSWORD = "admin123";
 
-    // Checking authentication status on DOM content load stage
     document.addEventListener("DOMContentLoaded", function() {
         if (localStorage.getItem("adminLoggedIn") === "true") {
             document.getElementById("login-overlay").classList.add("d-none");
@@ -170,17 +214,13 @@
     function handleAdminLogin(e) {
         e.preventDefault();
         const enteredPassword = document.getElementById("adminPassword").value.trim();
-        const loginOverlay = document.getElementById("login-overlay");
-        const dashboardContent = document.getElementById("dashboard-content");
-        const loginError = document.getElementById("login-error");
-
         if (enteredPassword === CORRECT_PASSWORD) {
             localStorage.setItem("adminLoggedIn", "true");
-            loginOverlay.classList.add("d-none");
-            dashboardContent.classList.remove("d-none");
+            document.getElementById("login-overlay").classList.add("d-none");
+            document.getElementById("dashboard-content").classList.remove("d-none");
             window.dispatchEvent(new Event('adminLoggedInSuccessfully'));
         } else {
-            loginError.classList.remove("d-none");
+            document.getElementById("login-error").classList.remove("d-none");
             document.getElementById("adminPassword").value = "";
         }
     }
@@ -197,6 +237,7 @@
     import { db } from "./firebase-config.js";
     import { collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
+    // Latest News Forms Elements
     const newsForm = document.getElementById("newsForm");
     const newsIdInput = document.getElementById("newsId");
     const newsTextInput = document.getElementById("newsText");
@@ -204,27 +245,37 @@
     const cancelEditBtn = document.getElementById("cancelEditBtn");
     const formActionTitle = document.getElementById("form-action-title");
     const adminNewsList = document.getElementById("admin-news-list");
+
+    // News Updates Cards Form Elements
+    const newsUpdateForm = document.getElementById("newsUpdateForm");
+    const updateIdInput = document.getElementById("updateId");
+    const updateDateInput = document.getElementById("updateDate");
+    const updateTextInput = document.getElementById("updateText");
+    const saveUpdateBtn = document.getElementById("saveUpdateBtn");
+    const cancelUpdateEditBtn = document.getElementById("cancelUpdateEditBtn");
+    const updateFormTitle = document.getElementById("update-form-title");
+    const adminUpdatesList = document.getElementById("admin-updates-list");
     
     const enquiryTableBody = document.getElementById("enquiry-table-body");
     const enquiryCountBadge = document.getElementById("enquiry-count");
 
-    // Dynamic state listener bindings
     window.addEventListener('adminLoggedInSuccessfully', () => {
         loadLiveNewsEngine();
+        loadLiveNewsUpdatesEngine();
         loadLiveAdmissionsData();
     });
 
     if (localStorage.getItem("adminLoggedIn") === "true") {
         loadLiveNewsEngine();
+        loadLiveNewsUpdatesEngine();
         loadLiveAdmissionsData();
     }
 
-    // --- NEWS PROCESS OPERATIONS ---
+    // --- 1. LATEST NEWS TICKER OPERATIONS ---
     newsForm.addEventListener("submit", async function(e) {
         e.preventDefault();
         const text = newsTextInput.value.trim();
         const id = newsIdInput.value;
-
         if (!text) return;
 
         saveNewsBtn.disabled = true;
@@ -232,10 +283,8 @@
 
         try {
             if (id) {
-                // UPDATE
                 await updateDoc(doc(db, "latest_news", id), { text: text });
             } else {
-                // CREATE
                 await addDoc(collection(db, "latest_news"), {
                     text: text,
                     timestamp: new Date().getTime()
@@ -243,8 +292,8 @@
             }
             resetNewsForm();
         } catch (error) {
-            console.error("News error: ", error);
-            alert("Database write error detected.");
+            console.error(error);
+            alert("Database write error.");
         } finally {
             saveNewsBtn.disabled = false;
         }
@@ -255,47 +304,39 @@
         onSnapshot(q, (snapshot) => {
             adminNewsList.innerHTML = "";
             if (snapshot.empty) {
-                adminNewsList.innerHTML = `<li class="list-group-item text-muted text-center py-3">No news items created yet.</li>`;
+                adminNewsList.innerHTML = `<li class="list-group-item text-muted text-center py-3">No ticker items created yet.</li>`;
                 return;
             }
-
             snapshot.forEach((docSnap) => {
                 const data = docSnap.data();
                 const li = document.createElement("li");
-                li.className = "list-group-item d-flex justify-content-between align-items-center py-3";
+                li.className = "list-group-item d-flex justify-content-between align-items-center py-2";
                 
                 const textDiv = document.createElement("div");
-                textDiv.className = "pe-3";
-                textDiv.style.cssText = "font-size: 14px; color: #333; word-break: break-word;";
+                textDiv.className = "pe-2 small";
                 textDiv.innerText = data.text;
 
                 const actionsDiv = document.createElement("div");
                 actionsDiv.className = "d-flex gap-1";
-                actionsDiv.style.flexShrink = "0";
 
                 const editBtn = document.createElement("button");
-                editBtn.className = "btn btn-sm btn-outline-primary";
+                editBtn.className = "btn btn-xs btn-outline-primary btn-sm";
                 editBtn.innerHTML = `<i class="fas fa-edit"></i>`;
                 editBtn.onclick = function() {
                     newsIdInput.value = docSnap.id;
                     newsTextInput.value = data.text;
-                    formActionTitle.innerText = "Modify News Announcement";
-                    saveNewsBtn.innerText = "Update News";
+                    formActionTitle.innerText = "Modify News Ticker Text";
+                    saveNewsBtn.innerText = "Update Ticker";
                     cancelEditBtn.classList.remove("d-none");
-                    newsTextInput.focus();
                 };
 
                 const deleteBtn = document.createElement("button");
-                deleteBtn.className = "btn btn-sm btn-outline-danger";
+                deleteBtn.className = "btn btn-xs btn-outline-danger btn-sm";
                 deleteBtn.innerHTML = `<i class="fas fa-trash"></i>`;
                 deleteBtn.onclick = async function() {
-                    if (confirm("Are you sure you want to permanently delete this news item?")) {
-                        try {
-                            await deleteDoc(doc(db, "latest_news", docSnap.id));
-                            if (newsIdInput.value === docSnap.id) resetNewsForm();
-                        } catch (error) {
-                            console.error("News Delete Failed: ", error);
-                        }
+                    if (confirm("Delete this Ticker?")) {
+                        await deleteDoc(doc(db, "latest_news", docSnap.id));
+                        if (newsIdInput.value === docSnap.id) resetNewsForm();
                     }
                 };
 
@@ -311,12 +352,111 @@
     window.resetNewsForm = function() {
         newsForm.reset();
         newsIdInput.value = "";
-        formActionTitle.innerText = "Add Latest News";
-        saveNewsBtn.innerText = "Publish News";
+        formActionTitle.innerText = "Add Latest News Ticker (Homepage)";
+        saveNewsBtn.innerText = "Publish Ticker";
         cancelEditBtn.classList.add("d-none");
     };
 
-    // --- ENQUIRIES LOADER ENGINE (WITH LIVE DELETE TRIGGER METHOD) ---
+
+    // --- 2. MAIN NEWS UPDATES PAGE OPERATIONS (NEW) ---
+    newsUpdateForm.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const dateVal = updateDateInput.value;
+        const textVal = updateTextInput.value.trim();
+        const id = updateIdInput.value;
+
+        if (!dateVal || !textVal) return;
+
+        saveUpdateBtn.disabled = true;
+        saveUpdateBtn.innerText = "Processing...";
+
+        try {
+            if (id) {
+                await updateDoc(doc(db, "news_updates", id), {
+                    date: dateVal,
+                    text: textVal
+                });
+            } else {
+                await addDoc(collection(db, "news_updates"), {
+                    date: dateVal,
+                    text: textVal,
+                    timestamp: new Date().getTime()
+                });
+            }
+            resetNewsUpdateForm();
+        } catch (error) {
+            console.error("News card operations error: ", error);
+            alert("Database write error.");
+        } finally {
+            saveUpdateBtn.disabled = false;
+        }
+    });
+
+    function loadLiveNewsUpdatesEngine() {
+        // News details loaded by timestamp order sequence descend
+        const q = query(collection(db, "news_updates"), orderBy("date", "desc"));
+        onSnapshot(q, (snapshot) => {
+            adminUpdatesList.innerHTML = "";
+            if (snapshot.empty) {
+                adminUpdatesList.innerHTML = `<li class="list-group-item text-muted text-center py-3">No news cards created yet.</li>`;
+                return;
+            }
+            snapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                const li = document.createElement("li");
+                li.className = "list-group-item d-flex justify-content-between align-items-center py-2";
+
+                const infoDiv = document.createElement("div");
+                infoDiv.className = "pe-2 small";
+                
+                // Format output visually nicely inside lists view inside admin layouts
+                const formattedDate = new Date(data.date).toLocaleDateString('en-GB', {day: '2-digit', month: 'short', year: 'numeric'});
+                infoDiv.innerHTML = `<strong class="text-primary">[${formattedDate}]</strong> ${data.text}`;
+
+                const actionsDiv = document.createElement("div");
+                actionsDiv.className = "d-flex gap-1";
+
+                const editBtn = document.createElement("button");
+                editBtn.className = "btn btn-outline-primary btn-sm";
+                editBtn.innerHTML = `<i class="fas fa-edit"></i>`;
+                editBtn.onclick = function() {
+                    updateIdInput.value = docSnap.id;
+                    updateDateInput.value = data.date;
+                    updateTextInput.value = data.text;
+                    updateFormTitle.innerText = "Modify News Card Details";
+                    saveUpdateBtn.innerText = "Update News Card";
+                    cancelUpdateEditBtn.classList.remove("d-none");
+                };
+
+                const deleteBtn = document.createElement("button");
+                deleteBtn.className = "btn btn-outline-danger btn-sm";
+                deleteBtn.innerHTML = `<i class="fas fa-trash"></i>`;
+                deleteBtn.onclick = async function() {
+                    if (confirm("Are you sure you want to delete this news card update permanently?")) {
+                        await deleteDoc(doc(db, "news_updates", docSnap.id));
+                        if (updateIdInput.value === docSnap.id) resetNewsUpdateForm();
+                    }
+                };
+
+                actionsDiv.appendChild(editBtn);
+                actionsDiv.appendChild(deleteBtn);
+                li.appendChild(infoDiv);
+                li.appendChild(actionsDiv);
+                adminUpdatesList.appendChild(li);
+            });
+        });
+    }
+
+    window.resetNewsUpdateForm = function() {
+        newsUpdateForm.reset();
+        updateIdInput.value = "";
+        updateFormTitle.innerText = "Add News Card (News Page)";
+        saveUpdateBtn.innerText = "Publish News Update";
+        cancelUpdateEditBtn.classList.add("d-none");
+    };
+
+
+    // --- 3. ENQUIRIES LOADER ENGINE ---
     function loadLiveAdmissionsData() {
         const q = query(collection(db, "admissions"), orderBy("submittedAt", "desc"));
         onSnapshot(q, (snapshot) => {
@@ -324,18 +464,12 @@
             enquiryCountBadge.innerText = snapshot.size;
 
             if (snapshot.empty) {
-                enquiryTableBody.innerHTML = `
-                    <tr>
-                        <td colspan="5" class="text-center text-muted py-4">
-                            <i class="fas fa-folder-open d-block mb-2 fs-3"></i> No enquiry applications found in database.
-                        </td>
-                    </tr>`;
+                enquiryTableBody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4">No enquiries found.</td></tr>`;
                 return;
             }
 
             snapshot.forEach((docSnap) => {
                 const data = docSnap.data();
-                
                 let dateStr = "N/A";
                 if(data.submittedAt) {
                     const d = new Date(data.submittedAt);
@@ -348,37 +482,23 @@
                     <td>
                         <div class="fw-bold text-dark" style="font-size: 15px;">${data.title || ''} ${data.name || 'Anonymous'}</div>
                         <div class="text-muted small">Gender: ${data.gender || 'N/A'} | DOB: ${data.dob || 'N/A'}</div>
-                        <div class="text-secondary mt-1" style="font-size: 12px; line-height: 1.3;">
-                            <i class="fas fa-map-marker-alt text-danger me-1"></i>${data.address || ''}, ${data.city || ''} (${data.pin || ''}), ${data.state || ''}
-                        </div>
+                        <div class="text-secondary mt-1" style="font-size: 12px;"><i class="fas fa-map-marker-alt text-danger me-1"></i>${data.address || ''}, ${data.city || ''}</div>
                     </td>
-                    <td><span class="badge bg-primary text-wrap py-2 px-3" style="font-size: 12px; min-width: 80px;">${data.course || 'N/A'}</span></td>
+                    <td><span class="badge bg-primary py-2 px-3">${data.course || 'N/A'}</span></td>
                     <td>
                         <div class="fw-semibold text-dark"><i class="fas fa-phone text-success me-2"></i>${data.mobile || 'N/A'}</div>
                         <div class="text-muted small mt-1"><i class="fas fa-envelope text-info me-2"></i>${data.email || 'N/A'}</div>
-                        <div class="text-secondary border-top mt-1 pt-1" style="font-size: 11px;">
-                            <strong>Guardian:</strong> ${data.guardianName || 'N/A'} (${data.relation || 'N/A'})
-                        </div>
                     </td>
                     <td>
-                        <button class="btn btn-sm btn-danger delete-enq-btn">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
+                        <button class="btn btn-sm btn-danger delete-enq-btn"><i class="fas fa-trash-alt"></i></button>
                     </td>
                 `;
 
-                // Attaching dynamic row deletion events directly inside loops
                 tr.querySelector(".delete-enq-btn").onclick = async function() {
-                    if (confirm(`Are you sure you want to delete the enquiry of ${data.name || 'this student'} permanently?`)) {
-                        try {
-                            await deleteDoc(doc(db, "admissions", docSnap.id));
-                        } catch (error) {
-                            console.error("Enquiry delete error: ", error);
-                            alert("Failed to delete entry.");
-                        }
+                    if (confirm("Delete entry permanently?")) {
+                        await deleteDoc(doc(db, "admissions", docSnap.id));
                     }
                 };
-
                 enquiryTableBody.appendChild(tr);
             });
         });

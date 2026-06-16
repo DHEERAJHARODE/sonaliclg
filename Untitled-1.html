@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonali College Guna</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        :root {
+            --dark-navy: #002244;
+            --gold: #b38f4a;
+            --light-bg: #f9f9f9;
+        }
+
+        /* ==================== VIDEO STYLE HERO SECTION ==================== */
+        .hero-section {
+            position: relative;
+            height: 600px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-slide {
+            position: relative;
+        }
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* Gradient overlay strictly matching existing dark tones */
+        .swiper-slide::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to right, rgba(0, 34, 68, 0.85), rgba(0, 0, 0, 0.4));
+            z-index: 1;
+        }
+        
+        /* Central Core Hero Content Layout from Video */
+        .hero-overlay-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero-main-content {
+            color: white;
+            max-width: 600px;
+            padding-left: 5%;
+            z-index: 12;
+        }
+        .hero-main-content h1 {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.2;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            margin-bottom: 15px;
+        }
+        .hero-main-content p {
+            font-size: 18px;
+            color: #f0f0f0;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Floating Sidebar Widgets (Video Feature Panels) */
+        .hero-left-sidebar {
+            position: absolute;
+            left: 0;
+            bottom: 40px;
+            background: var(--dark-navy);
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            z-index: 15;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+            border-left: 5px solid var(--gold);
+            padding: 15px;
+            width: 260px;
+        }
+        .hero-left-sidebar h6 {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 5px;
+        }
+        .hero-left-sidebar ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .hero-left-sidebar ul li {
+            margin-bottom: 8px;
+        }
+        .hero-left-sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 13px;
+            transition: 0.2s;
+            display: block;
+        }
+        .hero-left-sidebar ul li a:hover {
+            color: var(--gold);
+            padding-left: 5px;
+        }
+
+        /* Floating Right Form (Video Quick Enquiry Style) */
+        .hero-right-form {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 34, 68, 0.95);
+            padding: 25px;
+            border-radius: 8px;
+            width: 320px;
+            z-index: 15;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(179, 143, 74, 0.3);
+        }
+        .hero-right-form h3 {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .hero-right-form h3 span {
+            color: var(--gold);
+        }
+        .hero-right-form .form-control {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            font-size: 13px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+        }
+        .hero-right-form .form-control::placeholder {
+            color: #ccc;
+        }
+        .hero-right-form .form-control:focus {
+            background: rgba(255,255,255,0.2);
+            border-color: var(--gold);
+            box-shadow: none;
+            color: #fff;
+        }
+
+        .swiper-button-next, .swiper-button-prev {
+            color: rgba(255,255,255,0.7);
+        }
+        .swiper-pagination-bullet-active {
+            background: var(--gold) !important;
+        }
+
+        /* ==================== MID CONTENT CORE STYLING ==================== */
+        .section-title {
+            font-size: 14px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .section-heading {
+            font-size: 32px;
+            color: var(--dark-navy);
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        .gold-divider {
+            width: 60px;
+            height: 3px;
+            background-color: var(--gold);
+            margin: 15px auto 25px auto;
+        }
+        .btn-gold {
+            background-color: var(--gold);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            border: none;
+            transition: 0.3s;
+        }
+        .btn-gold:hover {
+            background-color: var(--dark-navy);
+            color: white;
+        }
+
+        /* Stats Section */
+        .video-stats {
+            background-color: var(--dark-navy);
+            padding: 40px 0;
+            color: white;
+        }
+        .stat-box {
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .stat-box:last-child {
+            border-right: none;
+        }
+        .stat-box h2 {
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+        .stat-box p {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+            color: #ccc;
+        }
+
+        /* Leaders Card */
+        .team-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 4px solid transparent;
+            transition: 0.3s;
+        }
+        .team-card:hover {
+            border-bottom-color: var(--gold);
+            transform: translateY(-5px);
+        }
+        .team-img-wrapper {
+            height: 280px;
+            overflow: hidden;
+            background: #eee;
+        }
+        .team-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .team-card h4 {
+            font-size: 18px;
+            color: var(--dark-navy);
+            font-weight: 700;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        .team-card p {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 10px;
+            padding: 0 15px;
+        }
+
+        /* Course Structure */
+        .course-card {
+            background: white;
+            border: 1px solid #eee;
+            padding: 30px;
+            border-radius: 4px;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            transition: 0.3s;
+        }
+        .course-card:hover {
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--gold);
+        }
+        .course-card h4 {
+            color: var(--dark-navy);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* Events Poster Panel */
+        .event-card {
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        .event-img {
+            height: 200px;
+            background: #ddd;
+        }
+        .event-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .event-details {
+            padding: 20px;
+        }
+        .event-date {
+            font-size: 12px;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .event-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--dark-navy);
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 991px) {
+            .hero-section { height: auto; min-height: 500px; }
+            .hero-overlay-container { position: relative; background: var(--dark-navy); padding: 40px 20px; display: block; }
+            .hero-main-content { padding-left: 0; max-width: 100%; text-align: center; }
+            .hero-main-content h1 { font-size: 32px; }
+            .hero-right-form { position: relative; right: auto; top: auto; transform: none; margin: 30px auto 0 auto; width: 100%; max-width: 380px; }
+            .hero-left-sidebar { display: none; }
+            .stat-box { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 15px; }
+            .stat-box:last-child { border-bottom: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-top d-none d-lg-block">
+    <div class="container d-flex justify-content-between">
+        <div>Admission Open: 2026-27</div>
+        <div>
+            <a href="admission-form.html">Apply Online</a>
+            <a href="news.html">News & Event</a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid px-lg-5 py-3 d-none d-lg-flex justify-content-between align-items-center bg-white">
+    <a href="index.html" class="d-flex align-items-center text-decoration-none">
+        <img src="images/logo.png" alt="Sonali College Logo" style="height: 60px; width: auto;" class="me-3">
+        <h1 class="m-0 fw-bold" style="color: var(--dark-navy); font-size: 32px; letter-spacing: 1px;">SONALI COLLEGE GUNA</h1>
+    </a>
+    
+    <div class="d-flex align-items-center gap-4">
+        <div class="d-flex align-items-center">
+            <i class="far fa-envelope fs-3 me-2" style="color: #002244;"></i> 
+            <span style="color: #666; font-size: 16px;">sonaliguna59@gmail.com</span>
+        </div>
+        <div class="d-flex align-items-center">
+            <i class="fas fa-phone-volume fs-3 me-2" style="color: #002244;"></i>
+            <span style="color: #666; font-size: 16px;">9993134443</span>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-expand-lg border-top border-bottom" style="background-color: #fafafa; padding: 10px 0;">
+    <div class="container-fluid px-lg-5">
+        <a class="navbar-brand fw-bold d-flex align-items-center d-lg-none" href="#">
+            <img src="images/logo.png" alt="Logo" style="height: 45px;" class="me-2">
+            SONALI COLLEGE
+        </a>
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navMenu">
+            <ul class="navbar-nav gap-2 gap-xl-4 text-center">
+                <li class="nav-item"><a class="nav-link" href="#">HOME</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="about.html" id="aboutDropdown">ABOUT US</a>
+                    <ul class="dropdown-menu shadow text-start" aria-labelledby="aboutDropdown">
+                        <li><a class="dropdown-item" href="chairman.html">Chairman Message</a></li>
+                        <li><a class="dropdown-item" href="mission-vision.html">Mission and Vision</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="academics.html">ACADEMICS</a></li>
+                <li class="nav-item"><a class="nav-link" href="infrastructure.html">INFRASTRUCTURE</a></li>
+                <li class="nav-item"><a class="nav-link" href="committees.html">CELLS & COMMITTEES</a></li>
+                <li class="nav-item"><a class="nav-link" href="admissions.html">ADMISSIONS</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="activities.html" id="activitiesDropdown">ACTIVITIES</a>
+                    <ul class="dropdown-menu shadow text-start" aria-labelledby="activitiesDropdown">
+                        <li><a class="dropdown-item" href="photo-gallery.html">Photo Gallery</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT US</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="hero-section">
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="images/2.jpeg" alt="Campus View"></div>
+            <div class="swiper-slide"><img src="images/3.jpeg" alt="Moot Court Area"></div>
+            <div class="swiper-slide"><img src="images/4.jpeg" alt="Library Complex"></div>
+            <div class="swiper-slide"><img src="images/5.jpeg" alt="Academic Block"></div>
+        </div>
+        <div class="swiper-button-next d-none d-lg-flex"></div>
+        <div class="swiper-button-prev d-none d-lg-flex"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <div class="hero-overlay-container">
+        <div class="hero-main-content">
+            <h1>Sonali College <br><span style="color: var(--gold);">of Law</span></h1>
+            <p>The First & Only BCI Approved Premium Law College in the Entire Region Dedicated to Legal Research & Scholarly Excellence.</p>
+            <a href="about.html" class="btn btn-gold">Explore Campus</a>
+        </div>
+
+        <div class="hero-left-sidebar d-none d-lg-block">
+            <h6><i class="fas fa-bullhorn me-2"></i>Quick Feeds</h6>
+            <ul>
+                <li><a href="#"><i class="fas fa-chevron-right me-1 small"></i> B.A.LL.B Admissions 2026</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right me-1 small"></i> National Moot Registration</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right me-1 small"></i> Free Scholarship Criteria</a></li>
+                <li><a href="#"><i class="fas fa-chevron-right me-1 small"></i> BCI Approval Certifications</a></li>
+            </ul>
+        </div>
+
+        <div class="hero-right-form">
+            <h3>Quick <span>Enquiry</span></h3>
+            <form action="#" method="POST">
+                <input type="text" class="form-control" placeholder="Enter Student Name" required>
+                <input type="email" class="form-control" placeholder="Enter Email Address" required>
+                <input type="text" class="form-control" placeholder="Enter Mobile Number" required>
+                <select class="form-select form-control">
+                    <option selected disabled>Select Desired Course</option>
+                    <option>B.A.LL.B. (Hons.) 5 Years</option>
+                    <option>B.B.A.LL.B. (Hons.) 5 Years</option>
+                    <option>LL.B. (Hons.) 3 Years</option>
+                </select>
+                <button type="submit" class="btn btn-gold w-100 mt-2 text-white">Submit Request</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-white">
+    <div class="container py-3">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <span class="section-title">About Us</span>
+                <h2 class="section-heading">Educating the mind without educating the heart is no education at all!</h2>
+                <p class="text-secondary" style="line-height: 1.8; text-align: justify;">
+                    Sonali College of Law embodies the belief that transformative change begins with a dream and a vision of a better future. Established in 1978, it has developed into a community of dedicated individuals who share a common goal of creating legal professionals with a profound understanding of law. 
+                </p>
+                <p class="text-secondary" style="line-height: 1.8; text-align: justify;">
+                    Our approach to education combines academic rigor with practical exposure, ensuring students are ready for the evolving demands of the legal industry. With over 23+ years of academic excellence, we take pride in nurturing future judges, advocates, and leaders.
+                </p>
+                <a href="about.html" class="btn btn-gold mt-3">Contact Us Today</a>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="p-5 d-inline-block text-center border rounded shadow-sm bg-light" style="min-width: 280px;">
+                    <span style="font-size: 90px; font-weight: 800; color: var(--dark-navy); line-height: 1;">23+</span>
+                    <div style="font-size: 14px; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); font-weight: 700; margin-top: 10px;">Years of Excellence</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="video-stats text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 stat-box">
+                <h2>20+</h2>
+                <p>Years Experience</p>
+            </div>
+            <div class="col-md-3 col-sm-6 stat-box">
+                <h2>18+</h2>
+                <p>States Covered</p>
+            </div>
+            <div class="col-md-3 col-sm-6 stat-box">
+                <h2>4200+</h2>
+                <p>Alumni Network</p>
+            </div>
+            <div class="col-md-3 col-sm-6 stat-box">
+                <h2>80+</h2>
+                <p>Judges & Advocates</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5" style="background-color: var(--light-bg);">
+    <div class="container text-center py-3">
+        <span class="section-title">Visionaries</span>
+        <h2 class="section-heading">Our Leadership Team</h2>
+        <div class="gold-divider"></div>
+        
+        <div class="row mt-4 justify-content-center">
+            <div class="col-lg-3 col-md-6">
+                <div class="team-card">
+                    <div class="team-img-wrapper">
+                        <img src="images/leader1.jpg" alt="Chairman">
+                    </div>
+                    <h4>Mr. Kantilal Ji Bam</h4>
+                    <p class="fw-bold text-muted">Founder & Chairman</p>
+                    <p>Driving the vision of high-quality legal education in the region.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="team-card">
+                    <div class="team-img-wrapper">
+                        <img src="images/leader2.jpg" alt="Director">
+                    </div>
+                    <h4>Dr. Akshay Kanti Bam</h4>
+                    <p class="fw-bold text-muted">Managing Director</p>
+                    <p>Focusing on modern innovation and holistic growth solutions.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="team-card">
+                    <div class="team-img-wrapper">
+                        <img src="images/leader3.jpg" alt="Dean">
+                    </div>
+                    <h4>Dr. Manpreet Kaur Rajpal</h4>
+                    <p class="fw-bold text-muted">Dean & Academics Head</p>
+                    <p>Ensuring rigorous scholarly training and corporate alignment.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="team-card">
+                    <div class="team-img-wrapper">
+                        <img src="images/leader4.jpg" alt="Principal">
+                    </div>
+                    <h4>Dr. Saket Vyas</h4>
+                    <p class="fw-bold text-muted">Principal</p>
+                    <p>Guiding daily student administration and legal activities.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-white">
+    <div class="container py-3">
+        <div class="text-center">
+            <span class="section-title">Courses Offered</span>
+            <h2 class="section-heading">Integrated UG & PG Courses in Law</h2>
+            <div class="gold-divider"></div>
+        </div>
+        
+        <div class="row mt-4 g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="course-card">
+                    <div>
+                        <h4>B.A.LL.B. (Hons.)</h4>
+                        <p class="text-muted mt-2 small">5 Years Integrated Degree</p>
+                        <p class="text-secondary mt-3">Every graduate will be highly skilled in legal research, professional draftsmanship, litigation, and communication tactics.</p>
+                    </div>
+                    <a href="#" class="text-decoration-none fw-bold small" style="color: var(--gold);">KNOW MORE &rarr;</a>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="course-card">
+                    <div>
+                        <h4>B.B.A.LL.B. (Hons.)</h4>
+                        <p class="text-muted mt-2 small">5 Years Integrated Degree</p>
+                        <p class="text-secondary mt-3">Combines premium management techniques and business leadership skills with standard hardcore law disciplines.</p>
+                    </div>
+                    <a href="#" class="text-decoration-none fw-bold small" style="color: var(--gold);">KNOW MORE &rarr;</a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="course-card">
+                    <div>
+                        <h4>LL.B. (Hons.)</h4>
+                        <p class="text-muted mt-2 small">3 Years Degree Course</p>
+                        <p class="text-secondary mt-3">Designed specifically for graduates looking to dive deep into corporate advisory, advocacy, or specialized litigation paths.</p>
+                    </div>
+                    <a href="#" class="text-decoration-none fw-bold small" style="color: var(--gold);">KNOW MORE &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5" style="background-color: var(--light-bg);">
+    <div class="container py-3">
+        <div class="text-center">
+            <span class="section-title">Life at Sonali College</span>
+            <h2 class="section-heading">Upcoming Events & Announcements</h2>
+            <div class="gold-divider"></div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="event-card">
+                    <div class="event-img">
+                        <img src="images/event1.jpg" alt="Conference">
+                    </div>
+                    <div class="event-details">
+                        <div class="event-date"><i class="far fa-calendar-alt me-1"></i> May 20, 2026</div>
+                        <div class="event-title">National Conference on Law & Judicial System</div>
+                        <a href="#" class="btn btn-outline-dark btn-sm w-100">Check Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="event-card">
+                    <div class="event-img">
+                        <img src="images/event2.jpg" alt="Alumni Meet">
+                    </div>
+                    <div class="event-details">
+                        <div class="event-date"><i class="far fa-calendar-alt me-1"></i> March 11, 2026</div>
+                        <div class="event-title">Grand Alumni Meet & Felicitations 2026</div>
+                        <a href="#" class="btn btn-outline-dark btn-sm w-100">Check Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="event-card">
+                    <div class="event-img">
+                        <img src="images/event3.jpg" alt="Moot Court">
+                    </div>
+                    <div class="event-details">
+                        <div class="event-date"><i class="far fa-calendar-alt me-1"></i> Jan 15, 2026</div>
+                        <div class="event-title">International Moot Court Championship</div>
+                        <a href="#" class="btn btn-outline-dark btn-sm w-100">Check Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="event-card">
+                    <div class="event-img">
+                        <img src="images/event4.jpg" alt="Voice of India">
+                    </div>
+                    <div class="event-details">
+                        <div class="event-date"><i class="far fa-calendar-alt me-1"></i> Jan 08, 2026</div>
+                        <div class="event-title">Call For Papers: The Legal Voice of India</div>
+                        <a href="#" class="btn btn-outline-dark btn-sm w-100">Check Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="custom-footer">
+    <div class="container pb-4 pt-5">
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                <h3 class="footer-brand mb-3">SONALI COLLEGE</h3>
+                <p class="text-white-50 pe-3">Empowering Education for a Better Future. Dedicated to academic excellence and holistic student development.</p>
+                <div class="social-links mt-3">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                <h5 class="footer-heading mb-3">Useful Links</h5>
+                <ul class="footer-links list-unstyled">
+                    <li><a href="admissions.html"><i class="fas fa-angle-right me-2"></i>Admission</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Examination Link</a></li>
+                    <li><a href="news.html"><i class="fas fa-angle-right me-2"></i>News</a></li>
+                    <li><a href="activities.html"><i class="fas fa-angle-right me-2"></i>Activities</a></li>
+                    <li><a href="contact.html"><i class="fas fa-angle-right me-2"></i>Contact</a></li>
+                    <li><a href="./uploads/faculty.pdf"><i class="fas fa-angle-right me-2"></i>Faculty</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                <h5 class="footer-heading mb-3">Quick Links</h5>
+                <ul class="footer-links list-unstyled">
+                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Photo-gallery</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Video-Gallery</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                <h5 class="footer-heading mb-3">Affiliation</h5>
+                <ul class="footer-links list-unstyled">
+                    <li><a href="uploads/NOC_HR_EDU..pdf"><i class="fas fa-angle-right me-2"></i>Higher Education</a></li>
+                    <li><a href="uploads/Jiwaji_2025_26.pdf"><i class="fas fa-angle-right me-2"></i>University</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>NCTE</a></li>
+                </ul>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <h5 class="footer-heading mb-3">Contact Us</h5>
+                <ul class="footer-contact list-unstyled">
+                    <li class="mb-3 d-flex">
+                        <i class="fas fa-map-marker-alt mt-1 me-3"></i>
+                        <span class="text-white-50">
+                            <strong>College:</strong> Plot No. 800/1, 824/2, Vill: Guna, Dist.: Guna - 473001, M.P.<br><br>
+                            <strong>Run By:</strong> Sonali Public Shiksha Samiti, Saraswati Vihar Colony.
+                        </span>
+                    </li>
+                    <li class="mb-2 d-flex align-items-center">
+                        <i class="fas fa-phone-alt me-3"></i>
+                        <span class="text-white-50">9993134443, 8979797789</span>
+                    </li>
+                    <li class="mb-2 d-flex align-items-center">
+                        <i class="fas fa-envelope me-3"></i>
+                        <span class="text-white-50">sonaliguna59@gmail.com</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom mt-4">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <p class="mb-0 text-white-50">Copyright &copy; 2026, SONALI COLLEGE GUNA. All rights reserved.</p>
+            <p class="mb-0 text-white-50 mt-2 mt-md-0">Powered by <span class="text-white fw-bold">Adonai</span></p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        spaceBetween: 0,
+        centeredSlides: true,
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonali College Guna</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .hero-section {
+            position: relative;
+            height: 500px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-slide {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Default state: normal image size */
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1);
+            transition: transform 0s; /* No delay during reset */
+        }
+        
+        /* CRITICAL FIX: Trigger zoom ONLY on the active slider image */
+        .swiper-slide-active img {
+            animation: kenBurnsZoom 5s ease-out forwards;
+        }
+        
+        /* Smooth Zoom-In Keyframe Animation */
+        @keyframes kenBurnsZoom {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.15); /* Zooms in gently by 15% */
+            }
+        }
+
+        /* Dark overlay on images so text is readable */
+        .swiper-slide::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        /* Text fixed on top of slider */
+        .hero-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            width: 100%;
+            pointer-events: none; 
+        }
+        .hero-overlay .hero-content {
+            pointer-events: auto; 
+        }
+        
+        /* Typography Content Styles */
+        .hero-overlay .sub-title {
+            font-size: 18px;
+            color: #d1a166; /* Elegant bronze/gold theme from your images */
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            margin-bottom: 12px;
+        }
+        .hero-overlay h1 {
+            font-size: 45px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            color: white;
+            font-weight: 700;
+        }
+        .hero-overlay p {
+            font-size: 18px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            color: white;
+            margin-top: 10px;
+        }
+        
+        /* Smooth Fade-Up Text Animations */
+        .animate-text {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: textSlideUp 0.8s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        @keyframes textSlideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .swiper-button-next, .swiper-button-prev {
+            color: white;
+        }
+        .swiper-pagination-bullet-active {
+            background: #004a99;
+        }
+
+        /* Mobile Responsive Viewport adjustments */
+        @media (max-width: 768px) {
+            .hero-section { height: 350px; }
+            .hero-overlay h1 { font-size: 26px; }
+            .hero-overlay p, .hero-overlay .sub-title { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-top d-none d-lg-block">
+    <div class="container d-flex justify-content-between">
+        <div>Admission Open: 2026-27</div>
+        <div>
+            <a href="admission-form.html">Apply Online</a>
+            <a href="news.html">News & Event</a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid px-lg-5 py-3 d-none d-lg-flex justify-content-between align-items-center bg-white">
+    <a href="index.html" class="d-flex align-items-center text-decoration-none">
+        <img src="images/logo.png" alt="Sonali College Logo" style="height: 60px; width: auto;" class="me-3">
+        <h1 class="m-0 fw-bold" style="color: var(--dark-navy); font-size: 32px; letter-spacing: 1px;">SONALI COLLEGE GUNA</h1>
+    </a>
+    
+    <div class="d-flex align-items-center gap-4">
+        <div class="d-flex align-items-center">
+            <i class="far fa-envelope fs-3 me-2" style="color: #002244;"></i> 
+            <span style="color: #666; font-size: 16px;">sonaliguna59@gmail.com</span>
+        </div>
+        <div class="d-flex align-items-center">
+            <i class="fas fa-phone-volume fs-3 me-2" style="color: #002244;"></i>
+            <span style="color: #666; font-size: 16px;">9993134443</span>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-expand-lg border-top border-bottom" style="background-color: #fafafa; padding: 10px 0;">
+    <div class="container-fluid px-lg-5">
+        <a class="navbar-brand fw-bold d-flex align-items-center d-lg-none" href="#">
+            <img src="images/logo.png" alt="Logo" style="height: 45px;" class="me-2">
+            SONALI COLLEGE
+        </a>
+
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-center" id="navMenu">
+            <ul class="navbar-nav gap-2 gap-xl-4 text-center">
+                <li class="nav-item"><a class="nav-link" href="#">HOME</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="about.html" id="aboutDropdown">ABOUT US</a>
+                    <ul class="dropdown-menu shadow text-start" aria-labelledby="aboutDropdown">
+                        <li><a class="dropdown-item" href="chairman.html">Chairman Message</a></li>
+                        <li><a class="dropdown-item" href="mission-vision.html">Mission and Vision</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="academics.html">ACADEMICS</a></li>
+                <li class="nav-item"><a class="nav-link" href="infrastructure.html">INFRASTRUCTURE</a></li>
+                <li class="nav-item"><a class="nav-link" href="committees.html">CELLS & COMMITTEES</a></li>
+                <li class="nav-item"><a class="nav-link" href="admissions.html">ADMISSIONS</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="activities.html" id="activitiesDropdown">ACTIVITIES</a>
+                    <ul class="dropdown-menu shadow text-start" aria-labelledby="activitiesDropdown">
+                        <li><a class="dropdown-item" href="photo-gallery.html">Photo Gallery</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT US</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="hero-section">
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="images/1.jpeg" alt="College Image 1"></div>
+            <div class="swiper-slide"><img src="./images/homeimg/bg-slider1.jpg" alt="College Image 1.1"></div>
+            <div class="swiper-slide"><img src="images/2.jpeg" alt="College Image 2"></div>
+            <div class="swiper-slide"><img src="images/homeimg/bg-slider1-layer3.jpg" alt="College Image 3"></div>
+            <!-- <div class="swiper-slide"><img src="images/4.jpeg" alt="College Image 4"></div>
+            <div class="swiper-slide"><img src="images/5.jpeg" alt="College Image 5"></div>
+            <div class="swiper-slide"><img src="images/6.jpeg" alt="College Image 6"></div>
+            <div class="swiper-slide"><img src="images/7.jpeg" alt="College Image 7"></div>
+            <div class="swiper-slide"><img src="images/8.jpeg" alt="College Image 8"></div>
+            <div class="swiper-slide"><img src="images/9.jpeg" alt="College Image 9"></div>
+            <div class="swiper-slide"><img src="images/10.jpeg" alt="College Image 10"></div>
+            
+            <div class="swiper-slide"><img src="images/1.jpeg" alt="Rank 1 Private Law College Info"></div>
+            
+            <div class="swiper-slide"><img src="images/5.jpeg" alt="Rank 1 Private Law College Actions"></div> -->
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <div class="hero-overlay">
+        <div class="hero-content text-center" id="heroAnimatedContent">
+            </div>
+    </div>
+</section>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <h2>About Our College</h2>
+            <p>SONALI COLLEGE - GUNA was established In 1978. It is approved by NCTE (National Council for Teacher Education) & affiliated by Jiwaji University, Gwalior. The campus of the SONALI COLLEGE - GUNA is located in Guna, Madhya Pradesh. The Institute can be reached either by rail or by road.</p>
+            <p>Destiny is not a matter of chance; it is a matter of choice. It is not a thing to be waited for, it is a thing to be achieved. ―William Jennings Bryan, politician and orator</p>
+            <p>The journey of achieving success in college begins with a single step: identifying your personal values. Your personal values are your core beliefs and guiding principles. They shape the roles you play in daily life. They color your interests and passions, and frame your thoughts and words. In essence, your values are a compass that help you make decisions and choices.</p>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="notice-board">
+                <h4><i class="fas fa-bullhorn"></i> Latest News</h4>
+                <ul class="mt-3">
+                    <li>Admissions Open 2026-27</li>
+                    <li>Annual Function Coming Soon</li>
+                    <li>Scholarship Applications Available</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="features py-5">
+    <div class="container text-center">
+        <h2>Why Choose Us</h2>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <i class="fas fa-user-graduate icon"></i>
+                <h5>Experienced Faculty</h5>
+                <p>Highly qualified and dedicated teachers.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-building icon"></i>
+                <h5>Modern Campus</h5>
+                <p>Well-equipped labs and classrooms.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-book icon"></i>
+                <h5>Quality Education</h5>
+                <p>Focus on academic excellence and growth.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats-section">
+    <div class="stats-overlay">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center justify-content-end text-white">
+                <div class="col-md-4 text-center mb-4">
+                    <img src="images/graduates.png" class="stat-icon mb-2" alt="Graduates">
+                    <h5>Our Alumni</h5>
+                    <h2>4235</h2>
+                </div>
+                <div class="col-md-4 text-center mb-4">
+                    <img src="images/student.png" class="stat-icon mb-2" alt="Students">
+                    <h5>Students Enrolled</h5>
+                    <h2>5024</h2>
+                </div>
+                <div class="col-md-4 text-center mb-4">
+                    <img src="images/teacher.png" class="stat-icon mb-2" alt="Teachers">
+                    <h5>Certified Teachers</h5>
+                    <h2>235</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="custom-footer">
+    <div class="container pb-4 pt-5">
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                <h3 class="footer-brand mb-3">SONALI COLLEGE</h3>
+                <p class="text-white-50 pe-3">Empowering Education for a Better Future. Dedicated to academic excellence and holistic student development.</p>
+                <div class="social-links mt-3">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                <h5 class="footer-heading mb-3">Useful Links</h5>
+                <ul class="footer-links list-unstyled">
+                    <li><a href="admissions.html"><i class="fas fa-angle-right me-2"></i>Admission</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Examination Link</a></li>
+                    <li><a href="news.html"><i class="fas fa-angle-right me-2"></i>News</a></li>
+                    <li><a href="activities.html"><i class="fas fa-angle-right me-2"></i>Activities</a></li>
+                    <li><a href="contact.html"><i class="fas fa-angle-right me-2"></i>Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                <h5 class="footer-heading mb-3">Quick Links</h5>
+                <ul class="footer-links list-unstyled">
+                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Photo-gallery</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Video-Gallery</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <h5 class="footer-heading mb-3">Contact Us</h5>
+                <ul class="footer-contact list-unstyled">
+                    <li class="mb-3 d-flex">
+                        <i class="fas fa-map-marker-alt mt-1 me-3"></i>
+                        <span class="text-white-50">
+                            <strong>College:</strong> Plot No. 800/1, 824/2, Vill: Guna, Dist.: Guna - 473001, M.P.<br><br>
+                            <strong>Run By:</strong> Sonali Public Shiksha Samiti, Saraswati Vihar Colony.
+                        </span>
+                    </li>
+                    <li class="mb-2 d-flex align-items-center">
+                        <i class="fas fa-phone-alt me-3"></i>
+                        <span class="text-white-50">9993134443, 8979797789</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom mt-4">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <p class="mb-0 text-white-50">Copyright &copy; 2026, SONALI COLLEGE GUNA. All rights reserved.</p>
+            <p class="mb-0 text-white-50 mt-2 mt-md-0">Powered by <span class="text-white fw-bold">Adonai</span></p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<script>
+    // Custom content dataset map linking loop index states seamlessly
+    const slideData = [
+        { subtitle: "", title: "Sonali College of Law", desc: "The First & Only BCI Approved Law College in the Region" },
+        { subtitle: "Affiliated to DAVV NAAC A+ University", title: "Rank 1st Private Law College", desc: "in M.P., C.G. & Rajasthan — 18 States 18000+ Alumni's" },
+        { subtitle: "", title: "Sonali College of Law", desc: "The First & Only BCI Approved Law College in the Region" },
+        { subtitle: "Affiliated to DAVV NAAC A+ University", title: "Rank 1st Private Law College", desc: "in M.P., C.G. & Rajasthan — 18 States 18000+ Alumni's" },
+        { subtitle: "", title: "Sonali College of Law", desc: "The First & Only BCI Approved Law College in the Region" },
+        //{ subtitle: "", title: "Sonali College of Law", desc: "The First & Only BCI Approved Law College in the Region" },
+        //{ subtitle: "", title: "Sonali College of Law", desc: "The First & Only BCI Approved Law College in the Region" },
+        //{ subtitle: "", title: "Sonali College of Law", desc: "The First & Only BCI Approved Law College in the Region" },
+        //{ subtitle: "", title: "Sonali College of Law", desc: "The First & Only BCI Approved Law College in the Region" },
+        //{ subtitle: "", title: "Sonali College of Law", desc: "The First & Only BCI Approved Law College in the Region" },
+        //{ subtitle: "", title: "Sonali College of Law", desc: "The First & Only BCI Approved Law College in the Region" }
+        // New Slide 11 matching image content
+    ];
+
+    const contentContainer = document.getElementById("heroAnimatedContent");
+
+    function updateSlideText(realIndex) {
+        const data = slideData[realIndex] || slideData[0];
+        let subtitleHTML = data.subtitle ? `<div class="sub-title animate-text delay-1">${data.subtitle}</div>` : '';
+        
+        // Re-inject elements cleanly to force CSS animation re-execution triggers
+        contentContainer.innerHTML = `
+            ${subtitleHTML}
+            <h1 class="animate-text delay-2">${data.title}</h1>
+            <p class="animate-text delay-3">${data.desc}</p>
+            <a href="admission-form.html" class="btn btn-primary mt-3 animate-text delay-3">Apply Now</a>
+        `;
+    }
+
+    var swiper = new Swiper(".mySwiper", {
+        spaceBetween: 0,
+        centeredSlides: true,
+        loop: true,
+        effect: "fade", /* Changes slide smoothly via a fade style to emphasize background zoom */
+        fadeEffect: {
+            crossFade: true
+        },
+        autoplay: {
+            delay: 4500, /* 4.5 seconds lifecycle allows complete clean animations to complete */
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        on: {
+            init: function () {
+                updateSlideText(this.realIndex);
+            },
+            slideChange: function () {
+                updateSlideText(this.realIndex);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -10,27 +10,26 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-        /* NEWS SECTION */
+        :root {
+            --dark-navy: #002244;
+            --brand-gold: #ffcc00;
+        }
         .news-section {
             background: #f7f9fc;
         }
-
         .news-title {
             font-weight: 700;
             color: var(--dark-navy);
         }
-
         .news-desc {
             color: #666;
             max-width: 800px;
         }
-
         .news-link {
             text-decoration: none;
             display: block;
             color: inherit;
         }
-
         .news-card {
             background: #fff;
             padding: 20px;
@@ -42,14 +41,12 @@
             position: relative;
             overflow: hidden;
         }
-
         .news-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-color: var(--primary-blue);
+            border-color: var(--dark-navy);
             cursor: pointer;
         }
-
         .news-card::before {
             content: '';
             position: absolute;
@@ -57,29 +54,20 @@
             top: 0;
             width: 4px;
             height: 100%;
-            background: var(--golden-yellow);
+            background: var(--brand-gold);
         }
-
         .news-date {
             font-size: 13px;
             font-weight: bold;
-            color: var(--primary-blue);
+            color: var(--dark-navy);
             margin-bottom: 8px;
             display: block;
         }
-
         .news-card p {
             margin: 0;
             font-size: 15px;
-        }
-
-        .news-card.wide {
-            padding: 25px;
-        }
-
-        .news-card.small {
-            padding: 15px;
-            font-size: 14px;
+            font-weight: 500;
+            color: #333;
         }
     </style>
 </head>
@@ -91,7 +79,7 @@
         <div>Admission Open: 2026-27</div>
         <div>
             <a href="admission-form.html">Apply Online</a>
-            <a href="#">News & Event</a>
+            <a href="news.html">News & Event</a>
         </div>
     </div>
 </div>
@@ -116,41 +104,32 @@
 
 <nav class="navbar navbar-expand-lg border-top border-bottom" style="background-color: #fafafa; padding: 10px 0;">
     <div class="container-fluid px-lg-5">
-        
-        <a class="navbar-brand fw-bold d-flex align-items-center d-lg-none" href="#">
+        <a class="navbar-brand fw-bold d-flex align-items-center d-lg-none" href="index.html">
             <img src="images/logo.png" alt="Logo" style="height: 45px;" class="me-2">
             SONALI COLLEGE
         </a>
-
         <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse justify-content-center" id="navMenu">
             <ul class="navbar-nav gap-2 gap-xl-4 text-center">
                 <li class="nav-item"><a class="nav-link" href="index.html">HOME</a></li>
-                
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="about.html" id="aboutDropdown">
-                        ABOUT US
-                    </a>
+                    <a class="nav-link" href="about.html" id="aboutDropdown">ABOUT US</a>
                     <ul class="dropdown-menu shadow text-start" aria-labelledby="aboutDropdown">
                         <li><a class="dropdown-item" href="chairman.html">Chairman Message</a></li>
                         <li><a class="dropdown-item" href="mission-vision.html">Mission and Vision</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item"><a class="nav-link" href="academics.html">ACADEMICS</a></li>
                 <li class="nav-item"><a class="nav-link" href="infrastructure.html">INFRASTRUCTURE</a></li>
                 <li class="nav-item"><a class="nav-link" href="committees.html">CELLS & COMMITTEES</a></li>
                 <li class="nav-item"><a class="nav-link" href="admissions.html">ADMISSIONS</a></li>
                 <li class="nav-item dropdown">
-                <a class="nav-link" href="activities.html" id="activitiesDropdown">
-                    ACTIVITIES
-                </a>
-                <ul class="dropdown-menu shadow text-start" aria-labelledby="activitiesDropdown">
-                    <li><a class="dropdown-item" href="photo-gallery.html">Photo Gallery</a></li>
-                </ul>
+                    <a class="nav-link" href="activities.html" id="activitiesDropdown">ACTIVITIES</a>
+                    <ul class="dropdown-menu shadow text-start" aria-labelledby="activitiesDropdown">
+                        <li><a class="dropdown-item" href="photo-gallery.html">Photo Gallery</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT US</a></li>
             </ul>
@@ -161,76 +140,18 @@
 <!-- NEWS SECTION -->
 <section class="news-section py-5">
     <div class="container">
-
         <h2 class="mb-4 fw-bold">News Updates</h2>
-
         <h3 class="news-title">Welcome to SONALI COLLEGE</h3>
-
         <p class="news-desc">
-            SONALI COLLEGE - GUNA was established in 1978. It is approved by NCTE 
-            & affiliated by Jiwaji University, Gwalior.
+            SONALI COLLEGE - GUNA was established in 1978. It is approved by NCTE & affiliated by Jiwaji University, Gwalior.
         </p>
 
-        <div class="row g-4 mt-3">
-
-            <!-- BIG NEWS -->
-            <div class="col-12">
-                <a href="#" class="news-link">
-                    <div class="news-card wide">
-                        <span class="news-date">20 July, 2024</span>
-                        <p>Revised Time Table of B.A.LL.B. (5YDC) IVth & VIth Semester...</p>
-                    </div>
-                </a>
+        <!-- DYNAMIC CARDS CONTAINER -->
+        <div class="row g-4 mt-3" id="dynamic-news-container">
+            <div class="col-12 text-center text-muted py-5">
+                <i class="fas fa-spinner fa-spin fa-2x mb-3"></i>
+                <p>Fetching latest news updates from database...</p>
             </div>
-
-            <!-- LEFT -->
-            <div class="col-md-6">
-                <a href="#" class="news-link">
-                    <div class="news-card">
-                        <span class="news-date">05 June, 2025</span>
-                        <p>ADMISSION OPEN D.EL.ED, B.ED, BA.BED, M.ED YEAR 2025-26</p>
-                    </div>
-                </a>
-            </div>
-
-            <!-- RIGHT -->
-            <div class="col-md-6">
-                <a href="#" class="news-link">
-                    <div class="news-card">
-                        <span class="news-date">13 April, 2024</span>
-                        <p>Result of B.Ed [3rd sem.]</p>
-                    </div>
-                </a>
-            </div>
-
-            <!-- SMALL -->
-            <div class="col-md-4">
-                <a href="#" class="news-link">
-                    <div class="news-card small">
-                        <span class="news-date">21 June, 2024</span>
-                        <p>L.L.B VI SEM exam updates...</p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-4">
-                <a href="#" class="news-link">
-                    <div class="news-card small">
-                        <span class="news-date">11 January, 2024</span>
-                        <p>SADAK SURAKSHA WEEK</p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-4">
-                <a href="#" class="news-link">
-                    <div class="news-card small">
-                        <span class="news-date">22 May, 2023</span>
-                        <p>M.Ed THIRD SEMESTER EXAM</p>
-                    </div>
-                </a>
-            </div>
-
         </div>
     </div>
 </section>
@@ -242,41 +163,19 @@
             <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
                 <h3 class="footer-brand mb-3">SONALI COLLEGE</h3>
                 <p class="text-white-50 pe-3">Empowering Education for a Better Future. Dedicated to academic excellence and holistic student development.</p>
-                <div class="social-links mt-3">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
             </div>
-
             <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
                 <h5 class="footer-heading mb-3">Useful Links</h5>
                 <ul class="footer-links list-unstyled">
                     <li><a href="admissions.html"><i class="fas fa-angle-right me-2"></i>Admission</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Examination Link</a></li>
                     <li><a href="news.html"><i class="fas fa-angle-right me-2"></i>News</a></li>
-                    <li><a href="activities.html"><i class="fas fa-angle-right me-2"></i>Activities</a></li>
                     <li><a href="contact.html"><i class="fas fa-angle-right me-2"></i>Contact</a></li>
-                    <li><a href="./uploads/faculty.pdf"><i class="fas fa-angle-right me-2"></i>Faculty</a></li>
                 </ul>
             </div>
-
             <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
                 <h5 class="footer-heading mb-3">Quick Links</h5>
                 <ul class="footer-links list-unstyled">
-                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Photo-gallery</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Video-Gallery</a></li>
-                </ul>
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                <h5 class="footer-heading mb-3">Quick Links</h5>
-                <ul class="footer-links list-unstyled">
-                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Affiliation</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Higher Education</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>University</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>NCTE</a></li>
+                    <li><a href="photo-gallery.html"><i class="fas fa-angle-right me-2"></i>Photo-gallery</a></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6">
@@ -284,33 +183,72 @@
                 <ul class="footer-contact list-unstyled">
                     <li class="mb-3 d-flex">
                         <i class="fas fa-map-marker-alt mt-1 me-3"></i>
-                        <span class="text-white-50">
-                            <strong>College:</strong> Plot No. 800/1, 824/2, Vill: Guna, Dist.: Guna - 473001, M.P.<br><br>
-                            <strong>Run By:</strong> Sonali Public Shiksha Samiti, Saraswati Vihar Colony.
-                        </span>
-                    </li>
-                    <li class="mb-2 d-flex align-items-center">
-                        <i class="fas fa-phone-alt me-3"></i>
-                        <span class="text-white-50">9993134443, 8979797789</span>
-                    </li>
-                    <li class="mb-2 d-flex align-items-center">
-                        <i class="fas fa-envelope me-3"></i>
-                        <span class="text-white-50">sonaliguna59@gmail.com</span>
+                        <span class="text-white-50">Guna - 473001, M.P.</span>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
-
-    <div class="footer-bottom mt-4">
-        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-            <p class="mb-0 text-white-50">Copyright &copy; 2026, SONALI COLLEGE GUNA. All rights reserved.</p>
-            <p class="mb-0 text-white-50 mt-2 mt-md-0">Powered by <span class="text-white fw-bold">Adonai</span></p>
-        </div>
-    </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- REALTIME FIREBASE INTEGRATION ENGINE -->
+<script type="module">
+    import { db } from "./firebase-config.js";
+    import { collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+    const container = document.getElementById("dynamic-news-container");
+
+    const q = query(collection(db, "news_updates"), orderBy("date", "desc"));
+    
+    onSnapshot(q, (snapshot) => {
+        container.innerHTML = "";
+        
+        if (snapshot.empty) {
+            container.innerHTML = `
+                <div class="col-12 text-center text-muted py-5">
+                    <i class="fas fa-folder-open fa-3x mb-3 text-secondary"></i>
+                    <p class="fw-semibold">No formal news announcements published yet.</p>
+                </div>`;
+            return;
+        }
+
+        let index = 0;
+        snapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+            
+            // Format dynamic JS string readable date template
+            const rawDate = new Date(data.date);
+            const formattedDate = rawDate.toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            });
+
+            const colDiv = document.createElement("div");
+            
+            // Design Layout logic: Pehla card wide/full width rahega baki sab do-do column grid system pe set honge
+            if (index === 0) {
+                colDiv.className = "col-12";
+            } else {
+                colDiv.className = "col-md-6";
+            }
+
+            colDiv.innerHTML = `
+                <div class="news-link">
+                    <div class="news-card">
+                        <span class="news-date"><i class="far fa-calendar-alt me-1"></i> ${formattedDate}</span>
+                        <p>${data.text}</p>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(colDiv);
+            index++;
+        });
+    });
+</script>
 
 </body>
 </html>
