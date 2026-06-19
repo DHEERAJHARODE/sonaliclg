@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admissions - Sonali College Guna</title>
+    <title>Admissions - Sonali Law College</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -78,12 +78,35 @@
             color: #ffcc00;
             padding-left: 8px;
         }
+
+        .why-choose-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .why-choose-list li {
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: #444;
+        }
+
+        .why-choose-list i {
+            color: #28a745;
+            margin-right: 10px;
+        }
+
+        .admission-note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-top: 25px;
+            border-radius: 4px;
+        }
     </style>
 </head>
 
 <body>
 
-<!-- HEADER SAME -->
 <div class="header-top d-none d-lg-block">
     <div class="container d-flex justify-content-between">
         <div>Admission Open: 2026-27</div>
@@ -96,17 +119,17 @@
 
 <div class="container-fluid px-lg-5 py-3 d-none d-lg-flex justify-content-between align-items-center bg-white">
     <a href="index.html" class="d-flex align-items-center text-decoration-none">
-        <img src="images/logo.png" style="height: 60px;" class="me-3">
-        <h1 class="m-0 fw-bold" style="color: var(--dark-navy); font-size: 32px;">SONALI COLLEGE GUNA</h1>
+        <img src="images/logo.jpeg" style="height: 60px;" class="me-3">
+        <h1 class="m-0 fw-bold" style="color: var(--dark-navy); font-size: 32px;">SONALI LAW COLLEGE</h1>
     </a>
     <div class="d-flex align-items-center gap-4">
         <div class="d-flex align-items-center">
             <i class="far fa-envelope fs-3 me-2" style="color: #002244;"></i> 
-            <span style="color: #666; font-size: 16px;">sonaliguna59@gmail.com</span>
+            <span style="color: #666; font-size: 16px;">sonalilawcollege@gmail.com</span>
         </div>
         <div class="d-flex align-items-center">
             <i class="fas fa-phone-volume fs-3 me-2" style="color: #002244;"></i>
-            <span style="color: #666; font-size: 16px;">9993134443</span>
+            <span style="color: #666; font-size: 16px;">8979797789</span>
         </div>
     </div>
 </div>
@@ -115,7 +138,7 @@
     <div class="container-fluid px-lg-5">
         
         <a class="navbar-brand fw-bold d-flex align-items-center d-lg-none" href="#">
-            <img src="images/logo.png" alt="Logo" style="height: 45px;" class="me-2">
+            <img src="images/logo.jpeg" alt="Logo" style="height: 45px;" class="me-2">
             SONALI COLLEGE
         </a>
 
@@ -126,61 +149,86 @@
         <div class="collapse navbar-collapse justify-content-center" id="navMenu">
             <ul class="navbar-nav gap-2 gap-xl-4 text-center">
                 <li class="nav-item"><a class="nav-link" href="index.html">HOME</a></li>
-                
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="about.html" id="aboutDropdown">
-                        ABOUT US
-                    </a>
+                    <a class="nav-link" href="about.html" id="aboutDropdown">ABOUT</a>
                     <ul class="dropdown-menu shadow text-start" aria-labelledby="aboutDropdown">
                         <li><a class="dropdown-item" href="chairman.html">Chairman Message</a></li>
                         <li><a class="dropdown-item" href="mission-vision.html">Mission and Vision</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item"><a class="nav-link" href="academics.html">ACADEMICS</a></li>
                 <li class="nav-item"><a class="nav-link" href="infrastructure.html">INFRASTRUCTURE</a></li>
                 <li class="nav-item"><a class="nav-link" href="committees.html">CELLS & COMMITTEES</a></li>
                 <li class="nav-item"><a class="nav-link" href="admissions.html">ADMISSIONS</a></li>
                 <li class="nav-item dropdown">
-                <a class="nav-link" href="activities.html" id="activitiesDropdown">
-                    ACTIVITIES
-                </a>
-                <ul class="dropdown-menu shadow text-start" aria-labelledby="activitiesDropdown">
-                    <li><a class="dropdown-item" href="photo-gallery.html">Photo Gallery</a></li>
-                </ul>
+                    <a class="nav-link" href="activities.html" id="activitiesDropdown">ACTIVITIES</a>
+                    <ul class="dropdown-menu shadow text-start" aria-labelledby="activitiesDropdown">
+                        <li><a class="dropdown-item" href="photo-gallery.html">Photo Gallery</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT US</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="affiliationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">AFFILIATIONS</a>
+                    <ul class="dropdown-menu shadow text-start" aria-labelledby="affiliationsDropdown">
+                        <li><a class="dropdown-item" href="bar-council.html">Bar Council of India</a></li>
+                        <li><a class="dropdown-item" href="mp-govt.html">M.P. Government</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- PAGE HEADER -->
 <div class="page-header">
     <div class="container">
         <h1>Admissions</h1>
     </div>
 </div>
 
-<!-- CONTENT -->
 <section class="chairman-section">
     <div class="container">
         <div class="row">
 
-            <!-- LEFT -->
             <div class="col-lg-8 mb-4">
                 <div class="chairman-card">
 
-                    <h2 class="chairman-title">Admissions</h2>
+                    <h2 class="chairman-title">Welcome to Sonali Law College</h2>
 
                     <p class="chairman-text">
-                        Welcome to the Admission Portal of Sonali College, Guna, a premier institution committed to excellence in teacher education.
-                        The college is recognised by NCTE and affiliated to Kranti Veer Tatya Tope University, Guna, ensuring high academic standards.
+                        Welcome to Sonali Law College, where future legal professionals are nurtured through quality education, practical learning, and academic excellence. As the first and only private law college in the region, we are dedicated to shaping confident, ethical, and skilled advocates, judges, and legal experts.
                     </p>
 
                     <p class="chairman-text">
-                        We offer comprehensive teacher-training programs designed to develop skilled, confident, and socially responsible educators.
+                        Our institution provides a dynamic learning environment with modern facilities including a Moot Court, well-equipped Library, Computer Lab, and Sports Facilities. Guided by experienced faculty members, students gain both theoretical knowledge and practical exposure essential for a successful legal career.
                     </p>
+
+                    <p class="chairman-text">
+                        Join Sonali Law College and take the first step towards a future built on knowledge, justice, and opportunity.
+                    </p>
+
+                    <p class="chairman-text mt-4 mb-4" style="border-left: 3px solid #ffcc00; padding-left: 15px; font-style: italic;">
+                        <strong>Tagline:</strong><br>
+                        “Empowering Future Legal Leaders Through Excellence in Education.” ⚖️📚
+                    </p>
+
+                    <h3 class="section-title">Why Choose Sonali Law College?</h3>
+                    <ul class="why-choose-list mt-3">
+                        <li><i class="fas fa-check-circle"></i> Modern Moot Court Facility</li>
+                        <li><i class="fas fa-check-circle"></i> Well-Stocked Law Library</li>
+                        <li><i class="fas fa-check-circle"></i> Computer Lab with Digital Resources</li>
+                        <li><i class="fas fa-check-circle"></i> Sports & Extracurricular Facilities</li>
+                        <li><i class="fas fa-check-circle"></i> Experienced Faculty with 7+ Years of Expertise</li>
+                        <li><i class="fas fa-check-circle"></i> Practical Legal Training & Court Exposure</li>
+                        <li><i class="fas fa-check-circle"></i> Scholarships Available up to 150%*</li>
+                        <li><i class="fas fa-check-circle"></i> Limited Seats Available</li>
+                    </ul>
+
+                    <div class="admission-note">
+                        <h5 class="m-0 fw-bold" style="color: #856404;">Admission Notice</h5>
+                        <p class="chairman-text m-0 mt-2" style="color: #856404;">
+                            Admissions are now open for the Academic Session 2026–27. Apply today and take the first step towards becoming a legal professional.
+                        </p>
+                    </div>
 
                     <h3 class="section-title">Courses Offered</h3>
 
@@ -189,7 +237,7 @@
                         <p class="chairman-text">
                             An integrated law program designed to build a strong foundation in humanities and legal studies.<br>
                             <strong>Eligibility:</strong> 10+2 (any stream)<br>
-                            <strong>Highlights:</strong> Integrated curriculum, pedagogy training, practical teaching experience
+                            <strong>Highlights:</strong> Integrated curriculum, legal training, practical court experience
                         </p>
                     </div>
 
@@ -198,7 +246,7 @@
                         <p class="chairman-text">
                             Advanced legal education for specialization and deeper understanding of law and research.<br>
                             <strong>Eligibility:</strong> Graduation in any stream<br>
-                            <strong>Highlights:</strong> Modern teaching methods, classroom management, internships
+                            <strong>Highlights:</strong> Modern advocacy training, case study methods, internships
                         </p>
                     </div>
 
@@ -206,27 +254,14 @@
                         <h5>3. LLM (Master of Laws)</h5>
                         <p class="chairman-text">
                             Focusing on Legal Research, Jurisprudence, and Advocacy.<br>
-                            <strong>Eligibility:</strong>LLB<br>
+                            <strong>Eligibility:</strong> LLB<br>
                             <strong>Highlights:</strong> Research work, dissertation, leadership training
                         </p>
                     </div>
 
-                    <h3 class="section-title">Why Choose Us?</h3>
-
-                    <ul class="chairman-text">
-                        <li>Recognised by NCTE</li>
-                        <li>Affiliated with Kranti Veer Tatya Tope University</li>
-                        <li>Experienced and qualified faculty</li>
-                        <li>Updated curriculum</li>
-                        <li>Smart classrooms</li>
-                        <li>Internships in reputed schools</li>
-                        <li>Focus on personality development</li>
-                    </ul>
-
                 </div>
             </div>
 
-            <!-- RIGHT -->
             <div class="col-lg-4">
                 <div class="sidebar-card">
                     <h5>Related</h5>
@@ -249,12 +284,11 @@
     </div>
 </section>
 
-<!-- FOOTER SAME -->
 <footer class="custom-footer">
     <div class="container pb-4 pt-5">
         <div class="row g-4">
             <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                <h3 class="footer-brand mb-3">SONALI COLLEGE</h3>
+                <h3 class="footer-brand mb-3">SONALI LAW COLLEGE</h3>
                 <p class="text-white-50 pe-3">Empowering Education for a Better Future. Dedicated to academic excellence and holistic student development.</p>
                 <div class="social-links mt-3">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -300,11 +334,11 @@
                     </li>
                     <li class="mb-2 d-flex align-items-center">
                         <i class="fas fa-phone-alt me-3"></i>
-                        <span class="text-white-50">9993134443, 8979797789</span>
+                        <span class="text-white-50">8979797789</span>
                     </li>
                     <li class="mb-2 d-flex align-items-center">
                         <i class="fas fa-envelope me-3"></i>
-                        <span class="text-white-50">sonaliguna59@gmail.com</span>
+                        <span class="text-white-50">sonalilawcollege@gmail.com</span>
                     </li>
                 </ul>
             </div>
@@ -313,7 +347,7 @@
 
     <div class="footer-bottom mt-4">
         <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-            <p class="mb-0 text-white-50">Copyright &copy; 2026, SONALI COLLEGE GUNA. All rights reserved.</p>
+            <p class="mb-0 text-white-50">Copyright &copy; 2026, SONALI LAW COLLEGE. All rights reserved.</p>
             <p class="mb-0 text-white-50 mt-2 mt-md-0">Powered by <span class="text-white fw-bold">Adonai</span></p>
         </div>
     </div>

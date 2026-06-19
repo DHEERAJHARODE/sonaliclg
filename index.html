@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sonali College Guna</title>
+    <title>Sonali Law College</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -495,6 +495,14 @@
             background: var(--dark-navy);
         }
 
+        /* Navbar Dropdown Hover styling to match standard navigation expectations */
+        @media (min-width: 992px) {
+            .navbar-nav .dropdown:hover .dropdown-menu {
+                display: block;
+                margin-top: 0;
+            }
+        }
+
         /* Mobile Responsive adjustments */
         @media (max-width: 768px) {
             .hero-section { 
@@ -525,18 +533,18 @@
 
 <div class="container-fluid px-lg-5 py-3 d-none d-lg-flex justify-content-between align-items-center bg-white">
     <a href="index.html" class="d-flex align-items-center text-decoration-none">
-        <img src="images/logo.png" alt="Sonali College Logo" style="height: 60px; width: auto;" class="me-3">
-        <h1 class="m-0 fw-bold" style="color: var(--dark-navy); font-size: 32px; letter-spacing: 1px;">SONALI COLLEGE GUNA</h1>
+        <img src="images/logo.jpeg" alt="Sonali College Logo" style="height: 60px; width: auto;" class="me-3">
+        <h1 class="m-0 fw-bold" style="color: var(--dark-navy); font-size: 32px; letter-spacing: 1px;">SONALI LAW COLLEGE</h1>
     </a>
     
     <div class="d-flex align-items-center gap-4">
         <div class="d-flex align-items-center">
             <i class="far fa-envelope fs-3 me-2" style="color: #002244;"></i> 
-            <span style="color: #666; font-size: 16px;">sonaliguna59@gmail.com</span>
+            <span style="color: #666; font-size: 16px;">sonalilawcollege@gmail.com</span>
         </div>
         <div class="d-flex align-items-center">
             <i class="fas fa-phone-volume fs-3 me-2" style="color: #002244;"></i>
-            <span style="color: #666; font-size: 16px;">9993134443</span>
+            <span style="color: #666; font-size: 16px;">8979797789</span>
         </div>
     </div>
 </div>
@@ -544,7 +552,7 @@
 <nav class="navbar navbar-expand-lg border-top border-bottom" style="background-color: #fafafa; padding: 10px 0;">
     <div class="container-fluid px-lg-5">
         <a class="navbar-brand fw-bold d-flex align-items-center d-lg-none" href="#">
-            <img src="images/logo.png" alt="Logo" style="height: 45px;" class="me-2">
+            <img src="images/logo.jpeg" alt="Logo" style="height: 45px;" class="me-2">
             SONALI COLLEGE
         </a>
 
@@ -556,7 +564,7 @@
             <ul class="navbar-nav gap-2 gap-xl-4 text-center">
                 <li class="nav-item"><a class="nav-link" href="#">HOME</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="about.html" id="aboutDropdown">ABOUT US</a>
+                    <a class="nav-link" href="about.html" id="aboutDropdown">ABOUT</a>
                     <ul class="dropdown-menu shadow text-start" aria-labelledby="aboutDropdown">
                         <li><a class="dropdown-item" href="chairman.html">Chairman Message</a></li>
                         <li><a class="dropdown-item" href="mission-vision.html">Mission and Vision</a></li>
@@ -572,7 +580,14 @@
                         <li><a class="dropdown-item" href="photo-gallery.html">Photo Gallery</a></li>
                     </ul>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT US</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="affiliationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">AFFILIATIONS</a>
+                    <ul class="dropdown-menu shadow text-start" aria-labelledby="affiliationsDropdown">
+                        <li><a class="dropdown-item" href="bar-council.html">Bar Council of India</a></li>
+                        <li><a class="dropdown-item" href="mp-govt.html">M.P. Government</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
             </ul>
         </div>
     </div>
@@ -655,7 +670,7 @@
                         <i class="fas fa-user-friends"></i>
                     </div>
                     <h5>Our Alumni</h5>
-                    <div class="counter-value" data-target="4235">0</div>
+                    <div class="counter-value" data-target="500">0+</div>
                 </div>
             </div>
 
@@ -665,7 +680,7 @@
                         <i class="fas fa-graduation-cap"></i>
                     </div>
                     <h5>Students Enrolled</h5>
-                    <div class="counter-value" data-target="5024">0</div>
+                    <div class="counter-value" data-target="778">0+</div>
                 </div>
             </div>
 
@@ -674,8 +689,8 @@
                     <div class="stat-icon-wrap">
                         <i class="fas fa-chalkboard-teacher"></i>
                     </div>
-                    <h5>Certified Teachers</h5>
-                    <div class="counter-value" data-target="235">0</div>
+                    <h5>Certified Lawyers</h5>
+                    <div class="counter-value" data-target="300">0+</div>
                 </div>
             </div>
         </div>
@@ -804,7 +819,7 @@
     <div class="container pb-4 pt-5">
         <div class="row g-4">
             <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                <h3 class="footer-brand mb-3">SONALI COLLEGE</h3>
+                <h3 class="footer-brand mb-3">SONALI LAW COLLEGE</h3>
                 <p class="text-white-50 pe-3">Empowering Education for a Better Future. Dedicated to academic excellence and holistic student development.</p>
                 <div class="social-links mt-3">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -845,7 +860,7 @@
                     </li>
                     <li class="mb-2 d-flex align-items-center">
                         <i class="fas fa-phone-alt me-3"></i>
-                        <span class="text-white-50">9993134443, 8979797789</span>
+                        <span class="text-white-50">8979797789</span>
                     </li>
                 </ul>
             </div>
@@ -854,7 +869,7 @@
 
     <div class="footer-bottom mt-4">
         <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-            <p class="mb-0 text-white-50">Copyright &copy; 2026, SONALI COLLEGE GUNA. All rights reserved.</p>
+            <p class="mb-0 text-white-50">Copyright &copy; 2026, SONALI LAW COLLEGE. All rights reserved.</p>
             <p class="mb-0 text-white-50 mt-2 mt-md-0">Powered by <span class="text-white fw-bold">Adonai</span></p>
         </div>
     </div>
@@ -922,14 +937,14 @@
                 const counter = entry.target;
                 const updateCount = () => {
                     const target = +counter.getAttribute('data-target');
-                    const count = +counter.innerText;
+                    const count = parseInt(counter.innerText); 
                     const inc = Math.ceil(target / speed);
 
                     if (count < target) {
-                        counter.innerText = count + inc;
+                        counter.innerText = (count + inc) + "+"; 
                         setTimeout(updateCount, 15);
                     } else {
-                        counter.innerText = target;
+                        counter.innerText = target + "+"; 
                     }
                 };
                 updateCount();
@@ -956,7 +971,6 @@
     const newsRef = collection(db, "latest_news");
     const q = query(newsRef, orderBy("timestamp", "desc"));
 
-    // Real-time Database Observer Listener
     onSnapshot(q, (snapshot) => {
         newsListElement.innerHTML = "";
         clearInterval(scrollInterval);
@@ -966,7 +980,6 @@
             return;
         }
 
-        // Firestore fields content load
         snapshot.forEach((doc) => {
             const data = doc.data();
             const li = document.createElement("li");
@@ -978,12 +991,10 @@
         setupInfiniteScroll();
     });
 
-    // Pure Dynamic Scroll Engine Math Calculation
     function setupInfiniteScroll() {
         const container = document.querySelector(".news-scroll-container");
         const originalItemsCount = newsListElement.children.length;
         
-        // Loop continuity structure clone logic
         if (originalItemsCount >= 2) {
             const items = Array.from(newsListElement.children);
             items.forEach(item => {
@@ -1007,7 +1018,6 @@
 
         scrollInterval = setInterval(scrollNews, 25);
 
-        // Hover events mapping controls
         container.onmouseenter = () => clearInterval(scrollInterval);
         container.onmouseleave = () => scrollInterval = setInterval(scrollNews, 25);
     }
