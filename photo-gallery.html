@@ -6,10 +6,12 @@
     <meta name="description" content="Sonali Law College is the premier, BCI-approved private law college in Guna, Madhya Pradesh. Offering BA LLB, LLB, and LLM courses.">
     <meta name="keywords" content="Sonali Law College Guna, top law college in MP, best LLB college in Guna, BA LLB admission Guna, BCI approved law college Madhya Pradesh">
     <link rel="canonical" href="https://www.sonalilawcollege.com/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- CSS LIBRARIES -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/style.css"> 
 
     <!-- 3. SOCIAL MEDIA & FAVICON -->
@@ -17,75 +19,249 @@
     <meta property="og:image" content="https://www.sonalilawcollege.com/images/logo.jpeg">
     <link rel="icon" type="image/jpeg" href="./images/logo.jpeg">
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "CollegeOrUniversity",
-      "name": "Sonali Law College",
-      "url": "https://www.sonalilawcollege.com/",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Guna",
-        "addressRegion": "Madhya Pradesh",
-        "addressCountry": "IN"
-      }
-    }
-    </script>
-
     <style>
         :root {
             --dark-navy: #002244;
             --brand-gold: #ffcc00;
         }
+
+        /* Album Card Styles */
         .gallery-card {
             background: #fff;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            transition: 0.3s;
-            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             height: 100%;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #e9ecef;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
         }
 
-        .gallery-card img {
+        .gallery-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 28px rgba(0,0,0,0.14);
+        }
+
+        .img-wrap {
+            position: relative;
             width: 100%;
-            height: 250px;
+            height: 240px;
+            overflow: hidden;
+            background: #f1f5f9;
+        }
+
+        .img-wrap img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            transition: 0.4s;
-            background-color: #f1f5f9;
+            transition: transform 0.4s ease;
         }
 
-        .gallery-card:hover img {
-            transform: scale(1.05);
+        .gallery-card:hover .img-wrap img {
+            transform: scale(1.06);
         }
 
-        .gallery-overlay {
-            position: static;   
-            background: #fff;   
-            color: #333;
-            padding: 15px;
-            border-top: 1px solid #f1f5f9;
+        .event-badge {
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+            background: rgba(0, 34, 68, 0.88);
+            backdrop-filter: blur(4px);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .gallery-info {
+            padding: 16px;
+            background: #fff;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .gallery-title {
             font-weight: 600;
-            font-size: 16px;
+            font-size: 17px;
             color: var(--dark-navy);
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             text-transform: capitalize;
+            line-height: 1.4;
         }
 
         .gallery-date {
             font-size: 13px;
-            color: #666;
+            color: #718096;
             font-weight: 500;
+        }
+
+        /* Fullscreen Swiper Lightbox Modal */
+        #sliderModal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 99999;
+            display: none;
+            flex-direction: column;
+            user-select: none;
+            overflow: hidden;
+        }
+
+        #sliderModal.active {
+            display: flex;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 24px;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            z-index: 10;
+        }
+
+        .slider-header h5 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #f8fafc;
+        }
+
+        .slider-header .counter {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-left: 12px;
+        }
+
+        .close-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .close-btn:hover {
+            background: rgba(255,255,255,0.25);
+            color: var(--brand-gold);
+        }
+
+        /* Main Viewport Swiper */
+        .swiper-main-wrap {
+            flex: 1;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            min-height: 0;
+        }
+
+        .swiper-main {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-main .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .swiper-main .swiper-slide img {
+            max-width: 95%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Nav Arrows */
+        .swiper-button-next, .swiper-button-prev {
+            color: #fff !important;
+            background: rgba(255,255,255,0.12);
+            width: 50px !important;
+            height: 50px !important;
+            border-radius: 50%;
+            backdrop-filter: blur(4px);
+            transition: 0.2s;
+        }
+
+        .swiper-button-next:after, .swiper-button-prev:after {
+            font-size: 20px !important;
+            font-weight: bold;
+        }
+
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            background: rgba(255, 255, 255, 0.28);
+            color: var(--brand-gold) !important;
+        }
+
+        /* Thumbnail Strip */
+        .swiper-thumb-wrap {
+            width: 100%;
+            padding: 12px 20px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(6px);
+        }
+
+        .swiper-thumbs {
+            max-width: 900px;
+            margin: 0 auto;
+            height: 60px;
+        }
+
+        .swiper-thumbs .swiper-slide {
+            width: 80px;
+            height: 100%;
+            opacity: 0.4;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .swiper-thumbs .swiper-slide-thumb-active {
+            opacity: 1;
+            border-color: var(--brand-gold);
+        }
+
+        .swiper-thumbs .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            .img-wrap { height: 200px; }
+            .swiper-button-next, .swiper-button-prev { display: none !important; }
+            .slider-header h5 { font-size: 15px; }
+            .swiper-thumbs { height: 50px; }
+            .swiper-thumbs .swiper-slide { width: 65px; }
         }
     </style>
 </head>
 
 <body>
 
+<!-- TOP HEADER -->
 <div class="header-top d-none d-lg-block">
     <div class="container d-flex justify-content-between">
         <div>Admission Open: 2026-27</div>
@@ -114,6 +290,7 @@
     </div>
 </div>
 
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg border-top border-bottom" style="background-color: #fafafa; padding: 10px 0;">
     <div class="container-fluid px-lg-5">
         <a class="navbar-brand fw-bold d-flex align-items-center d-lg-none" href="index.html">
@@ -158,23 +335,52 @@
     </div>
 </nav>
 
-<div class="page-header">
+<!-- PAGE TITLE -->
+<div class="page-header py-4 bg-light text-center border-bottom">
     <div class="container">
-        <h1>Photo Gallery</h1>
+        <h1 class="fw-bold" style="color: var(--dark-navy);">Event Photo Gallery</h1>
+        <p class="text-muted mb-0">Explore glimpses of functions, ceremonies, and campus life.</p>
     </div>
 </div>
 
-<section class="gallery-section py-5 bg-light">
+<!-- GALLERY GRID SECTION -->
+<section class="gallery-section py-5">
     <div class="container">
         <div class="row g-4" id="dynamic-gallery-container">
             <div class="col-12 text-center text-muted py-5">
                 <div class="spinner-border text-primary mb-3" role="status"></div>
-                <p>Loading gallery items from database...</p>
+                <p>Loading photo albums...</p>
             </div>
         </div>
     </div>
 </section>
 
+<!-- FULLSCREEN SLIDER MODAL -->
+<div id="sliderModal" role="dialog" aria-modal="true">
+    <div class="slider-header">
+        <div class="d-flex align-items-center">
+            <h5 id="modalTitle">Album View</h5>
+            <span class="counter" id="modalCounter">1 / 1</span>
+        </div>
+        <button class="close-btn" id="modalClose" aria-label="Close Gallery"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div class="swiper-main-wrap">
+        <div class="swiper swiper-main" id="swiperMain">
+            <div class="swiper-wrapper" id="swiperMainWrapper"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+
+    <div class="swiper-thumb-wrap">
+        <div class="swiper swiper-thumbs" id="swiperThumbs">
+            <div class="swiper-wrapper" id="swiperThumbsWrapper"></div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
 <footer class="custom-footer">
     <div class="container pb-4 pt-5">
         <div class="row g-4">
@@ -236,17 +442,139 @@
     </div>
 </footer>
 
+<!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script type="module">
     import { db } from "./firebase-config.js";
-    import { collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+    import { collection, onSnapshot, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
     const galleryContainer = document.getElementById("dynamic-gallery-container");
+    const sliderModal = document.getElementById("sliderModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalCounter = document.getElementById("modalCounter");
+    const modalClose = document.getElementById("modalClose");
+    const mainWrapper = document.getElementById("swiperMainWrapper");
+    const thumbsWrapper = document.getElementById("swiperThumbsWrapper");
 
-    // Query stream pipeline to fetch items sorted by event date newest first
+    const esc = (t) => String(t ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    let swiperMainInstance = null;
+    let swiperThumbsInstance = null;
+
+    /* Initialize or re-render Swiper Slider */
+    function openSwiperGallery(title, photoList) {
+        if (!photoList || !photoList.length) return;
+
+        modalTitle.textContent = title;
+        modalCounter.textContent = `1 / ${photoList.length}`;
+        mainWrapper.innerHTML = "";
+        thumbsWrapper.innerHTML = "";
+
+        // Destroy previous instances if existing
+        if (swiperMainInstance) swiperMainInstance.destroy(true, true);
+        if (swiperThumbsInstance) swiperThumbsInstance.destroy(true, true);
+
+        // Populate Slides
+        photoList.forEach((src) => {
+            const mainSlide = document.createElement("div");
+            mainSlide.className = "swiper-slide";
+            mainSlide.innerHTML = `<img src="${src}" alt="Event Photo" onerror="this.src='images/logo.jpeg'">`;
+            mainWrapper.appendChild(mainSlide);
+
+            const thumbSlide = document.createElement("div");
+            thumbSlide.className = "swiper-slide";
+            thumbSlide.innerHTML = `<img src="${src}" alt="Thumb" onerror="this.src='images/logo.jpeg'">`;
+            thumbsWrapper.appendChild(thumbSlide);
+        });
+
+        sliderModal.classList.add("active");
+        document.body.style.overflow = "hidden";
+
+        // Thumbnails Slider
+        swiperThumbsInstance = new Swiper("#swiperThumbs", {
+            spaceBetween: 10,
+            slidesPerView: "auto",
+            freeMode: true,
+            watchSlidesProgress: true,
+        });
+
+        // Main Slider
+        swiperMainInstance = new Swiper("#swiperMain", {
+            spaceBetween: 20,
+            grabCursor: true,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            thumbs: {
+                swiper: swiperThumbsInstance,
+            },
+            keyboard: {
+                enabled: true,
+            },
+            on: {
+                slideChange: function () {
+                    modalCounter.textContent = `${this.realIndex + 1} / ${photoList.length}`;
+                }
+            }
+        });
+    }
+
+    function closeSwiperGallery() {
+        sliderModal.classList.remove("active");
+        document.body.style.overflow = "";
+        if (swiperMainInstance) swiperMainInstance.destroy(true, true);
+        if (swiperThumbsInstance) swiperThumbsInstance.destroy(true, true);
+    }
+
+    modalClose.addEventListener("click", closeSwiperGallery);
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && sliderModal.classList.contains("active")) {
+            closeSwiperGallery();
+        }
+    });
+
+    /* Cache helper for multi-image loading */
+    const cache = {};
+    async function resolvePhotos(docSnap) {
+        const docId = docSnap.id;
+        const data = docSnap.data();
+
+        if (cache[docId]) return cache[docId];
+
+        // 1. Check direct array if saved by admin (e.g. data.images or data.photos)
+        if (Array.isArray(data.images) && data.images.length) {
+            cache[docId] = data.images;
+            return data.images;
+        }
+        if (Array.isArray(data.photos) && data.photos.length) {
+            cache[docId] = data.photos;
+            return data.photos;
+        }
+
+        // 2. Fallback to sub-collection query if images stored in sub-collection
+        try {
+            const snap = await getDocs(query(collection(db, "gallery", docId, "photos"), orderBy("order")));
+            const list = snap.docs.map(d => d.data().data || d.data().url).filter(Boolean);
+            if (list.length) {
+                cache[docId] = list;
+                return list;
+            }
+        } catch (e) {
+            // sub-collection might not exist, proceed to fallback
+        }
+
+        // 3. Fallback to single cover image
+        const single = data.imageTextData || data.coverImage || data.image || "images/logo.jpeg";
+        cache[docId] = [single];
+        return [single];
+    }
+
+    /* Real-time listener for gallery items */
     const q = query(collection(db, "gallery"), orderBy("date", "desc"));
-
     onSnapshot(q, (snapshot) => {
         galleryContainer.innerHTML = "";
 
@@ -254,37 +582,41 @@
             galleryContainer.innerHTML = `
                 <div class="col-12 text-center text-muted py-5">
                     <i class="fas fa-images fa-3x mb-3 text-secondary"></i>
-                    <p class="fw-semibold">No albums or photos published in the gallery yet.</p>
+                    <p class="fw-semibold">No event albums published in the gallery yet.</p>
                 </div>`;
             return;
         }
 
         snapshot.forEach((docSnap) => {
             const data = docSnap.data();
+            const dateStr = data.date ? new Date(data.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : "Recent";
+            const coverImg = data.imageTextData || data.coverImage || (data.images && data.images[0]) || "images/logo.jpeg";
+            const count = data.photoCount || (data.images && data.images.length) || 1;
 
-            // Date processing node conversion engine (e.g., 2026-03-24 -> 24 March, 2026)
-            const rawDate = new Date(data.date);
-            const formattedDate = rawDate.toLocaleDateString('en-GB', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric'
-            });
-
-            const cardCol = document.createElement("div");
-            cardCol.className = "col-lg-4 col-md-6";
-
-            // Dynamically renders the text-based compressed Base64 image directly into standard src data tags
-            cardCol.innerHTML = `
-                <div class="gallery-card h-100">
-                    <img src="${data.imageTextData}" alt="${data.title}" onerror="this.src='images/logo.jpeg'">
-                    <div class="gallery-overlay">
-                        <div class="gallery-title">${data.title}</div>
-                        <div class="gallery-date"><i class="far fa-calendar-alt me-1 text-secondary"></i> ${formattedDate}</div>
+            const col = document.createElement("div");
+            col.className = "col-lg-4 col-md-6";
+            col.innerHTML = `
+                <div class="gallery-card" tabindex="0">
+                    <div class="img-wrap">
+                        <img src="${coverImg}" alt="${esc(data.title)}" onerror="this.src='images/logo.jpeg'">
+                        <span class="event-badge"><i class="fas fa-images me-1"></i>${count} Photo${count > 1 ? "s" : ""}</span>
                     </div>
-                </div>
-            `;
+                    <div class="gallery-info">
+                        <div class="gallery-title">${esc(data.title)}</div>
+                        <div class="gallery-date"><i class="far fa-calendar-alt me-1 text-secondary"></i> ${dateStr}</div>
+                    </div>
+                </div>`;
 
-            galleryContainer.appendChild(cardCol);
+            const card = col.querySelector(".gallery-card");
+            const openAction = async () => {
+                const photos = await resolvePhotos(docSnap);
+                openSwiperGallery(data.title, photos);
+            };
+
+            card.addEventListener("click", openAction);
+            card.addEventListener("keydown", (e) => { if (e.key === "Enter") openAction(); });
+
+            galleryContainer.appendChild(col);
         });
     });
 </script>
